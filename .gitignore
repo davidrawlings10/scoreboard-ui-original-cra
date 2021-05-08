@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# a request has been made for this to happen automatically by create-react-app (https://github.com/facebook/create-react-app/issues/10306)
+.eslintcache

@@ -1,25 +1,59 @@
-import logo from './logo.svg';
 import './App.css';
+// import logo from './logo.svg';
+// import MyComponent from './MyComponent';
+// import GetRequest from './Other/GetRequest';
+// import Div from './Div';
+import Toggle from './Toggle';
+// import AddGame from './AddGame';
+import AddGameForm from './AddGameForm';
+import Scoreboard from './Scoreboard';
+import Standing from './Standing';
+import GameList from './GameList';
+import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {toggle: false}
+    this.onToggleChange = this.onToggleChange.bind(this);
+  }
+
+  onToggleChange() {
+    if (!this.state.toggle) {
+      fetch("http://localhost:8080/game/playGames")
+    } else {
+      fetch("http://localhost:8080/game/pauseGames")
+    }
+    this.setState(state => ({
+      toggle: !state.toggle
+    }));
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Toggle value={this.state.toggle} onChange={this.onToggleChange}/>
+        <AddGameForm/>
+        <Scoreboard/>
+        <Standing/>
+        <GameList/>
+      </div>
+    );
+  }
+}
+
+/*<Button text="Schedule" />
+<Div text="456" />
         <a
           className="App-link"
-          href="https://reactjs.org"
+          href="http://localhost:8080/game/play"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Play Game
         </a>
-      </header>
-    </div>
-  );
-}
+*/
+  
+// setInterval(App, 1000);
 
 export default App;

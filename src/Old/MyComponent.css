@@ -1,0 +1,10 @@
+.Abcd {
+    background-color: white;
+    color: black;
+    width: 300px;
+}
+
+.Abcd:hover {
+    background-color: blue;
+    color:white;
+}

@@ -1,0 +1,23 @@
+  .Standing {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+    text-align: center;
+  }
+
+  .Standing td, .Standing th {
+    border: 1px 0px 1px 0px solid #ddd;
+    padding: 8px;
+  }
+
+  .Standing tr {background-color: #111;}
+
+  .Standing tr:hover {background-color: #222;}
+
+  .Standing th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #00013b;
+    color: white;
+  }
+  
