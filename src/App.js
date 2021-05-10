@@ -10,6 +10,7 @@ import Scoreboard from './Scoreboard';
 import Standing from './Standing';
 import GameList from './GameList';
 import React from 'react';
+import { Button } from '@material-ui/core';
 
 class App extends React.Component {
   constructor(props) {
@@ -29,6 +30,11 @@ class App extends React.Component {
     }));
   }
 
+  playSeasonGames() {
+    console.log("playSeasonGames()");
+    fetch("http://localhost:8080/game/playSeasonGames?seasonId=1&numGames=3")
+  }
+
   render() {
     return (
       <div className="App">
@@ -37,6 +43,7 @@ class App extends React.Component {
         <Scoreboard/>
         <Standing/>
         <GameList/>
+        <Button onClick={this.playSeasonGames}>Play Season Games</Button>
       </div>
     );
   }

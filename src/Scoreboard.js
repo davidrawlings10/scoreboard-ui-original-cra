@@ -30,7 +30,7 @@ class Scoreboard extends React.Component {
     getGames() {
       fetch("http://localhost:8080/game/getGames")
         .then(res => res.json())
-        .then(json => json.list[1])
+        .then(json => json.list[0])
         .then(
           (game) => {
           // console.log("game:" + game + ", gameclock.minutes:" + game.clock.minutes + ", game.clock.seconds:" + game.clock.seconds);
@@ -44,14 +44,6 @@ class Scoreboard extends React.Component {
               minutes: game.clock.minutes,
               seconds: game.clock.seconds,
               intermission: game.clock.intermission
-              /*homeName: games.list[0].homeName,
-              awayName: games.list[0].awayName,
-              homeScore: games.list[0].homeScore,
-              awayScore: games.list[0].awayScore,
-              period: games.list[0].clock.period,
-              minutes: games.list[0].clock.minutes,
-              seconds: games.list[0].clock.seconds,
-              intermission: games.list[0].clock.intermission*/
             });
           },
           (error) => {
