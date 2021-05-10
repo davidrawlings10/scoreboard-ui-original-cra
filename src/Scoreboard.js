@@ -5,7 +5,7 @@ import './Scoreboard.css';
 class Scoreboard extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
+        /*this.state = {
           error: null,
           isLoaded: false,
           homeName: null,
@@ -16,10 +16,10 @@ class Scoreboard extends React.Component {
           minutes: null,
           seconds: null,
           intermission: null
-        };
+        };*/
     }
 
-    componentDidMount() {
+    /*componentDidMount() {
       this.timerId = setInterval(() => this.getGames(), 1000);
     }
     
@@ -30,7 +30,7 @@ class Scoreboard extends React.Component {
     getGames() {
       fetch("http://localhost:8080/game/getGames")
         .then(res => res.json())
-        .then(json => json.list[1])
+        .then(json => json.list[0])
         .then(
           (game) => {
           // console.log("game:" + game + ", gameclock.minutes:" + game.clock.minutes + ", game.clock.seconds:" + game.clock.seconds);
@@ -43,15 +43,7 @@ class Scoreboard extends React.Component {
               period: game.clock.period,
               minutes: game.clock.minutes,
               seconds: game.clock.seconds,
-              intermission: game.clock.intermission
-              /*homeName: games.list[0].homeName,
-              awayName: games.list[0].awayName,
-              homeScore: games.list[0].homeScore,
-              awayScore: games.list[0].awayScore,
-              period: games.list[0].clock.period,
-              minutes: games.list[0].clock.minutes,
-              seconds: games.list[0].clock.seconds,
-              intermission: games.list[0].clock.intermission*/
+              intermission: game.clock.intermission              
             });
           },
           (error) => {
@@ -61,10 +53,10 @@ class Scoreboard extends React.Component {
             });
           }
         )
-    }
+    }*/
 
     render() {
-        const { error, isLoaded, homeName, awayName, homeScore, awayScore, period, minutes, seconds, intermission, final } = this.state;
+        const { error, isLoaded, homeName, awayName, homeScore, awayScore, period, minutes, seconds, intermission, final } = this.props;
         /*if (error) {
           return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
