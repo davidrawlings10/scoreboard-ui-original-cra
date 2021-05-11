@@ -56,7 +56,9 @@ class Scoreboard extends React.Component {
     }*/
 
     render() {
-        const { error, isLoaded, homeName, awayName, homeScore, awayScore, period, minutes, seconds, intermission, final } = this.props;
+        console.log(this.props);
+        // const { error, isLoaded, homeName, awayName, homeScore, awayScore, period, minutes, seconds, intermission, final } = this.props.game;
+        const {game} = this.props;
         /*if (error) {
           return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -65,17 +67,21 @@ class Scoreboard extends React.Component {
                         <div style="background-color: blue"></div>
                         <div style="background-color: red"></div>
           */
+         if (game != null) {
           return (
             <div class="scoreboard">
               <div class="scoreboard-color" /*style="background-color: blue"*/></div>
-              <div class="scoreboard-home-team">{homeName}</div>
-              <div class="scoreboard-home-score">{homeScore}</div>
+              <div class="scoreboard-home-team">{game.homeName}</div>
+              <div class="scoreboard-home-score">{game.homeScore}</div>
               <div class="scoreboard-color" /*style="background-color: red"*/></div>
-              <div class="scoreboard-away-team">{awayName}</div>
-              <div class="scoreboard-away-score">{awayScore}</div>
-              <div class="scoreboard-time">{final ? "Final" : ""} {minutes}:{seconds} {period} {intermission ? "Intermission" : "Period"}</div>
+              <div class="scoreboard-away-team">{game.awayName}</div>
+              <div class="scoreboard-away-score">{game.awayScore}</div>
+              <div class="scoreboard-time">{game.clock.final ? "Final" : ""} {game.clock.minutes}:{game.clock.seconds} {game.clock.period} {game.clock.intermission ? "Intermission" : "Period"}</div>
             </div>
           )
+         } else {
+           return (<div></div>)
+         }
         // }
     }
 }

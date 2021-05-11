@@ -19,8 +19,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount()");
-    this.setGetGamesInterval();
+    // this.setGetGamesInterval();
   }
   
   componentWillUnmount() {
@@ -28,7 +27,6 @@ class App extends React.Component {
   }
 
   setGetGamesInterval() {
-    console.log("setGetGamesInterval()");
     this.timerId = setInterval(() => this.getGames(), 1000);
   }
 
@@ -37,10 +35,10 @@ class App extends React.Component {
   }
 
   getGames() {
-    console.log("getGames() - " + this.currentGames);
+    // console.log("getGames() - " + this.state.currentGames);
     fetch("http://localhost:8080/game/getGames")
       .then(res => res.json())
-      .then(json => { this.currentGames = json.list; console.log(this.currentGames); })
+      .then(json => { this.setState({currentGames: json.list}) })
       /*.then(
         (game) => {
         // console.log("game:" + game + ", gameclock.minutes:" + game.clock.minutes + ", game.clock.seconds:" + game.clock.seconds);
@@ -84,7 +82,7 @@ class App extends React.Component {
       <div className="App">
         <Toggle value={this.state.toggle} onChange={this.onToggleChange}/>
         <AddGameForm/>
-        <Scoreboard currentGames={this.currentGames != null && this.currentGames.length > 0 ? this.currentGames[0] : null}/>
+        <Scoreboard game={this.state.currentGames != null && this.state.currentGames.length > 0 ? this.state.currentGames[0] : null}/>
         <Standing/>
         <GameList/>
       </div>
