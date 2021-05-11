@@ -82,6 +82,12 @@ class App extends React.Component {
     fetch("http://localhost:8080/game/playSeasonGames?seasonId=1&numGames=3")
   }
 
+  scheduleSeason() {
+    console.log("scheduleSeason()");
+    // fetch("http://localhost:8080/season/schedule?scheduleType=ROUNDS&sport=HOCKEY&leagueId=2&numGames=4")
+    fetch("http://localhost:8080/season/schedule?scheduleType=HOME_ROTATION&sport=HOCKEY&leagueId=2")
+  }
+
   render() {
     console.log("render()");
     return (
@@ -92,6 +98,7 @@ class App extends React.Component {
         <Standing/>
         <GameList/>
         <Button onClick={this.playSeasonGames}>Play Season Games</Button>
+        <Button onClick={this.scheduleSeason}>Schedule Season</Button>
       </div>
     );
     /*<Scoreboard currentGames={this.currentGames[0]}/>*/

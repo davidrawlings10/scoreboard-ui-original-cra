@@ -42,7 +42,7 @@ class GameList extends React.Component {
             return (
                 <ul>
                     {games.map(game => (
-                        <li key={game.id}>{game.homeTeamId} vs {game.awayTeamId}</li>
+                        <li key={game.id}>{game.homeTeamId} vs {game.awayTeamId} {game.homeScore}-{game.awayScore}</li>
                     ))}
                 </ul>
             )
