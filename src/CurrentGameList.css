@@ -1,0 +1,5 @@
+.current-game-list {
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+}

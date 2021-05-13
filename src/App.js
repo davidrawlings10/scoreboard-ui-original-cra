@@ -1,22 +1,24 @@
+import React from 'react';
 import './App.css';
 // import logo from './logo.svg';
 // import MyComponent from './MyComponent';
 // import GetRequest from './Other/GetRequest';
 // import Div from './Div';
-import Toggle from './Toggle';
 // import AddGame from './AddGame';
+import Toggle from './Toggle';
 import AddGameForm from './AddGameForm';
 import Scoreboard from './Scoreboard';
 import Standing from './Standing';
 import GameList from './GameList';
-import React from 'react';
+import CurrentGameList from './CurrentGameList';
 import { Button } from '@material-ui/core';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {toggle: false, currentGames: []}
+    this.state = {toggle: false, currentGames: [], displayGameIndex: 0}
     this.onToggleChange = this.onToggleChange.bind(this);
+    this.updateDisplayIndex = this.updateDisplayIndex.bind(this);
   }
 
   componentDidMount() {
@@ -77,6 +79,10 @@ class App extends React.Component {
     }));
   }
 
+  updateDisplayIndex(index) {
+    this.setState({displayGameIndex: index});
+  }
+
   playSeasonGames() {
     console.log("playSeasonGames()");
     fetch("http://localhost:8080/game/playSeasonGames?seasonId=1&numGames=3")
@@ -89,12 +95,12 @@ class App extends React.Component {
   }
 
   render() {
-    console.log("render()");
     return (
       <div className="App">
+        <CurrentGameList games={this.state.currentGames != null && this.state.currentGames.length > 0 ? this.state.currentGames : null} updateDisplayIndex={this.updateDisplayIndex} /*updateDisplayGame={(index) => this.setState({displayGameIndex: index})}*/ />
         <Toggle value={this.state.toggle} onChange={this.onToggleChange}/>
         <AddGameForm/>
-        <Scoreboard game={this.state.currentGames != null && this.state.currentGames.length > 0 ? this.state.currentGames[0] : null}/>
+        <Scoreboard game={this.state.currentGames != null && this.state.currentGames.length > 0 ? this.state.currentGames[this.state.displayGameIndex] : null}/>
         <Standing/>
         <GameList/>
         <Button onClick={this.playSeasonGames}>Play Season Games</Button>

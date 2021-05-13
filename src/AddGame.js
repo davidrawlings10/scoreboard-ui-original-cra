@@ -9,15 +9,9 @@ class AddGame extends React.Component {
     }
 
     handleClick() {
-        /*$.get("http://localhost:8080/game/startGame", function(data, status) {
-	    	console.log(data);
-	    });*/
-        // console.log("log");
-        // this.state.text = "loading...";
         fetch("http://localhost:8080/game/addGame?sportId=1&homeTeamId=47&awayTeamId=43")
         .then(
-            console.log("")
-            // this.state.text = "Play Game"
+            alert("game added")
         )
     }
 
