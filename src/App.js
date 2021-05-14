@@ -1,28 +1,25 @@
 import React from 'react';
 import './App.css';
-// import logo from './logo.svg';
-// import MyComponent from './MyComponent';
-// import GetRequest from './Other/GetRequest';
-// import Div from './Div';
-// import AddGame from './AddGame';
-import Toggle from './Toggle';
+import PlayPauseToggle from './PlayPauseToggle';
 import AddGameForm from './AddGameForm';
 import Scoreboard from './Scoreboard';
-import Standing from './Standing';
-import GameList from './GameList';
+import SeasonStanding from './SeasonStanding';
+import SeasonGameList from './SeasonGameList';
 import CurrentGameList from './CurrentGameList';
 import { Button } from '@material-ui/core';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {toggle: false, currentGames: [], displayGameIndex: 0}
+    this.state = {playPauseToggle: true, currentGames: [], displayGameIndex: 0}
     this.onToggleChange = this.onToggleChange.bind(this);
     this.updateDisplayIndex = this.updateDisplayIndex.bind(this);
   }
 
   componentDidMount() {
-    // this.setGetGamesInterval();
+    if (this.state.playPauseToggle == true) {
+      this.setGetGamesInterval();
+    }
   }
   
   componentWillUnmount() {
@@ -38,36 +35,13 @@ class App extends React.Component {
   }
 
   getGames() {
-    // console.log("getGames() - " + this.state.currentGames);
     fetch("http://localhost:8080/game/getGames")
       .then(res => res.json())
       .then(json => { this.setState({currentGames: json.list}) })
-      /*.then(
-        (game) => {
-        // console.log("game:" + game + ", gameclock.minutes:" + game.clock.minutes + ", game.clock.seconds:" + game.clock.seconds);
-          this.setState({
-            isLoaded: true,
-            homeName: game.homeName,
-            awayName: game.awayName,
-            homeScore: game.homeScore,
-            awayScore: game.awayScore,
-            period: game.clock.period,
-            minutes: game.clock.minutes,
-            seconds: game.clock.seconds,
-            intermission: game.clock.intermission
-          });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )*/
   }
 
   onToggleChange() {
-    if (!this.state.toggle) {
+    if (!this.state.playPauseToggle) {
       fetch("http://localhost:8080/game/playGames")
       this.setGetGamesInterval();
     } else {
@@ -75,7 +49,7 @@ class App extends React.Component {
       this.clearGetGamesInterval();
     }
     this.setState(state => ({
-      toggle: !state.toggle
+      playPauseToggle: !state.playPauseToggle
     }));
   }
 
@@ -98,16 +72,15 @@ class App extends React.Component {
     return (
       <div className="App">
         <CurrentGameList games={this.state.currentGames != null && this.state.currentGames.length > 0 ? this.state.currentGames : null} updateDisplayIndex={this.updateDisplayIndex} /*updateDisplayGame={(index) => this.setState({displayGameIndex: index})}*/ />
-        <Toggle value={this.state.toggle} onChange={this.onToggleChange}/>
+        <PlayPauseToggle toggleValue={this.state.playPauseToggle} onChange={this.onToggleChange}/>
         <AddGameForm/>
         <Scoreboard game={this.state.currentGames != null && this.state.currentGames.length > 0 ? this.state.currentGames[this.state.displayGameIndex] : null}/>
-        <Standing/>
-        <GameList/>
+        <SeasonStanding/>
+        <SeasonGameList/>
         <Button onClick={this.playSeasonGames}>Play Season Games</Button>
         <Button onClick={this.scheduleSeason}>Schedule Season</Button>
       </div>
     );
-    /*<Scoreboard currentGames={this.currentGames[0]}/>*/
   }
 }
 

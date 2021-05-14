@@ -1,6 +1,6 @@
 import React from 'react'
 
-class GameList extends React.Component {
+export default class SeasonGameList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,10 +14,10 @@ class GameList extends React.Component {
         fetch("http://localhost:8080/game/getGamesBySeasonId?seasonId=1")
             .then(res => res.json())
             .then(
-                (games_) => {
+                (games) => {
                     this.setState({
                         isLoaded: true,
-                        games: games_.list
+                        games: games.list
                     });
                 },
                 // Note: it's important to handle errors here
@@ -42,12 +42,10 @@ class GameList extends React.Component {
             return (
                 <ul>
                     {games.map(game => (
-                        <li key={game.id}>{game.homeTeamId} vs {game.awayTeamId} {game.homeScore}-{game.awayScore}</li>
+                        <li key={game.id}>{game.homeTeamId}|{game.homeScore}|{game.awayTeamId}|{game.awayScore}</li>
                     ))}
                 </ul>
             )
         }
     }
 }
-
-export default GameList;
