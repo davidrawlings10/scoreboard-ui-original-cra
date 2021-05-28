@@ -18,7 +18,7 @@ class AddGameForm extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:8080/team/get?leagueId=2").then(res => res.json()).then(json => this.setState({teams: json.list}));
+        fetch("http://localhost:8080/team/getTeams?leagueId=2").then(res => res.json()).then(json => this.setState({teams: json.list}));
         console.log(this.teams);
     }
 
@@ -34,7 +34,7 @@ class AddGameForm extends React.Component {
 
     handleSubmit(event) {
         console.log("submit - homeTeamId:"+this.state.homeTeamId);
-        fetch("http://localhost:8080/game/addGame?sportId=1&homeTeamId=" + this.state.homeTeamId + "&awayTeamId=" + this.state.awayTeamId);
+        fetch("http://localhost:8080/game/startGame?sport=HOCKEY&homeTeamId=" + this.state.homeTeamId + "&awayTeamId=" + this.state.awayTeamId);
         event.preventDefault();
     }
 

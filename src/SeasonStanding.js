@@ -1,5 +1,6 @@
 import React from 'react';
 import './SeasonStanding.css';
+import TeamName from './TeamName';
 
 export default class SeasonStanding extends React.Component {
   constructor(props) {
@@ -44,7 +45,7 @@ export default class SeasonStanding extends React.Component {
         <table className="Standing">
           <thead>
             <tr>
-              <th>Team Id</th>
+              <th>Team</th>
               <th title="Win">W</th>
               <th title="Loss">L</th>
               <th title="Overtime Loss">OTL</th>
@@ -61,7 +62,7 @@ export default class SeasonStanding extends React.Component {
           <tbody>
             {items.map(item => (
               <tr key={item.id}>
-                <td>{item.teamId}</td>
+                <td><TeamName id={item.teamId}/></td>
                 <td>{item.win}</td>
                 <td>{item.loss}</td>
                 <td>{item.otloss}</td>

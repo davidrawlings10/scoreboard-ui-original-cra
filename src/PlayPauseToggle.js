@@ -15,7 +15,7 @@ export default class PlayPauseToggle extends React.Component {
   
     render() {
       return (
-        <Button varient="contained" color="primary" onClick={this.handleChange}>
+        <Button onClick={this.handleChange} variant="contained" color="primary">
           {this.props.toggleValue ? 'ON' : 'OFF'}
         </Button>
       );

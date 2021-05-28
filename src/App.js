@@ -57,15 +57,20 @@ class App extends React.Component {
     this.setState({displayGameIndex: index});
   }
 
-  playSeasonGames() {
-    console.log("playSeasonGames()");
-    fetch("http://localhost:8080/game/playSeasonGames?seasonId=1&numGames=3")
+  playSeasonGame() {
+    console.log("startSeasonGame()");
+    fetch("http://localhost:8080/game/startSeasonGame?seasonId=1")
+  }
+
+  setSeasonNumOfGamesToPlay() {
+    console.log("setSeasonNumOfGamesToPlay()");
+    fetch("http://localhost:8080/game/setSeasonNumOfGamesToPlay?seasonId=1&numGames=4")
   }
 
   scheduleSeason() {
     console.log("scheduleSeason()");
-    // fetch("http://localhost:8080/season/schedule?scheduleType=ROUNDS&sport=HOCKEY&leagueId=2&numGames=4")
-    fetch("http://localhost:8080/season/schedule?scheduleType=HOME_ROTATION&sport=HOCKEY&leagueId=2")
+    fetch("http://localhost:8080/season/schedule?scheduleType=ROUNDS&sport=HOCKEY&leagueId=1&numGames=82")
+    // fetch("http://localhost:8080/season/schedule?scheduleType=HOME_ROTATION&sport=HOCKEY&leagueId=3")
   }
 
   render() {
@@ -77,8 +82,9 @@ class App extends React.Component {
         <Scoreboard game={this.state.currentGames != null && this.state.currentGames.length > 0 ? this.state.currentGames[this.state.displayGameIndex] : null}/>
         <SeasonStanding/>
         <SeasonGameList/>
-        <Button onClick={this.playSeasonGames}>Play Season Games</Button>
-        <Button onClick={this.scheduleSeason}>Schedule Season</Button>
+        <Button onClick={this.playSeasonGame} variant="contained" color="primary">Play Season Game</Button>
+        <Button onClick={this.setSeasonNumOfGamesToPlay} variant="contained" color="primary">Set Season Num Of Game To Play</Button>
+        <Button onClick={this.scheduleSeason} variant="contained" color="primary">Schedule Season</Button>
       </div>
     );
   }
