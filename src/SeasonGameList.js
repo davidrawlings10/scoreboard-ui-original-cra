@@ -1,4 +1,5 @@
 import React from 'react'
+import TeamName from './TeamName';
 
 export default class SeasonGameList extends React.Component {
     constructor(props) {
@@ -40,11 +41,28 @@ export default class SeasonGameList extends React.Component {
             return <div>Loading...</div>;
         } else {
             return (
-                <ul>
-                    {games.map(game => (
-                        <li key={game.id}>{game.homeTeamId}|{game.homeScore}|{game.awayTeamId}|{game.awayScore}</li>
-                    ))}
-                </ul>
+                <table className="Standing">
+                    <thead>
+                        <tr>
+                            <th>Home</th>
+                            <th></th>
+                            <th>Away</th>
+                            <th></th>
+                            <th>Period</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {games.map(game => (
+                            <tr key={game.id}>
+                                <td><TeamName id={game.homeTeamId}/></td>
+                                <td>{game.homeScore}</td>
+                                <td><TeamName id={game.awayTeamId}/></td>
+                                <td>{game.awayScore}</td>
+                                <td>{game.endingPeriod}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             )
         }
     }

@@ -1,11 +1,23 @@
 import React from 'react'
+import {searchCacheForTeam, cacheTeam} from './TeamNameCache';
 
 export default class TeamName extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {id: -1, name: '', location: ''};
     }
+
+    /*
+    WORKING EXAMPLE OF getTeamName() WITH ONLY PROMISE AND NOT ASYNC/AWAIT
+    getTeamName(id) {
+        return new Promise((callback) => {
+          fetch("http://localhost:8080/team/getTeamById?teamId="+id)
+          .then(res => res.json())
+          .then(team => {
+            callback(team.name);
+          });
+        });
+    }*/
 
     async getTeamName(id) {
         var res = await fetch("http://localhost:8080/team/getTeamById?teamId="+id)
@@ -14,10 +26,20 @@ export default class TeamName extends React.Component {
     }
 
     setTeamName(id) {
+        const team = searchCacheForTeam(id);
+
+        // if team is found in the cache then update state according to cached team object
+        if (!!team) {
+            this.setState({name: team.name, location: team.location});
+            return;
+        }
+
+        // if team is not found in the cache then call the back end to get team object and then cache for next time
         this.getTeamName(id)
-        .then((team) =>
-            this.setState({name: team.name, location: team.location})
-        );
+          .then((team) => {
+              this.setState({name: team.name, location: team.location})
+              cacheTeam(id, team);
+          });
     }
 
     render() {
@@ -26,16 +48,7 @@ export default class TeamName extends React.Component {
             this.setTeamName(this.props.id);
         }
 
-        
-        console.log("this:"+this.state.location);
-
-        if (this.state.location == null) {
-            console.log("null")
-        } else {            
-            console.log("not null")
-        }
-
-        const location = !!this.state.location ? this.state.location + ' ' : '';
+        const location = !this.props.hideLocation && !!this.state.location ? this.state.location + ' ' : '';
         const name = !!this.state.name ? this.state.name : '';
 
         return <span>{location + name}</span>;

@@ -64,12 +64,12 @@ class App extends React.Component {
 
   setSeasonNumOfGamesToPlay() {
     console.log("setSeasonNumOfGamesToPlay()");
-    fetch("http://localhost:8080/game/setSeasonNumOfGamesToPlay?seasonId=1&numGames=4")
+    fetch("http://localhost:8080/game/setSeasonNumOfGamesToPlay?seasonId=1&numGames=2")
   }
 
   scheduleSeason() {
     console.log("scheduleSeason()");
-    fetch("http://localhost:8080/season/schedule?scheduleType=ROUNDS&sport=HOCKEY&leagueId=1&numGames=82")
+    fetch("http://localhost:8080/season/schedule?scheduleType=ROUNDS&sport=HOCKEY&leagueId=2&numGames=4")
     // fetch("http://localhost:8080/season/schedule?scheduleType=HOME_ROTATION&sport=HOCKEY&leagueId=3")
   }
 

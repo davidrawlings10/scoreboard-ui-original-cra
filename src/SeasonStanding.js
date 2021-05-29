@@ -45,7 +45,8 @@ export default class SeasonStanding extends React.Component {
         <table className="Standing">
           <thead>
             <tr>
-              <th>Team</th>
+              <th></th>
+              <th>Team</th>            
               <th title="Win">W</th>
               <th title="Loss">L</th>
               <th title="Overtime Loss">OTL</th>
@@ -60,8 +61,9 @@ export default class SeasonStanding extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {items.map(item => (
+            {items.map((item, index) => (
               <tr key={item.id}>
+                <td>{index + 1}</td>
                 <td><TeamName id={item.teamId}/></td>
                 <td>{item.win}</td>
                 <td>{item.loss}</td>

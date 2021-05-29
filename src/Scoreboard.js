@@ -135,7 +135,7 @@ class Scoreboard extends React.Component {
     });
   }*/
 
-  async getTeamName(id) {
+  /*async getTeamName(id) {
     var res = await fetch("http://localhost:8080/team/getTeamById?teamId="+id)
     var team = await res.json();
     return team.name;
@@ -153,14 +153,14 @@ class Scoreboard extends React.Component {
         this.setState({lastAwayTeamId: game.awayTeamId, awayName: res});
       })
     }
-  }
+  }*/
 
   render() {
     const {game} = this.props;
 
     if (game != null) {
 
-      this.setTeamNames(game);
+      // this.setTeamNames(game);
 
       /*if (game.homeTeamId !== this.state.lastHomeTeamId) {
         // this.setTeamNames();
@@ -175,6 +175,7 @@ class Scoreboard extends React.Component {
           this.setState({lastAwayTeamId: game.awayTeamId, awayName: res});
         })
       }*/
+
       return (
         <div class="scoreboard">
           <div class="scoreboard-color" /*style="background-color: blue"*/></div>
