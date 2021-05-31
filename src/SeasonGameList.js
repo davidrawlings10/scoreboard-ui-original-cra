@@ -1,5 +1,7 @@
 import React from 'react'
 import TeamName from './TeamName';
+import './SeasonGameList.css';
+
 
 export default class SeasonGameList extends React.Component {
     constructor(props) {
@@ -41,7 +43,7 @@ export default class SeasonGameList extends React.Component {
             return <div>Loading...</div>;
         } else {
             return (
-                <table className="Standing">
+                <table className="SeasonGameList">
                     <thead>
                         <tr>
                             <th>Home</th>

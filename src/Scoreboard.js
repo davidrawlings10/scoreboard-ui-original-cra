@@ -3,6 +3,7 @@ import React from 'react';
 import './Scoreboard.css';
 // import getTeamName from './TeamNameCache'
 import TeamName from './TeamName';
+import ClockDisplay from './ClockDisplay';
 
 class Scoreboard extends React.Component {
 
@@ -184,7 +185,7 @@ class Scoreboard extends React.Component {
           <div class="scoreboard-color" /*style="background-color: red"*/></div>
           <div class="scoreboard-away-team"><TeamName id={game.awayTeamId}/></div>
           <div class="scoreboard-away-score">{game.awayScore}</div>
-          <div class="scoreboard-time">{game.clock.final ? "Final" : ""} {game.clock.minutes}:{game.clock.seconds} {game.clock.period} {game.clock.intermission ? "Intermission" : "Period"}</div>
+          <div class="scoreboard-time"><ClockDisplay game={game}/></div>
         </div>
       )
     } else {

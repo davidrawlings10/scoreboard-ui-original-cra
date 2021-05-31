@@ -1,20 +1,20 @@
-.Standing {
+.SeasonGameList {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 90%;
-  text-align: left;
+  width: 40%;
+  text-align: center;
 }
 
-.Standing td, .Standing th {
+.SeasonGameList td, .Standing th {
   border: 1px 0px 1px 0px solid #ddd;
   padding: 8px;
 }
 
-.Standing tr {background-color: #111;}
+.SeasonGameList tr {background-color: #111;}
 
-.Standing tr:hover {background-color: #222;}
+.SeasonGameList tr:hover {background-color: #222;}
 
-.Standing th {
+.SeasonGameList th {
   padding-top: 12px;
   padding-bottom: 12px;
   background-color: #00013b;

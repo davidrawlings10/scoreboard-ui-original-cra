@@ -1,6 +1,7 @@
 import React from 'react';
 import './CurrentGame.css';
 import TeamName from './TeamName';
+import ClockDisplay from './ClockDisplay';
 
 class CurrentGame extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class CurrentGame extends React.Component {
           <div class="current-game-home-score">{game.homeScore}</div>
           <div class="current-game-away-team"><TeamName id={game.awayTeamId} hideLocation={true}/></div>
           <div class="current-game-away-score">{game.awayScore}</div>
-          <div class="current-game-time">{game.clock.final ? "Final" : ""} {game.clock.minutes}:{game.clock.seconds} {game.clock.period} {game.clock.intermission ? "Intermission" : "Period"}</div>
+          <div class="current-game-time"><ClockDisplay game={game}/></div>
         </div>
       )
     } else {

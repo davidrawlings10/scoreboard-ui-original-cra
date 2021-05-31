@@ -8,7 +8,7 @@ export default class SeasonStanding extends React.Component {
       this.state = {
         error: null,
         isLoaded: false,
-        items: []
+        standings: []
       };
   }
 
@@ -19,7 +19,7 @@ export default class SeasonStanding extends React.Component {
         (result) => {
           this.setState({
             isLoaded: true,
-            items: result.list
+            standings: result.list
           });
         },
         // Note: it's important to handle errors here
@@ -34,14 +34,23 @@ export default class SeasonStanding extends React.Component {
       )
   }
 
+  calculatedPointPercentage(point, gp) {
+    if (point == 0 || gp == 0) {
+      return 0;
+    }
+
+    return (point / (gp * 2) * 100).toPrecision(3);
+  }
+
   render() {
-    const { error, isLoaded, items } = this.state;
+    const { error, isLoaded, standings } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
       return (
+        <>
         <table className="Standing">
           <thead>
             <tr>
@@ -53,33 +62,47 @@ export default class SeasonStanding extends React.Component {
               <th title="Points">PTS</th>
               <th title="Goals For">GF</th>
               <th title="Goals Against">GA</th>
+              <th title="Goal Diff">GD</th>
               <th title="Games Played">GP</th>
               <th title="Home Win">HW</th>
-              <th title="Home Win">HL</th>
+              <th title="Home Loss">HL</th>
+              <th title="Home Overtime Loss">HOTL</th>
+              <th title="Home Point">HP</th>
               <th title="Away Win">AW</th>
               <th title="Away Loss">AL</th>
+              <th title="Away Overtime Loss">AOTL</th>
+              <th title="Away Point">AP</th>
+              <th title="Point Percentage">PP</th>
             </tr>
           </thead>
           <tbody>
-            {items.map((item, index) => (
-              <tr key={item.id}>
+            {standings.map((standing, index) => (
+              <tr key={standing.id}>
                 <td>{index + 1}</td>
-                <td><TeamName id={item.teamId}/></td>
-                <td>{item.win}</td>
-                <td>{item.loss}</td>
-                <td>{item.otloss}</td>
-                <td>{item.point}</td>
-                <td>{item.gf}</td>
-                <td>{item.ga}</td>
-                <td>{item.gp}</td>
-                <td>{item.homeWin}</td>
-                <td>{item.homeLoss}</td>
-                <td>{item.awayWin}</td>
-                <td>{item.awayLoss}</td>
+                <td><TeamName id={standing.teamId}/></td>
+                <td>{standing.win}</td>
+                <td>{standing.loss}</td>
+                <td>{standing.otloss}</td>
+                <td>{standing.point}</td>
+                <td>{standing.gf}</td>
+                <td>{standing.ga}</td>
+                <td>{standing.gf - standing.ga}</td>
+                <td>{standing.gp}</td>
+                <td>{standing.homeWin}</td>
+                <td>{standing.homeLoss}</td>
+                <td>{standing.homeOtloss}</td>
+                <td>{standing.homePoint}</td>
+                <td>{standing.awayWin}</td>
+                <td>{standing.awayLoss}</td>
+                <td>{standing.awayOtloss}</td>
+                <td>{standing.awayPoint}</td>
+                <td>{this.calculatedPointPercentage(standing.point, standing.gp)}%</td>
               </tr>
             ))}
           </tbody>
         </table>
+        <div>Tiebreaker decided by points, wins, goal diff, head to head outcome</div>
+        </>
       )
     }
   }
