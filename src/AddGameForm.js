@@ -10,11 +10,6 @@ class AddGameForm extends React.Component {
         this.handleChange = this.handleChange.bind(this);
 
         this.state = {homeTeamId: 33, awayTeamId: 34, teams: []};
-
-        /*this.teams = [{id: 33, name: 'Bruins'},
-                      {id: 40, name: 'Red Wings'},
-                      {id: 50, name: 'Avalanche'},
-                      {id: 63, name: 'Sharks'}];*/
     }
 
     componentDidMount() {
@@ -23,9 +18,6 @@ class AddGameForm extends React.Component {
     }
 
     handleChange(event) {
-        console.log("change - event.target.value:"+event.target.value);
-        console.log("change - event.target.name:"+event.target.name);
-
         const value = event.target.value;
         const name = event.target.name;
 
@@ -33,7 +25,6 @@ class AddGameForm extends React.Component {
     }
 
     handleSubmit(event) {
-        console.log("submit - homeTeamId:"+this.state.homeTeamId);
         fetch("http://localhost:8080/game/startGame?sport=HOCKEY&homeTeamId=" + this.state.homeTeamId + "&awayTeamId=" + this.state.awayTeamId);
         event.preventDefault();
     }

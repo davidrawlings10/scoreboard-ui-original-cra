@@ -101,7 +101,7 @@ export default class SeasonStanding extends React.Component {
             ))}
           </tbody>
         </table>
-        <div>Tiebreaker decided by Points, Wins, Goal Diff, Goals For, Head to Head Outcome</div>
+        <div>Tiebreaker decided by Points, Wins, Goal Diff, Goals For, Head to head outcome, One game playoff</div>
         </>
       )
     }
