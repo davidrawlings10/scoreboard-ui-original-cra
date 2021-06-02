@@ -56,22 +56,22 @@ export default class SeasonStanding extends React.Component {
             <tr>
               <th></th>
               <th>Team</th>            
+              <th title="Points">PTS</th>
               <th title="Win">W</th>
               <th title="Loss">L</th>
               <th title="Overtime Loss">OTL</th>
-              <th title="Points">PTS</th>
+              <th title="Games Played">GP</th>
               <th title="Goals For">GF</th>
               <th title="Goals Against">GA</th>
               <th title="Goal Diff">GD</th>
-              <th title="Games Played">GP</th>
+              <th title="Home Point">HP</th>
               <th title="Home Win">HW</th>
               <th title="Home Loss">HL</th>
               <th title="Home Overtime Loss">HOTL</th>
-              <th title="Home Point">HP</th>
+              <th title="Away Point">AP</th>
               <th title="Away Win">AW</th>
               <th title="Away Loss">AL</th>
               <th title="Away Overtime Loss">AOTL</th>
-              <th title="Away Point">AP</th>
               <th title="Point Percentage">PP</th>
             </tr>
           </thead>
@@ -80,28 +80,28 @@ export default class SeasonStanding extends React.Component {
               <tr key={standing.id}>
                 <td>{index + 1}</td>
                 <td><TeamName id={standing.teamId}/></td>
+                <td>{standing.point}</td>
                 <td>{standing.win}</td>
                 <td>{standing.loss}</td>
                 <td>{standing.otloss}</td>
-                <td>{standing.point}</td>
+                <td>{standing.gp}</td>
                 <td>{standing.gf}</td>
                 <td>{standing.ga}</td>
                 <td>{standing.gf - standing.ga}</td>
-                <td>{standing.gp}</td>
+                <td>{standing.homePoint}</td>
                 <td>{standing.homeWin}</td>
                 <td>{standing.homeLoss}</td>
                 <td>{standing.homeOtloss}</td>
-                <td>{standing.homePoint}</td>
+                <td>{standing.awayPoint}</td>
                 <td>{standing.awayWin}</td>
                 <td>{standing.awayLoss}</td>
                 <td>{standing.awayOtloss}</td>
-                <td>{standing.awayPoint}</td>
                 <td>{this.calculatedPointPercentage(standing.point, standing.gp)}%</td>
               </tr>
             ))}
           </tbody>
         </table>
-        <div>Tiebreaker decided by points, wins, goal diff, head to head outcome</div>
+        <div>Tiebreaker decided by Points, Wins, Goal Diff, Goals For, Head to Head Outcome</div>
         </>
       )
     }
