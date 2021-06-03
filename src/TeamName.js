@@ -1,4 +1,4 @@
-import React from "react" ;
+import React from "react";
 import { searchCacheForTeam, cacheTeam } from "./TeamNameCache";
 
 export default class TeamName extends React.Component {

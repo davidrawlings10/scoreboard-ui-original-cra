@@ -5,14 +5,19 @@
   text-align: center;
 }
 
-.SeasonGameList td, .Standing th {
+.SeasonGameList td,
+.Standing th {
   border: 1px 0px 1px 0px solid #ddd;
   padding: 8px;
 }
 
-.SeasonGameList tr {background-color: #111;}
+.SeasonGameList tr {
+  background-color: #111;
+}
 
-.SeasonGameList tr:hover {background-color: #222;}
+.SeasonGameList tr:hover {
+  background-color: #222;
+}
 
 .SeasonGameList th {
   padding-top: 12px;

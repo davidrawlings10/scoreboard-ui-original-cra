@@ -1,19 +1,23 @@
-import { isInaccessible } from '@testing-library/dom';
-import React from 'react';
-import './Scoreboard.css';
+import { isInaccessible } from "@testing-library/dom";
+import React from "react";
+import "./Scoreboard.css";
 // import getTeamName from './TeamNameCache'
-import TeamName from './TeamName';
-import ClockDisplay from './ClockDisplay';
+import TeamName from "./TeamName";
+import ClockDisplay from "./ClockDisplay";
 
 class Scoreboard extends React.Component {
-
   /*homeName = '';
   awayName = '';*/
 
   constructor(props) {
     super(props);
 
-    this.state = {lastHomeTeamId: null, lastAwayTeamId: null, homeName: '', awayName: ''}
+    this.state = {
+      lastHomeTeamId: null,
+      lastAwayTeamId: null,
+      homeName: "",
+      awayName: "",
+    };
 
     if (!this.props.game) {
       return;
@@ -107,7 +111,6 @@ class Scoreboard extends React.Component {
       });
   }*/
 
-
   /*getTeamName = (id) => { new Promise((callback) => {
       fetch("http://localhost:8080/team/getTeamById?teamId="+id)
       .then(res => res.json())
@@ -157,10 +160,9 @@ class Scoreboard extends React.Component {
   }*/
 
   render() {
-    const {game} = this.props;
+    const { game } = this.props;
 
     if (game != null) {
-
       // this.setTeamNames(game);
 
       /*if (game.homeTeamId !== this.state.lastHomeTeamId) {
@@ -179,18 +181,26 @@ class Scoreboard extends React.Component {
 
       return (
         <div class="scoreboard">
-          <div class="scoreboard-color" /*style="background-color: blue"*/></div>
-          <div class="scoreboard-home-team"><TeamName id={game.homeTeamId}/></div>
+          <div
+            class="scoreboard-color" /*style="background-color: blue"*/
+          ></div>
+          <div class="scoreboard-home-team">
+            <TeamName id={game.homeTeamId} />
+          </div>
           <div class="scoreboard-home-score">{game.homeScore}</div>
           <div class="scoreboard-color" /*style="background-color: red"*/></div>
-          <div class="scoreboard-away-team"><TeamName id={game.awayTeamId}/></div>
+          <div class="scoreboard-away-team">
+            <TeamName id={game.awayTeamId} />
+          </div>
           <div class="scoreboard-away-score">{game.awayScore}</div>
-          <div class="scoreboard-time"><ClockDisplay game={game}/></div>
+          <div class="scoreboard-time">
+            <ClockDisplay game={game} />
+          </div>
         </div>
-      )
+      );
     } else {
-      return (<div>Waiting for a game...</div>);
-    }      
+      return <div>Waiting for a game...</div>;
+    }
   }
 }
 

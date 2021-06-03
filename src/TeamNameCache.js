@@ -1,20 +1,16 @@
 let teams = {};
 
 export function searchCacheForTeam(id) {
-    return teams[id];
+  return teams[id];
 }
 
 export function cacheTeam(id, team) {
-    teams[id] = team;
-    /*console.log("team cached, id:"+id + " team:"+team.name);
+  teams[id] = team;
+  /*console.log("team cached, id:"+id + " team:"+team.name);
     console.log(teams);
 
     console.log();*/
 }
-
-
-
-
 
 /*function lookupTeamName(teamId) {
     fetch("http://localhost:8080/team/getTeamById?teamId="+teamId)

@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
 export default class ScheduleSeasonForm {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        return ();
-    }
+  render() {
+    // return ();
+  }
 }
