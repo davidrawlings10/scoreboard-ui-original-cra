@@ -15,7 +15,7 @@ class CurrentGameList extends React.Component {
   render() {
     if (this.props.games != null) {
       return (
-        <div class="current-game-list" /*onClick={this.updateDisplayIndex}*/>
+        <div className="current-game-list">
           {this.props.games.map((game, index) => (
             <CurrentGame
               game={game}

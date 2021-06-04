@@ -1,6 +1,6 @@
 import React from "react";
-import TeamName from "./TeamName";
 import "./SeasonGameList.css";
+import TeamDisplay from "./TeamDisplay";
 
 export default class SeasonGameList extends React.Component {
   constructor(props) {
@@ -56,11 +56,11 @@ export default class SeasonGameList extends React.Component {
             {games.map((game) => (
               <tr key={game.id}>
                 <td>
-                  <TeamName id={game.homeTeamId} />
+                  <TeamDisplay id={game.homeTeamId} />
                 </td>
                 <td>{game.homeScore}</td>
                 <td>
-                  <TeamName id={game.awayTeamId} />
+                  <TeamDisplay id={game.awayTeamId} />
                 </td>
                 <td>{game.awayScore}</td>
                 <td>{game.endingPeriod}</td>

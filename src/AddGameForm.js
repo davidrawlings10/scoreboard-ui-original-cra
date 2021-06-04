@@ -16,7 +16,6 @@ class AddGameForm extends React.Component {
     fetch("http://localhost:8080/team/getTeams?leagueId=2")
       .then((res) => res.json())
       .then((json) => this.setState({ teams: json.list }));
-    console.log(this.teams);
   }
 
   handleChange(event) {

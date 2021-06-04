@@ -1,10 +1,6 @@
 import React from "react";
 
 export default class ClockDisplay extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { game } = this.props;
     return (

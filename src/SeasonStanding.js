@@ -1,6 +1,6 @@
 import React from "react";
 import "./SeasonStanding.css";
-import TeamName from "./TeamName";
+import TeamDisplay from "./TeamDisplay";
 
 export default class SeasonStanding extends React.Component {
   constructor(props) {
@@ -35,7 +35,7 @@ export default class SeasonStanding extends React.Component {
   }
 
   calculatedPointPercentage(point, gp) {
-    if (point == 0 || gp == 0) {
+    if (point === 0 || gp === 0) {
       return 0;
     }
 
@@ -80,7 +80,7 @@ export default class SeasonStanding extends React.Component {
                 <tr key={standing.id}>
                   <td>{index + 1}</td>
                   <td>
-                    <TeamName id={standing.teamId} />
+                    <TeamDisplay id={standing.teamId} />
                   </td>
                   <td>{standing.point}</td>
                   <td>{standing.win}</td>
@@ -109,7 +109,7 @@ export default class SeasonStanding extends React.Component {
               ))}
             </tbody>
           </table>
-          <div class="tiebreaker">
+          <div className="tiebreaker">
             Tiebreaker decided by Points, Wins, Goal Diff, Goals For, Head to
             head outcome, Two game playoff
           </div>
