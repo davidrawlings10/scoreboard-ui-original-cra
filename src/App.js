@@ -21,7 +21,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    if (this.state.playPauseToggle == true) {
+    if (this.state.playPauseToggle === true) {
       this.setGetGamesInterval();
     }
   }
