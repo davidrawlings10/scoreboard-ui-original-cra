@@ -2,7 +2,7 @@ import React from "react";
 import CurrentGame from "./CurrentGame";
 import "./CurrentGameList.css";
 
-class CurrentGameList extends React.Component {
+export default class CurrentGameList extends React.Component {
   constructor(props) {
     super(props);
     this.updateDisplayIndex = this.updateDisplayIndex.bind(this);
@@ -30,5 +30,3 @@ class CurrentGameList extends React.Component {
     }
   }
 }
-
-export default CurrentGameList;

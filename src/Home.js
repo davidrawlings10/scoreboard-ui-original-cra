@@ -7,9 +7,9 @@ import SeasonStanding from "./SeasonStanding";
 import SeasonGameList from "./SeasonGameList";
 import CurrentGameList from "./CurrentGameList";
 import { Button } from "@material-ui/core";
-import x from "./test";
+import typescriptTest from "./test";
 
-class App extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -88,8 +88,8 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <div>{x}</div>
+      <div className="Home">
+        <div>{typescriptTest}</div>
         <CurrentGameList
           games={
             this.state.currentGames != null &&
@@ -141,19 +141,3 @@ class App extends React.Component {
     );
   }
 }
-
-/*<Button text="Schedule" />
-<Div text="456" />
-        <a
-          className="App-link"
-          href="http://localhost:8080/game/play"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Play Game
-        </a>
-*/
-
-// setInterval(App, 1000);
-
-export default App;

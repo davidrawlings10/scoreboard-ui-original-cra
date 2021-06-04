@@ -3,7 +3,7 @@ import "./CurrentGame.css";
 import TeamName from "./TeamDisplay";
 import ClockDisplay from "./ClockDisplay";
 
-class CurrentGame extends React.Component {
+export default class CurrentGame extends React.Component {
   constructor(props) {
     super(props);
     this.updateDisplayIndex = this.updateDisplayIndex.bind(this);
@@ -37,5 +37,3 @@ class CurrentGame extends React.Component {
     }
   }
 }
-
-export default CurrentGame;

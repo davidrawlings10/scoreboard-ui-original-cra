@@ -3,7 +3,7 @@ import "./Scoreboard.css";
 import TeamDisplay from "./TeamDisplay";
 import ClockDisplay from "./ClockDisplay";
 
-class Scoreboard extends React.Component {
+export default class Scoreboard extends React.Component {
   constructor(props) {
     super(props);
 
@@ -42,5 +42,3 @@ class Scoreboard extends React.Component {
     }
   }
 }
-
-export default Scoreboard;

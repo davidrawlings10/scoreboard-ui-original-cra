@@ -2,7 +2,7 @@ import React from "react";
 import { Select, InputLabel, MenuItem, Input } from "@material-ui/core";
 import "./AddGameForm.css";
 
-class AddGameForm extends React.Component {
+export default class AddGameForm extends React.Component {
   constructor(props) {
     super(props);
 
@@ -71,5 +71,3 @@ class AddGameForm extends React.Component {
     );
   }
 }
-
-export default AddGameForm;

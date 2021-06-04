@@ -1,3 +1,3 @@
-const x: number = 1;
+const typescriptTest: number = 1;
 
-export default x;
+export default typescriptTest;
