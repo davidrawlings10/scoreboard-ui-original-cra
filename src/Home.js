@@ -3,11 +3,10 @@ import "./Home.css";
 import PlayPauseToggle from "./PlayPauseToggle";
 import AddGameForm from "./AddGameForm";
 import Scoreboard from "./Scoreboard";
-import SeasonStanding from "./SeasonStanding";
-import SeasonGameList from "./SeasonGameList";
+import Season from "./Season";
 import CurrentGameList from "./CurrentGameList";
-import { Button } from "@material-ui/core";
 import typescriptTest from "./test";
+import SeasonPage from "./SeasonPage";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -16,6 +15,7 @@ export default class App extends React.Component {
       playPauseToggle: true,
       currentGames: [],
       displayGameIndex: 0,
+      seasonId: 63,
     };
     this.onToggleChange = this.onToggleChange.bind(this);
     this.updateDisplayIndex = this.updateDisplayIndex.bind(this);
@@ -64,28 +64,6 @@ export default class App extends React.Component {
     this.setState({ displayGameIndex: index });
   }
 
-  playSeasonGame() {
-    console.log("startSeasonGame()");
-    fetch("http://localhost:8080/game/startSeasonGame?seasonId=1");
-  }
-
-  setSeasonNumOfGamesToPlay() {
-    console.log("setSeasonNumOfGamesToPlay()");
-    fetch(
-      "http://localhost:8080/game/setSeasonNumOfGamesToPlay?seasonId=1&numGames=2"
-    );
-  }
-
-  scheduleSeason() {
-    console.log("scheduleSeason()");
-    fetch(
-      "http://localhost:8080/season/schedule?scheduleType=ROUNDS&sport=HOCKEY&leagueId=1&numGames=12"
-    );
-    /*fetch(
-      "http://localhost:8080/season/schedule?scheduleType=HOME_ROTATION&sport=HOCKEY&leagueId=2"
-    );*/
-  }
-
   render() {
     return (
       <div className="Home">
@@ -114,29 +92,13 @@ export default class App extends React.Component {
               : null
           }
         />
-        <SeasonStanding />
-        <SeasonGameList />
-        <Button
-          onClick={this.playSeasonGame}
-          variant="contained"
-          color="primary"
-        >
-          Play Season Game
-        </Button>
-        <Button
-          onClick={this.setSeasonNumOfGamesToPlay}
-          variant="contained"
-          color="primary"
-        >
-          Set Season Num Of Game To Play
-        </Button>
-        <Button
-          onClick={this.scheduleSeason}
-          variant="contained"
-          color="primary"
-        >
-          Schedule Season
-        </Button>
+        <Season
+          seasonId={
+            this.state.currentGames[this.state.displayGameIndex]?.seasonId
+          }
+        />
+        <div style={{ marginTop: 100 }}></div>
+        <SeasonPage />
       </div>
     );
   }

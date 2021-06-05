@@ -12,8 +12,36 @@ export default class SeasonGameList extends React.Component {
     };
   }
 
-  componentDidMount() {
-    fetch("http://localhost:8080/game/getGamesBySeasonId?seasonId=1")
+  /*componentDidMount() {
+    fetch(
+      "http://localhost:8080/game/getGamesBySeasonId?seasonId=" +
+        this.props.seasonId
+    )
+      .then((res) => res.json())
+      .then(
+        (games) => {
+          this.setState({
+            isLoaded: true,
+            games: games.list,
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error,
+          });
+        }
+      );
+  }*/
+
+  setSeasonGames() {
+    fetch(
+      "http://localhost:8080/game/getGamesBySeasonId?seasonId=" +
+        this.props.seasonId
+    )
       .then((res) => res.json())
       .then(
         (games) => {
@@ -35,6 +63,14 @@ export default class SeasonGameList extends React.Component {
   }
 
   render() {
+    if (this.props.seasonId !== this.state.seasonId) {
+      console.log("different");
+      this.setState({ seasonId: this.props.seasonId });
+      this.setSeasonGames(this.props.seasonId);
+    } else {
+      console.log("same");
+    }
+
     const { error, isLoaded, games } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;

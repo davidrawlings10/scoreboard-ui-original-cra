@@ -9,11 +9,34 @@ export default class SeasonStanding extends React.Component {
       error: null,
       isLoaded: false,
       standings: [],
+      seasonId: null,
     };
   }
 
-  componentDidMount() {
-    fetch("http://localhost:8080/standing/get?seasonId=1")
+  /*componentDidMount() {
+    fetch("http://localhost:8080/standing/get?seasonId=" + this.props.seasonId)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            standings: result.list,
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error,
+          });
+        }
+      );
+  }*/
+
+  setSeasonStanding(seasonId) {
+    fetch("http://localhost:8080/standing/get?seasonId=" + seasonId)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -43,6 +66,14 @@ export default class SeasonStanding extends React.Component {
   }
 
   render() {
+    if (this.props.seasonId !== this.state.seasonId) {
+      console.log("different");
+      this.setState({ seasonId: this.props.seasonId });
+      this.setSeasonStanding(this.props.seasonId);
+    } else {
+      console.log("same");
+    }
+
     const { error, isLoaded, standings } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -64,14 +95,16 @@ export default class SeasonStanding extends React.Component {
                 <th title="Goals For">GF</th>
                 <th title="Goals Against">GA</th>
                 <th title="Goal Diff">GD</th>
-                <th title="Home Point">HP</th>
+                <th title="Home Points">HPTS</th>
                 <th title="Home Win">HW</th>
                 <th title="Home Loss">HL</th>
                 <th title="Home Overtime Loss">HOTL</th>
-                <th title="Away Point">AP</th>
+                <th title="Home Games Played">HGP</th>
+                <th title="Away Poinst">APTS</th>
                 <th title="Away Win">AW</th>
                 <th title="Away Loss">AL</th>
                 <th title="Away Overtime Loss">AOTL</th>
+                <th title="Away Games Played">AGP</th>
                 <th title="Point Percentage">PP</th>
               </tr>
             </thead>
@@ -94,10 +127,12 @@ export default class SeasonStanding extends React.Component {
                   <td>{standing.homeWin}</td>
                   <td>{standing.homeLoss}</td>
                   <td>{standing.homeOtloss}</td>
+                  <td>{standing.homeGp}</td>
                   <td>{standing.awayPoint}</td>
                   <td>{standing.awayWin}</td>
                   <td>{standing.awayLoss}</td>
                   <td>{standing.awayOtloss}</td>
+                  <td>{standing.awayGp}</td>
                   <td>
                     {this.calculatedPointPercentage(
                       standing.point,

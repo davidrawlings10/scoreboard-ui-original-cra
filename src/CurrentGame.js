@@ -1,6 +1,6 @@
 import React from "react";
 import "./CurrentGame.css";
-import TeamName from "./TeamDisplay";
+import TeamDisplay from "./TeamDisplay";
 import ClockDisplay from "./ClockDisplay";
 
 export default class CurrentGame extends React.Component {
@@ -20,11 +20,11 @@ export default class CurrentGame extends React.Component {
       return (
         <div onClick={this.updateDisplayIndex} className="current-game">
           <div className="current-game-home-team">
-            <TeamName id={game.homeTeamId} hideLocation={true} />
+            <TeamDisplay id={game.homeTeamId} hideLocation={true} />
           </div>
           <div className="current-game-home-score">{game.homeScore}</div>
           <div className="current-game-away-team">
-            <TeamName id={game.awayTeamId} hideLocation={true} />
+            <TeamDisplay id={game.awayTeamId} hideLocation={true} />
           </div>
           <div className="current-game-away-score">{game.awayScore}</div>
           <div className="current-game-time">

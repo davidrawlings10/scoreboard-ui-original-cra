@@ -8,8 +8,8 @@ export default class TeamDisplay extends React.Component {
   }
 
   /*
-    WORKING EXAMPLE OF getTeamName() WITH ONLY PROMISE AND NOT ASYNC/AWAIT
-    getTeamName(id) {
+    WORKING EXAMPLE OF getTeamDisplay() WITH ONLY PROMISE AND NOT ASYNC/AWAIT
+    getTeamDisplay(id) {
         return new Promise((callback) => {
           fetch("http://localhost:8080/team/getTeamById?teamId="+id)
           .then(res => res.json())
@@ -19,7 +19,7 @@ export default class TeamDisplay extends React.Component {
         });
     }*/
 
-  async getTeamName(id) {
+  async getTeamDisplay(id) {
     var res = await fetch(
       "http://localhost:8080/team/getTeamById?teamId=" + id
     );
@@ -27,7 +27,7 @@ export default class TeamDisplay extends React.Component {
     return team;
   }
 
-  setTeamName(id) {
+  setTeamDisplay(id) {
     const team = searchCacheForTeam(id);
 
     // if team is found in the cache then update state according to cached team object
@@ -37,7 +37,7 @@ export default class TeamDisplay extends React.Component {
     }
 
     // if team is not found in the cache then call the back end to get team object and then cache for next time
-    this.getTeamName(id).then((team) => {
+    this.getTeamDisplay(id).then((team) => {
       this.setState({ name: team.name, location: team.location });
       cacheTeam(id, team);
     });
@@ -46,7 +46,7 @@ export default class TeamDisplay extends React.Component {
   render() {
     if (this.props.id !== this.state.id) {
       this.setState({ id: this.props.id });
-      this.setTeamName(this.props.id);
+      this.setTeamDisplay(this.props.id);
     }
 
     const location =
