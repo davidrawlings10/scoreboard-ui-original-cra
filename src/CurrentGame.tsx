@@ -2,9 +2,16 @@ import React from "react";
 import "./CurrentGame.css";
 import TeamDisplay from "./TeamDisplay";
 import ClockDisplay from "./ClockDisplay";
+import { Game } from "./Game";
 
-export default class CurrentGame extends React.Component {
-  constructor(props) {
+export interface CurrentGameProps {
+  index: number;
+  game: Game;
+  updateDisplayIndex: (index: number) => void;
+}
+
+export default class CurrentGame extends React.Component<CurrentGameProps> {
+  constructor(props: CurrentGameProps) {
     super(props);
     this.updateDisplayIndex = this.updateDisplayIndex.bind(this);
   }
