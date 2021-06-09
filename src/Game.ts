@@ -1,4 +1,4 @@
-export interface Game {
+export default interface Game {
   id: number;
   seasonId: number;
   homeTeamId: number;

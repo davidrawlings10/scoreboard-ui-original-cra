@@ -1,14 +1,20 @@
 import React from "react";
 import CurrentGame from "./CurrentGame";
 import "./CurrentGameList.css";
+import Game from "./Game";
 
-export default class CurrentGameList extends React.Component {
-  constructor(props) {
+export interface CurrentGameListProps {
+  games: Array<Game>;
+  updateDisplayIndex: (index: number) => void;
+}
+
+export default class CurrentGameList extends React.Component<CurrentGameListProps> {
+  constructor(props: CurrentGameListProps) {
     super(props);
     this.updateDisplayIndex = this.updateDisplayIndex.bind(this);
   }
 
-  updateDisplayIndex(index) {
+  updateDisplayIndex(index: number) {
     this.props.updateDisplayIndex(index);
   }
 

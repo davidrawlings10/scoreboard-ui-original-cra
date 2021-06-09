@@ -2,7 +2,7 @@ import React from "react";
 import "./CurrentGame.css";
 import TeamDisplay from "./TeamDisplay";
 import ClockDisplay from "./ClockDisplay";
-import { Game } from "./Game";
+import Game from "./Game";
 
 export interface CurrentGameProps {
   index: number;
