@@ -1,6 +1,6 @@
 import React from "react";
 import "./PlayPauseToggle.css";
-import Button from "@material-ui/core/Button";
+import Button, { ButtonProps } from "@material-ui/core/Button";
 
 export type PlayPauseToggleProps = {
   toggleValue: string;
@@ -19,10 +19,13 @@ export default class PlayPauseToggle extends React.Component<PlayPauseToggleProp
   }
 
   render() {
+    const buttonProps: ButtonProps = {
+      onClick: this.handleChange,
+      variant: "contained",
+      color: "primary",
+    };
     return (
-      <Button onClick={this.handleChange} variant="contained" color="primary">
-        {this.props.toggleValue ? "ON" : "OFF"}
-      </Button>
+      <Button {...buttonProps}>{this.props.toggleValue ? "ON" : "OFF"}</Button>
     );
   }
 }
