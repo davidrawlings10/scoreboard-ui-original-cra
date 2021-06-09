@@ -1,5 +1,5 @@
 import React from "react";
-import CurrentGame from "./CurrentGame";
+import CurrentGame, { CurrentGameProps } from "./CurrentGame";
 import "./CurrentGameList.css";
 import Game from "./Game";
 
@@ -22,13 +22,14 @@ export default class CurrentGameList extends React.Component<CurrentGameListProp
     if (this.props.games != null) {
       return (
         <div className="current-game-list">
-          {this.props.games.map((game, index) => (
-            <CurrentGame
-              game={game}
-              index={index}
-              updateDisplayIndex={this.updateDisplayIndex}
-            />
-          ))}
+          {this.props.games.map((game, index) => {
+            const currentGameProps: CurrentGameProps = {
+              game: game,
+              index: index,
+              updateDisplayIndex: this.updateDisplayIndex,
+            };
+            <CurrentGame {...currentGameProps} />;
+          })}
         </div>
       );
     } else {
