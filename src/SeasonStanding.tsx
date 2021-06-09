@@ -1,15 +1,31 @@
 import React from "react";
 import "./SeasonStanding.css";
 import TeamDisplay from "./TeamDisplay";
+import Standing from "./Standing";
 
-export default class SeasonStanding extends React.Component {
-  constructor(props) {
+export interface SeasonStandingProps {
+  setSeasonStanding: (seasonId: number) => void;
+  seasonId: number;
+}
+
+interface SeasonStatingState {
+  error: any;
+  isLoaded: boolean;
+  standings: Array<Standing>;
+  seasonId: number;
+}
+
+export default class SeasonStanding extends React.Component<
+  SeasonStandingProps,
+  SeasonStatingState
+> {
+  constructor(props: SeasonStandingProps) {
     super(props);
     this.state = {
       error: null,
       isLoaded: false,
       standings: [],
-      seasonId: null,
+      seasonId: 0,
     };
   }
 
@@ -35,7 +51,7 @@ export default class SeasonStanding extends React.Component {
       );
   }*/
 
-  setSeasonStanding(seasonId) {
+  setSeasonStanding(seasonId: number) {
     fetch("http://localhost:8080/standing/get?seasonId=" + seasonId)
       .then((res) => res.json())
       .then(
@@ -57,7 +73,7 @@ export default class SeasonStanding extends React.Component {
       );
   }
 
-  calculatedPointPercentage(point, gp) {
+  calculatedPointPercentage(point: number, gp: number) {
     if (point === 0 || gp === 0) {
       return 0;
     }
@@ -109,7 +125,7 @@ export default class SeasonStanding extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {standings.map((standing, index) => (
+              {standings.map((standing, index: number) => (
                 <tr key={standing.id}>
                   <td>{index + 1}</td>
                   <td>
