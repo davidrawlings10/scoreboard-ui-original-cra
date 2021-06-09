@@ -2,14 +2,19 @@ import React from "react";
 import "./PlayPauseToggle.css";
 import Button from "@material-ui/core/Button";
 
-export default class PlayPauseToggle extends React.Component {
-  constructor(props) {
+export type PlayPauseToggleProps = {
+  toggleValue: string;
+  onChange: () => void;
+};
+
+export default class PlayPauseToggle extends React.Component<PlayPauseToggleProps> {
+  constructor(props: PlayPauseToggleProps) {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e) {
+  handleChange() {
     this.props.onChange();
   }
 

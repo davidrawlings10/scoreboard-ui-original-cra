@@ -1,6 +1,18 @@
 import React from "react";
 
-export default class ClockDisplay extends React.Component {
+export interface ClockDisplayProps {
+  game: {
+    clock: {
+      final: boolean;
+      minutes: number;
+      seconds: number;
+      period: number;
+      intermission: boolean;
+    };
+  };
+}
+
+export default class ClockDisplay extends React.Component<ClockDisplayProps> {
   render() {
     const { game } = this.props;
     return (
