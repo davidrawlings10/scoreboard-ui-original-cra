@@ -32,11 +32,11 @@ export default class App extends React.Component {
   }
 
   setGetGamesInterval() {
-    this.timerId = setInterval(() => this.getGames(), 1000);
+    this.timerId = setInterval(() => this.getGames(), 500);
   }
 
   clearGetGamesInterval() {
-    clearInterval(this.timerId, 1000);
+    clearInterval(this.timerId, 500);
   }
 
   getGames() {
