@@ -1,7 +1,7 @@
 import React from "react";
 import SeasonStanding from "./SeasonStanding";
 import SeasonGameList from "./SeasonGameList";
-import { Button } from "@material-ui/core";
+import Button from "./Button";
 import "./Season.css";
 
 export interface SeasonProps {
@@ -43,18 +43,8 @@ export default class Season extends React.Component<SeasonProps, SeasonState> {
       <div>
         <SeasonStanding seasonId={this.props.seasonId} />
         <SeasonGameList seasonId={this.props.seasonId} />
-        <Button
-          onClick={this.playSeasonGame}
-          variant="contained"
-          color="primary"
-        >
-          Play Season Game
-        </Button>
-        <Button
-          onClick={this.setSeasonNumOfGamesToPlay}
-          variant="contained"
-          color="primary"
-        >
+        <Button onClick={this.playSeasonGame}>Play Season Game</Button>
+        <Button onClick={this.setSeasonNumOfGamesToPlay}>
           Set Season Num Of Game To Play
         </Button>
       </div>
