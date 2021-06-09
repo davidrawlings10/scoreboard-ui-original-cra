@@ -1,14 +1,30 @@
 import React from "react";
 import "./SeasonGameList.css";
 import TeamDisplay from "./TeamDisplay";
+import Game from "./Game";
 
-export default class SeasonGameList extends React.Component {
-  constructor(props) {
+export interface SeasonGameListProps {
+  seasonId: number;
+}
+
+interface SeasonGameListState {
+  error: any;
+  isLoaded: boolean;
+  games: Array<Game>;
+  seasonId: number;
+}
+
+export default class SeasonGameList extends React.Component<
+  SeasonGameListProps,
+  SeasonGameListState
+> {
+  constructor(props: SeasonGameListProps) {
     super(props);
     this.state = {
       error: null,
       isLoaded: false,
       games: [],
+      seasonId: 0,
     };
   }
 
@@ -37,7 +53,7 @@ export default class SeasonGameList extends React.Component {
       );
   }*/
 
-  setSeasonGames() {
+  setSeasonGames(seasonId: number) {
     fetch(
       "http://localhost:8080/game/getGamesBySeasonId?seasonId=" +
         this.props.seasonId
