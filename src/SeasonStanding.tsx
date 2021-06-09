@@ -4,7 +4,6 @@ import TeamDisplay from "./TeamDisplay";
 import Standing from "./Standing";
 
 export interface SeasonStandingProps {
-  setSeasonStanding: (seasonId: number) => void;
   seasonId: number;
 }
 

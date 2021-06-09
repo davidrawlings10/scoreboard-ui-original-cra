@@ -4,8 +4,14 @@ import SeasonGameList from "./SeasonGameList";
 import { Button } from "@material-ui/core";
 import "./Season.css";
 
-export default class Season extends React.Component {
-  constructor(props) {
+export interface SeasonProps {
+  seasonId: number;
+}
+
+interface SeasonState {}
+
+export default class Season extends React.Component<SeasonProps, SeasonState> {
+  constructor(props: SeasonProps) {
     super(props);
     this.playSeasonGame = this.playSeasonGame.bind(this);
     this.setSeasonNumOfGamesToPlay = this.setSeasonNumOfGamesToPlay.bind(this);
