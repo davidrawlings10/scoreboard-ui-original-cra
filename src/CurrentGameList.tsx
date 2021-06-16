@@ -30,7 +30,7 @@ export default class CurrentGameList extends React.Component<CurrentGameListProp
               index: index,
               updateDisplayIndex: this.updateDisplayIndex,
             };
-            <CurrentGame {...currentGameProps} />;
+            return <CurrentGame {...currentGameProps} />;
           })}
         </div>
       );
