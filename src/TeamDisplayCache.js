@@ -1,3 +1,5 @@
+// keeping this in js
+
 let teams = {};
 
 export function searchCacheForTeam(id) {

@@ -5,7 +5,6 @@ import AddGameForm from "./AddGameForm";
 import Scoreboard from "./Scoreboard";
 import Season from "./Season";
 import CurrentGameList from "./CurrentGameList";
-import typescriptTest from "./test";
 import SeasonPage from "./SeasonPage";
 
 export default class App extends React.Component {
@@ -67,7 +66,6 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="Home">
-        <div>{typescriptTest}</div>
         <CurrentGameList
           games={
             this.state.currentGames != null &&

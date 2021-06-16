@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./SeasonGameList.css";
 import TeamDisplay from "./TeamDisplay";
-import Game from "./Game";
+import Game from "./Domain/Game";
 
 export type SeasonGameListProps = {
   seasonId: number;

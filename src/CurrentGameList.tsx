@@ -1,7 +1,9 @@
 import React from "react";
 import CurrentGame, { CurrentGameProps } from "./CurrentGame";
 import "./CurrentGameList.css";
-import Game from "./Game";
+import Game from "./Domain/Game";
+
+// keeping this as an example of a class component in tsx
 
 export interface CurrentGameListProps {
   games: Array<Game>;
