@@ -1,6 +1,5 @@
 import React from "react";
 import "./PlayPauseToggle.css";
-// import Button, { ButtonProps } from "@material-ui/core/Button";
 import Button, { ButtonProps } from "./Button";
 
 export type PlayPauseToggleProps = {
