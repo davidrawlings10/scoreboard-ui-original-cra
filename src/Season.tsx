@@ -26,7 +26,7 @@ export default function Season(props: SeasonProps) {
   }
 
   if (!props.seasonId) {
-    return <div className="noSeasonForGame">No season for game</div>;
+    return <div></div>;
   }
 
   return (

@@ -73,15 +73,14 @@ export default class App extends React.Component {
               ? this.state.currentGames
               : null
           }
-          updateDisplayIndex={
-            this.updateDisplayIndex
-          } /*updateDisplayGame={(index) => this.setState({displayGameIndex: index})}*/
+          updateDisplayIndex={(index) =>
+            this.setState({ displayGameIndex: index })
+          }
         />
         <PlayPauseToggle
           toggleValue={this.state.playPauseToggle}
           onChange={this.onToggleChange}
         />
-        <AddGameForm />
         <Scoreboard
           game={
             this.state.currentGames != null &&
@@ -97,6 +96,7 @@ export default class App extends React.Component {
         />
         <div style={{ marginTop: 100 }}></div>
         <SeasonPage />
+        <AddGameForm />
       </div>
     );
   }

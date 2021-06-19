@@ -21,21 +21,21 @@ export default class CurrentGameList extends React.Component<CurrentGameListProp
   }
 
   render() {
-    if (this.props.games != null) {
-      return (
-        <div className="current-game-list">
-          {this.props.games.map((game, index) => {
-            const currentGameProps: CurrentGameProps = {
-              game: game,
-              index: index,
-              updateDisplayIndex: this.updateDisplayIndex,
-            };
-            return <CurrentGame {...currentGameProps} />;
-          })}
-        </div>
-      );
-    } else {
-      return <div>waiting for games...</div>;
+    if (!this.props.games) {
+      return <div></div>;
     }
+
+    return (
+      <div className="current-game-list">
+        {this.props.games.map((game, index) => {
+          const currentGameProps: CurrentGameProps = {
+            game: game,
+            index: index,
+            updateDisplayIndex: this.updateDisplayIndex,
+          };
+          return <CurrentGame {...currentGameProps} />;
+        })}
+      </div>
+    );
   }
 }

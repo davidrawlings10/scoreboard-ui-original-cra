@@ -1,5 +1,4 @@
 import React from "react";
-import "./PlayPauseToggle.css";
 import Button, { ButtonProps } from "./Button";
 
 export type PlayPauseToggleProps = {

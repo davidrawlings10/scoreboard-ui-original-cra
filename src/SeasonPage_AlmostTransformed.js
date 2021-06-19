@@ -25,12 +25,14 @@ export default function SeasonPage(props) {
   }
 
   function handleSeasonChange(event) {
-    /*const value = event.target.value;
+    const value = event.target.value;
     const name = event.target.name;
 
-    this.setState({ [name]: value });*/
+    if (name === "seasonId") {
+      setSeasonId(value);
+    }
 
-    setSeasonId(event.target.value);
+    // this.setState({ [name]: value });
   }
 
   return (
