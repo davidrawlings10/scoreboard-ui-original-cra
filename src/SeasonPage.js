@@ -1,29 +1,21 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import Season from "./Season";
-import { Button, Select, InputLabel, MenuItem } from "@material-ui/core";
+import { Select, InputLabel, MenuItem } from "@material-ui/core";
+import Button from "./Button";
 
-export default class SeasonPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      seasonId: 1,
-      /*seasons: [
-        { id: 1, description: "NHL 6/2/21 1" },
-        { id: 30, description: "Aves 6/4/21 30" },
-        { id: 63, description: "NHL 6/4/21 63" },
-      ],*/
-    };
-    this.scheduleNewSeason = this.scheduleNewSeason.bind(this);
-    this.handleSeasonChange = this.handleSeasonChange.bind(this);
-  }
+// this actually compiles okay, but the results didn't look acceptable in the ui.
 
-  componentDidMount() {
+export default function SeasonPage(props) {
+  const [seasonId, setSeasonId] = useState(1);
+  const [seasons, setSeasons] = useState([]);
+
+  useEffect(() =>
     fetch("http://localhost:8080/season/getSeasons")
       .then((res) => res.json())
-      .then((json) => this.setState({ seasons: json.list }));
-  }
+      .then((json) => setSeasons(json.list))
+  );
 
-  scheduleNewSeason() {
+  function scheduleNewSeason() {
     fetch(
       "http://localhost:8080/season/schedule?scheduleType=ROUNDS&sport=HOCKEY&leagueId=2&numGames=4"
     );
@@ -32,37 +24,35 @@ export default class SeasonPage extends React.Component {
     );*/
   }
 
-  handleSeasonChange(event) {
+  function handleSeasonChange(event) {
     const value = event.target.value;
     const name = event.target.name;
 
-    this.setState({ [name]: value });
+    console.log("handleSeasonChange():" + value);
+
+    if (name === "seasonId") {
+      setSeasonId(value);
+    }
+
+    // this.setState({ [name]: value });
   }
 
-  render() {
-    return (
-      <div>
-        <Button
-          onClick={this.scheduleNewSeason}
-          variant="contained"
-          color="primary"
-        >
-          Schedule New Season
-        </Button>
-        <InputLabel id="labelSeason">Season</InputLabel>
-        <Select
-          labelId="label"
-          id="selectSeason"
-          name="seasonId"
-          value={this.state.seasonId}
-          onChange={this.handleSeasonChange}
-        >
-          {this.state.seasons?.map((season) => (
-            <MenuItem value={season.id}>{season.title}</MenuItem>
-          ))}
-        </Select>
-        <Season seasonId={this.state.seasonId} />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Button onClick={scheduleNewSeason}>Schedule New Season</Button>
+      <InputLabel id="labelSeason">Season</InputLabel>
+      <Select
+        labelId="label"
+        id="selectSeason"
+        name="seasonId"
+        value={seasonId}
+        onChange={handleSeasonChange}
+      >
+        {seasons?.map((season) => (
+          <MenuItem value={season.id}>{season.title}</MenuItem>
+        ))}
+      </Select>
+      <Season seasonId={seasonId} />
+    </div>
+  );
 }
