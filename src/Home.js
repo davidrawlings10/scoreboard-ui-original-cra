@@ -1,11 +1,12 @@
 import React from "react";
 import "./Home.css";
-import PlayPauseToggle from "./PlayPauseToggle";
 import AddGameForm from "./AddGameForm";
 import Scoreboard from "./Scoreboard";
 import Season from "./Season";
 import CurrentGameList from "./CurrentGameList";
 import SeasonPage from "./SeasonPage";
+import Button from "./Button";
+import PlayPauseToggle from "./PlayPauseToggle";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -47,6 +48,7 @@ export default class App extends React.Component {
   }
 
   onToggleChange() {
+    console.log("playPauseToggle" + this.state.playPauseToggle);
     if (!this.state.playPauseToggle) {
       fetch("http://localhost:8080/game/playGames");
       this.setGetGamesInterval();
@@ -77,6 +79,9 @@ export default class App extends React.Component {
             this.setState({ displayGameIndex: index })
           }
         />
+        <Button onChange={this.onToggleChange} style={{ display: "none" }}>
+          {this.state.playPauseToggle ? "ON" : "OFF"}
+        </Button>
         <PlayPauseToggle
           toggleValue={this.state.playPauseToggle}
           onChange={this.onToggleChange}

@@ -18,7 +18,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
       .then((gamesResult) => {
         setGames(gamesResult.list);
       });
-  });
+  }, [props.seasonId]);
 
   return (
     <table className="SeasonGameList">

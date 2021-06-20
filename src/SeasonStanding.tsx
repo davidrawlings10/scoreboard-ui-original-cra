@@ -16,7 +16,7 @@ export default function SeasonStanding(props: SeasonStandingProps) {
       .then((standingsResult) => {
         setStandings(standingsResult.list);
       });
-  });
+  }, [props.seasonId]);
 
   function calculatedPointPercentage(point: number, gp: number) {
     if (point === 0 || gp === 0) {
