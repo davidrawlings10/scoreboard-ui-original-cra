@@ -4,7 +4,7 @@ import AddGameForm from "./AddGameForm";
 import Scoreboard from "./Scoreboard";
 import Season from "./Season";
 import CurrentGameList from "./CurrentGameList";
-import SeasonPage from "./SeasonPage";
+import SeasonPage from "./SeasonPageComponent";
 import Button from "./Button";
 import PlayPauseToggle from "./PlayPauseToggle";
 
