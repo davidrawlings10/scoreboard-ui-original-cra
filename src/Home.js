@@ -1,6 +1,6 @@
 import React from "react";
 import "./Home.css";
-import AddGameForm from "./AddGameForm";
+import AddGameForm from "./AddGameFormComponent";
 import Scoreboard from "./Scoreboard";
 import Season from "./Season";
 import CurrentGameList from "./CurrentGameList";
