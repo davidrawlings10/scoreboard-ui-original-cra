@@ -25,7 +25,7 @@ export default class SeasonPage extends React.Component {
 
   scheduleNewSeason() {
     fetch(
-      "http://localhost:8080/season/schedule?scheduleType=ROUNDS&sport=HOCKEY&leagueId=2&numGames=4"
+      "http://localhost:8080/season/schedule?scheduleType=ROUNDS&sport=HOCKEY&leagueId=1&numGames=12"
     );
     /*fetch(
       "http://localhost:8080/season/schedule?scheduleType=HOME_ROTATION&sport=HOCKEY&leagueId=2"
