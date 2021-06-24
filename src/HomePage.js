@@ -1,10 +1,7 @@
 import React from "react";
-import "./Home.css";
-import AddGameForm from "./AddGameForm";
 import Scoreboard from "./Scoreboard";
 import Season from "./Season";
 import CurrentGameList from "./CurrentGameList";
-import SeasonPage from "./SeasonPageComponent";
 import Button from "./Components/Button";
 import PlayPauseToggle from "./PlayPauseToggle";
 
@@ -100,8 +97,6 @@ export default class App extends React.Component {
           }
         />
         <div style={{ marginTop: 100 }}></div>
-        <SeasonPage />
-        <AddGameForm />
       </div>
     );
   }
