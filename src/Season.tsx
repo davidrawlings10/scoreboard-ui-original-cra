@@ -1,7 +1,7 @@
 import React from "react";
 import SeasonStanding from "./SeasonStanding";
 import SeasonGameList from "./SeasonGameList";
-import Button from "./Button";
+import Button from "./Components/Button";
 import "./Season.css";
 
 export type SeasonProps = {

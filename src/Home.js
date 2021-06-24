@@ -5,7 +5,7 @@ import Scoreboard from "./Scoreboard";
 import Season from "./Season";
 import CurrentGameList from "./CurrentGameList";
 import SeasonPage from "./SeasonPageComponent";
-import Button from "./Button";
+import Button from "./Components/Button";
 import PlayPauseToggle from "./PlayPauseToggle";
 
 export default class App extends React.Component {
