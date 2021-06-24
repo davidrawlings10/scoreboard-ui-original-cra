@@ -1,18 +1,33 @@
 import React from "react";
 import Game from "./Domain/Game";
 
-export interface ClockDisplayProps {
+export type ClockDisplayProps = {
   game: Game;
-}
+};
 
-export default class ClockDisplay extends React.Component<ClockDisplayProps> {
-  render() {
-    const { game } = this.props;
+export default function ClockDisplay(props: ClockDisplayProps) {
+  const { game } = props;
+
+  if (game.status === "FINAL") {
     return (
       <span>
-        {game.clock.final ? "Final" : ""} {game.clock.minutes}:
-        {("0" + game.clock.seconds).slice(-2)} {game.clock.period}{" "}
-        {game.clock.intermission ? "Intermission" : "Period"}
+        Final {game.endingPeriod > 3 ? game.endingPeriod - 3 + "OT" : ""}
+      </span>
+    );
+  }
+
+  if (game.clock.intermission) {
+    return (
+      <span>
+        {game.clock.minutes}:{("0" + game.clock.seconds).slice(-2)}{" "}
+        {game.clock.period} Intermission
+      </span>
+    );
+  } else {
+    return (
+      <span>
+        {game.clock.minutes}:{("0" + game.clock.seconds).slice(-2)}{" "}
+        {game.clock.period} Period
       </span>
     );
   }
