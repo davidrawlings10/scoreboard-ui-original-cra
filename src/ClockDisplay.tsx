@@ -5,15 +5,25 @@ export type ClockDisplayProps = {
   game: Game;
 };
 
+function getFinalText(endingPeriod: number) {
+  let displayText = "Final ";
+
+  if (endingPeriod >= 5) {
+    displayText += endingPeriod - 3;
+  }
+
+  if (endingPeriod >= 4) {
+    displayText += "OT";
+  }
+
+  return displayText;
+}
+
 export default function ClockDisplay(props: ClockDisplayProps) {
   const { game } = props;
 
   if (game.status === "FINAL") {
-    return (
-      <span>
-        Final {game.endingPeriod > 3 ? game.endingPeriod - 3 + "OT" : ""}
-      </span>
-    );
+    return <span>{getFinalText(game.endingPeriod)}</span>;
   }
 
   if (game.clock.intermission) {
