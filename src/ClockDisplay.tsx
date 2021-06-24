@@ -1,4 +1,4 @@
-import Game from "./Domain/Game";
+import Game from "./Entity/Game";
 
 export type ClockDisplayProps = {
   game: Game;

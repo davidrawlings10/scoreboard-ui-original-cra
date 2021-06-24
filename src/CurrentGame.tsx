@@ -2,7 +2,7 @@ import React from "react";
 import "./CurrentGame.css";
 import TeamDisplay from "./TeamDisplay";
 import ClockDisplay from "./ClockDisplay";
-import Game from "./Domain/Game";
+import Game from "./Entity/Game";
 
 // keeping this as an example of a class component in tsx
 

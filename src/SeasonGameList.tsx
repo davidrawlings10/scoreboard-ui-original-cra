@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./SeasonGameList.css";
 import TeamDisplay from "./TeamDisplay";
-import Game from "./Domain/Game";
+import Game from "./Entity/Game";
 import { getFinalText } from "./ClockDisplay";
 
 export type SeasonGameListProps = {
