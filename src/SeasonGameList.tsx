@@ -63,7 +63,9 @@ export default function SeasonGameList(props: SeasonGameListProps) {
             >
               {game.awayScore}
             </td>
-            <td>{getFinalText(game.endingPeriod)}</td>
+            <td>
+              {game.status === "FINAL" ? getFinalText(game.endingPeriod) : ""}
+            </td>
           </tr>
         ))}
       </tbody>
