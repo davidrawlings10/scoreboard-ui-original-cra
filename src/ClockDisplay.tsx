@@ -1,11 +1,10 @@
-import React from "react";
 import Game from "./Domain/Game";
 
 export type ClockDisplayProps = {
   game: Game;
 };
 
-function getFinalText(endingPeriod: number) {
+export function getFinalText(endingPeriod: number) {
   let displayText = "Final ";
 
   if (endingPeriod >= 5) {

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./SeasonGameList.css";
 import TeamDisplay from "./TeamDisplay";
 import Game from "./Domain/Game";
+import { getFinalText } from "./ClockDisplay";
 
 export type SeasonGameListProps = {
   seasonId: number;
@@ -34,15 +35,35 @@ export default function SeasonGameList(props: SeasonGameListProps) {
       <tbody>
         {games.map((game) => (
           <tr key={game.id}>
-            <td>
+            <td
+              className={
+                game.homeScore > game.awayScore ? "WinningTeamColor" : ""
+              }
+            >
               <TeamDisplay id={game.homeTeamId} />
             </td>
-            <td>{game.homeScore}</td>
-            <td>
+            <td
+              className={
+                game.homeScore > game.awayScore ? "WinningTeamColor" : ""
+              }
+            >
+              {game.homeScore}
+            </td>
+            <td
+              className={
+                game.homeScore < game.awayScore ? "WinningTeamColor" : ""
+              }
+            >
               <TeamDisplay id={game.awayTeamId} />
             </td>
-            <td>{game.awayScore}</td>
-            <td>{game.endingPeriod}</td>
+            <td
+              className={
+                game.homeScore < game.awayScore ? "WinningTeamColor" : ""
+              }
+            >
+              {game.awayScore}
+            </td>
+            <td>{getFinalText(game.endingPeriod)}</td>
           </tr>
         ))}
       </tbody>
