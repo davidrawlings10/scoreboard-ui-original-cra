@@ -31,12 +31,12 @@ export default function Season(props: SeasonProps) {
 
   return (
     <div>
-      <SeasonStanding seasonId={props.seasonId} />
-      <SeasonGameList seasonId={props.seasonId} />
-      <Button onClick={playSeasonGame}>Play Season Game</Button>
+      <Button onClick={playSeasonGame}>Play Next Season Game</Button>
       <Button onClick={setSeasonNumOfGamesToPlay}>
         Set Season Num Of Game To Play
       </Button>
+      <SeasonStanding seasonId={props.seasonId} />
+      <SeasonGameList seasonId={props.seasonId} />
     </div>
   );
 }
