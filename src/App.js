@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Header from "./Header";
 import HomePage from "./HomePage";
 import SeasonPage from "./SeasonPage";
@@ -6,17 +5,20 @@ import AddGameForm from "./AddGameForm";
 import "./App.css";
 
 const App = (props) => {
-  const [displayElementIndex, setDisplayElementIndex] = useState(0);
+  const url = window.location.href;
+  const domain = "http://localhost:3000";
+
+  let path = "";
+  if (url.indexOf(domain) === 0) {
+    path = url.substr(domain.length);
+  }
 
   let displayElement = "";
-  switch (displayElementIndex) {
-    case 0:
-      displayElement = <HomePage />;
-      break;
-    case 1:
+  switch (path) {
+    case "/season":
       displayElement = <SeasonPage />;
       break;
-    case 2:
+    case "/addGame":
       displayElement = <AddGameForm />;
       break;
     default:
@@ -24,7 +26,12 @@ const App = (props) => {
       break;
   }
 
-  return <div className="App">{displayElement}</div>;
+  return (
+    <div className="App">
+      <Header />
+      {displayElement}
+    </div>
+  );
 };
 
 export default App;

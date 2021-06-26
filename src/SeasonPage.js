@@ -9,12 +9,6 @@ export default function SeasonPage(props) {
   const [seasonId, setSeasonId] = useState(1);
   const [seasons, setSeasons] = useState([]);
 
-  useEffect(() =>
-    fetch("http://localhost:8080/season/getSeasons")
-      .then((res) => res.json())
-      .then((json) => setSeasons(json.list))
-  );
-
   function scheduleNewSeason() {
     fetch(
       "http://localhost:8080/season/schedule?scheduleType=ROUNDS&sport=HOCKEY&leagueId=2&numGames=4"
@@ -25,17 +19,18 @@ export default function SeasonPage(props) {
   }
 
   function handleSeasonChange(event) {
-    const value = event.target.value;
-    const name = event.target.name;
-
-    console.log("handleSeasonChange():" + value);
-
-    if (name === "seasonId") {
-      setSeasonId(value);
+    if (event.target.name === "seasonId") {
+      setSeasonId(event.target.value);
     }
-
-    // this.setState({ [name]: value });
   }
+
+  useEffect(
+    () =>
+      fetch("http://localhost:8080/season/getSeasons")
+        .then((res) => res.json())
+        .then((json) => setSeasons(json.list)),
+    []
+  );
 
   return (
     <div>
