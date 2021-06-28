@@ -1,5 +1,7 @@
 export default interface Game {
   id: number;
+  created: any;
+  updated: any;
   seasonId: number;
   homeTeamId: number;
   awayTeamId: number;

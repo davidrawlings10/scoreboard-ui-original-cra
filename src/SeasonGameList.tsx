@@ -3,6 +3,9 @@ import "./SeasonGameList.css";
 import TeamDisplay from "./TeamDisplay";
 import Game from "./Entity/Game";
 import { getFinalText } from "./ClockDisplay";
+/*import { createChainedFunction } from "@material-ui/core";
+import AddGameForm from "./AddGameForm";*/
+import { getDateString } from "./DateUtil";
 
 export type SeasonGameListProps = {
   seasonId: number;
@@ -30,44 +33,60 @@ export default function SeasonGameList(props: SeasonGameListProps) {
           <th>Away</th>
           <th></th>
           <th></th>
+          <th>Created</th>
         </tr>
       </thead>
       <tbody>
-        {games.map((game) => (
-          <tr key={game.id}>
-            <td
-              className={
-                game.homeScore > game.awayScore ? "WinningTeamColor" : ""
-              }
-            >
-              <TeamDisplay id={game.homeTeamId} />
-            </td>
-            <td
-              className={
-                game.homeScore > game.awayScore ? "WinningTeamColor" : ""
-              }
-            >
-              {game.homeScore}
-            </td>
-            <td
-              className={
-                game.homeScore < game.awayScore ? "WinningTeamColor" : ""
-              }
-            >
-              <TeamDisplay id={game.awayTeamId} />
-            </td>
-            <td
-              className={
-                game.homeScore < game.awayScore ? "WinningTeamColor" : ""
-              }
-            >
-              {game.awayScore}
-            </td>
-            <td>
-              {game.status === "FINAL" ? getFinalText(game.endingPeriod) : ""}
-            </td>
-          </tr>
-        ))}
+        {games.map((game) => {
+          return (
+            <tr key={game.id}>
+              <td
+                className={
+                  game.homeScore > game.awayScore ? "WinningTeamColor" : ""
+                }
+              >
+                <TeamDisplay id={game.homeTeamId} />
+              </td>
+              <td
+                className={
+                  game.homeScore > game.awayScore ? "WinningTeamColor" : ""
+                }
+              >
+                {game.homeScore}
+              </td>
+              <td
+                className={
+                  game.homeScore < game.awayScore ? "WinningTeamColor" : ""
+                }
+              >
+                <TeamDisplay id={game.awayTeamId} />
+              </td>
+              <td
+                className={
+                  game.homeScore < game.awayScore ? "WinningTeamColor" : ""
+                }
+              >
+                {game.awayScore}
+              </td>
+              <td>
+                {game.status === "FINAL" ? getFinalText(game.endingPeriod) : ""}
+              </td>
+              <td>
+                {
+                  /* new Date(1624854854000).toLocaleString("en-US", { timeZone: "America/Los_Angeles",}) 
+                  this works but looks off 7 hours 
+
+                  */
+                  getDateString(
+                    new Date(game.updated) /*.toLocaleString("en-US", {
+                    timeZone: "America/Chicago",
+                  })*/
+                  )
+                }
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
