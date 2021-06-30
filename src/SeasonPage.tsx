@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import Season from "./Season";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
 import Button from "./Components/Button";
+import SeasonEntity from "./Entity/SeasonEntity";
 
 // this actually compiles okay, but the results didn't look acceptable in the ui.
 
-export default function SeasonPage(props) {
+export default function SeasonPage() {
   const [seasonId, setSeasonId] = useState(1);
-  const [seasons, setSeasons] = useState([]);
+  const [seasons, setSeasons] = useState(Array<SeasonEntity>());
 
   function scheduleNewSeason() {
     fetch(
@@ -18,19 +19,17 @@ export default function SeasonPage(props) {
     );*/
   }
 
-  function handleSeasonChange(event) {
-    if (event.target.name === "seasonId") {
+  function handleSeasonChange(event: React.ChangeEvent<any>) {
+    if ((event.target.name as string) === "seasonId") {
       setSeasonId(event.target.value);
     }
   }
 
-  useEffect(
-    () =>
-      fetch("http://localhost:8080/season/getSeasons")
-        .then((res) => res.json())
-        .then((json) => setSeasons(json.list)),
-    []
-  );
+  useEffect(() => {
+    fetch("http://localhost:8080/season/getSeasons")
+      .then((res) => res.json())
+      .then((json) => setSeasons(json.list));
+  });
 
   return (
     <div>

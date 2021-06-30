@@ -33,7 +33,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
           <th>Away</th>
           <th></th>
           <th></th>
-          <th>Created</th>
+          <th>Played</th>
         </tr>
       </thead>
       <tbody>
