@@ -21,6 +21,8 @@ export interface AddGameFormState {
   teams: Array<Team>;
 }
 
+// keeping this as an example of a class component
+
 export default class AddGameForm extends React.Component<
   AddGameFormProps,
   AddGameFormState

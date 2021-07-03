@@ -2,7 +2,7 @@ import React from "react";
 import Button, { ButtonProps } from "./Components/Button";
 
 export type PlayPauseToggleProps = {
-  toggleValue: string;
+  toggleValue: boolean;
   onChange: () => void;
 };
 

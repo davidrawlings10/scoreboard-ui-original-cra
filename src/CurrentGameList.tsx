@@ -6,7 +6,7 @@ import Game from "./Entity/Game";
 // keeping this as an example of a class component in tsx
 
 export interface CurrentGameListProps {
-  games: Array<Game>;
+  games: Array<Game> | null;
   updateDisplayIndex: (index: number) => void;
 }
 
