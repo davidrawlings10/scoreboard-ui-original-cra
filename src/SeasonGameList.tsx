@@ -72,17 +72,15 @@ export default function SeasonGameList(props: SeasonGameListProps) {
                 {game.status === "FINAL" ? getFinalText(game.endingPeriod) : ""}
               </td>
               <td>
-                {
-                  /* new Date(1624854854000).toLocaleString("en-US", { timeZone: "America/Los_Angeles",}) 
+                {/* new Date(1624854854000).toLocaleString("en-US", { timeZone: "America/Los_Angeles",}) 
                   this works but looks off 7 hours 
 
                   */
-                  getDateString(
-                    new Date(game.updated) /*.toLocaleString("en-US", {
+                /*getDateString(
+                    new Date(game.updated))*/
+                /*.toLocaleString("en-US", {
                     timeZone: "America/Chicago",
-                  })*/
-                  )
-                }
+                  })*/}
               </td>
             </tr>
           );
