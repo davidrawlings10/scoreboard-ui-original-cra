@@ -1,7 +1,7 @@
+// keeping this as my example of a class component in js
+
 import React from "react";
 import { searchCacheForTeam, cacheTeam } from "./TeamDisplayCache";
-
-// keeping this as my example of a class component in js
 
 export default class TeamDisplay extends React.Component {
   constructor(props) {

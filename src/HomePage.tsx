@@ -5,6 +5,7 @@ import CurrentGameList from "./CurrentGameList";
 import Button from "./Components/Button";
 import PlayPauseToggle from "./PlayPauseToggle";
 import Game from "./Entity/Game";
+import TickMilliInput from "./TickMilliInput";
 
 export type HomeProps = {
   playPauseToggle: Boolean;
@@ -25,16 +26,26 @@ export default function App(props: HomeProps) {
     return function cleanup() {
       clearGetGamesInterval();
     };
-  });
+  }, []);
 
   let timerId: any;
 
   function setGetGamesInterval() {
-    timerId = setInterval(() => getGames(), 500);
+    timerId = setInterval(() => getGames(), 1000);
+    console.log("timerId:" + timerId);
   }
 
   function clearGetGamesInterval() {
     clearInterval(timerId);
+    console.log("timerId:" + timerId);
+  }
+
+  function updateGetGamesInterval(ms: number) {
+    console.log("timerId:" + timerId);
+    console.log("updateGetGamesInterval" + ms);
+    clearInterval(timerId);
+    timerId = setInterval(() => getGames(), ms);
+    console.log("timerId:" + timerId);
   }
 
   function getGames() {
@@ -71,6 +82,7 @@ export default function App(props: HomeProps) {
         toggleValue={playPauseToggle}
         onChange={onToggleChange}
       />
+      <TickMilliInput updateGetGamesInterval={updateGetGamesInterval} />
       <Scoreboard
         game={
           currentGames != null && currentGames.length > 0

@@ -3,9 +3,7 @@ import "./SeasonGameList.css";
 import TeamDisplay from "./TeamDisplay";
 import Game from "./Entity/Game";
 import { getFinalText } from "./ClockDisplay";
-/*import { createChainedFunction } from "@material-ui/core";
-import AddGameForm from "./AddGameForm";*/
-import { getDateString } from "./DateUtil";
+// import { getDateString } from "./DateUtil";
 
 export type SeasonGameListProps = {
   seasonId: number;

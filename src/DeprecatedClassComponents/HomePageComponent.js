@@ -1,20 +1,15 @@
 import React from "react";
-import Scoreboard from "./Scoreboard";
-import Season from "./Season";
-import CurrentGameList from "./CurrentGameList";
-import Button from "./Components/Button";
-import PlayPauseToggle from "./PlayPauseToggle";
-import Game from "./Entity/Game";
+import "./Home.css";
+import AddGameForm from "./AddGameFormComponent";
+import Scoreboard from "../Scoreboard";
+import Season from "../Season";
+import CurrentGameList from "../CurrentGameList";
+import SeasonPage from "../SeasonPage";
+import Button from "./Button";
+import PlayPauseToggle from "../PlayPauseToggle";
 
-export type AppProps = {
-  playPauseToggle: Boolean;
-  currentGames: Array<Game>;
-  displayGameIndex: number;
-  seasonId: number;
-};
-
-export default function App(props: AppsProps) {
-  constructor(props: AppProps) {
+export default class App extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
       playPauseToggle: true,
@@ -37,11 +32,11 @@ export default function App(props: AppsProps) {
   }
 
   setGetGamesInterval() {
-    this.timerId = setInterval(() => this.getGames(), 500);
+    this.timerId = setInterval(() => this.getGames(), 1000);
   }
 
   clearGetGamesInterval() {
-    clearInterval(this.timerId, 500);
+    clearInterval(this.timerId, 1000);
   }
 
   getGames() {
@@ -105,6 +100,8 @@ export default function App(props: AppsProps) {
           }
         />
         <div style={{ marginTop: 100 }}></div>
+        <SeasonPage />
+        <AddGameForm />
       </div>
     );
   }
