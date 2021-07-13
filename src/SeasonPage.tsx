@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import SeasonDisplay from "./SeasonDisplay";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
 import Button from "./Components/Button";
-import SeasonEntity from "./Entity/SeasonEntity";
+import Season from "./Entity/Season";
 
 // this actually compiles okay, but the results didn't look acceptable in the ui.
 
 export default function SeasonPage() {
   const [seasonId, setSeasonId] = useState(1);
-  const [seasons, setSeasons] = useState(Array<SeasonEntity>());
+  const [seasons, setSeasons] = useState(Array<Season>());
 
   function scheduleNewSeason() {
     fetch(
