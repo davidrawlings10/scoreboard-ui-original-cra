@@ -1,6 +1,6 @@
 const Header = (props) => {
   return (
-    <>
+    <div className="Header">
       <span style={{ padding: 10 }}>
         <a href="http://localhost:3000">Home</a>
       </span>
@@ -10,7 +10,7 @@ const Header = (props) => {
       <span style={{ padding: 10 }}>
         <a href="http://localhost:3000/addGame">Add Game</a>
       </span>
-    </>
+    </div>
   );
 };
 

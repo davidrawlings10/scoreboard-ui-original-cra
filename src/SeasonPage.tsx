@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Season from "./Season";
+import SeasonDisplay from "./SeasonDisplay";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
 import Button from "./Components/Button";
 import SeasonEntity from "./Entity/SeasonEntity";
@@ -46,7 +46,7 @@ export default function SeasonPage() {
           <MenuItem value={season.id}>{season.title}</MenuItem>
         ))}
       </Select>
-      <Season seasonId={seasonId} />
+      <SeasonDisplay seasonId={seasonId} />
     </div>
   );
 }

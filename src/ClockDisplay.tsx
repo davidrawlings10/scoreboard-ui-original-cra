@@ -1,8 +1,4 @@
-import Game from "./Entity/Game";
-
-export type ClockDisplayProps = {
-  game: Game;
-};
+import Game, { Clock } from "./Entity/Game";
 
 export function getFinalText(endingPeriod: number) {
   let displayText = "Final ";
@@ -18,6 +14,28 @@ export function getFinalText(endingPeriod: number) {
   return displayText;
 }
 
+function TimeDisplay(props: Clock) {
+  return props.minutes + ":" + ("0" + props.seconds).slice(-2);
+}
+
+function PeriodDisplay(props: number) {
+  if (props >= 11 && props < 20) {
+    return props + "th";
+  } else if (props % 10 === 1) {
+    return props + "st";
+  } else if (props % 10 === 2) {
+    return props + "nd";
+  } else if (props % 10 === 3) {
+    return props + "rd";
+  } else {
+    return props + "th";
+  }
+}
+
+export type ClockDisplayProps = {
+  game: Game;
+};
+
 export default function ClockDisplay(props: ClockDisplayProps) {
   const { game } = props;
 
@@ -28,15 +46,13 @@ export default function ClockDisplay(props: ClockDisplayProps) {
   if (game.clock.intermission) {
     return (
       <span>
-        {game.clock.minutes}:{("0" + game.clock.seconds).slice(-2)}{" "}
-        {game.clock.period} Intermission
+        {PeriodDisplay(game.clock.period)} starts in {TimeDisplay(game.clock)}
       </span>
     );
   } else {
     return (
       <span>
-        {game.clock.minutes}:{("0" + game.clock.seconds).slice(-2)}{" "}
-        {game.clock.period} Period
+        {TimeDisplay(game.clock)} {PeriodDisplay(game.clock.period)}
       </span>
     );
   }

@@ -27,7 +27,7 @@ export default function SeasonStanding(props: SeasonStandingProps) {
   }
 
   return (
-    <>
+    <div className="Container">
       <table className="Standing">
         <thead>
           <tr>
@@ -88,6 +88,6 @@ export default function SeasonStanding(props: SeasonStandingProps) {
         Tiebreaker decided by Points, Wins, Goal Diff, Goals For, Head to head
         outcome, Two game playoff
       </div>
-    </>
+    </div>
   );
 }

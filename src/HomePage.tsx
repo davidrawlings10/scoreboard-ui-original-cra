@@ -1,6 +1,6 @@
 import React from "react";
 import Scoreboard from "./Scoreboard";
-import Season from "./Season";
+import SeasonDisplay from "./SeasonDisplay";
 import CurrentGameList from "./CurrentGameList";
 import Button from "./Components/Button";
 import PlayPauseToggle from "./PlayPauseToggle";
@@ -75,14 +75,16 @@ export default function App(props: HomeProps) {
         }
         updateDisplayIndex={(index) => setDisplayGameIndex(index)}
       />
-      <Button onChange={onToggleChange} style={{ display: "none" }}>
-        {playPauseToggle ? "ON" : "OFF"}
-      </Button>
-      <PlayPauseToggle
-        toggleValue={playPauseToggle}
-        onChange={onToggleChange}
-      />
-      <TickMilliInput updateGetGamesInterval={updateGetGamesInterval} />
+      <div className="ControlsContainer">
+        <Button onChange={onToggleChange} style={{ display: "none" }}>
+          {playPauseToggle ? "ON" : "OFF"}
+        </Button>
+        <PlayPauseToggle
+          toggleValue={playPauseToggle}
+          onChange={onToggleChange}
+        />
+        <TickMilliInput updateGetGamesInterval={updateGetGamesInterval} />
+      </div>
       <Scoreboard
         game={
           currentGames != null && currentGames.length > 0
@@ -90,7 +92,7 @@ export default function App(props: HomeProps) {
             : null
         }
       />
-      <Season seasonId={currentGames[displayGameIndex]?.seasonId} />
+      <SeasonDisplay seasonId={currentGames[displayGameIndex]?.seasonId} />
       <div style={{ marginTop: 100 }}></div>
     </div>
   );

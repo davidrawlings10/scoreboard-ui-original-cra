@@ -1,5 +1,5 @@
 import React from "react";
-import Season from "../Season";
+import Season from "../SeasonDisplay";
 import { Button, Select, InputLabel, MenuItem } from "@material-ui/core";
 
 export default class SeasonPage extends React.Component {

@@ -13,7 +13,7 @@ export default interface Game {
   clock: Clock;
 }
 
-interface Clock {
+export interface Clock {
   minutes: number;
   seconds: number;
   period: number;

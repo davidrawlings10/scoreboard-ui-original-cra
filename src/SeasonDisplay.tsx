@@ -1,14 +1,13 @@
-import React from "react";
 import SeasonStanding from "./SeasonStanding";
 import SeasonGameList from "./SeasonGameList";
 import Button from "./Components/Button";
-import "./Season.css";
+import "./SeasonDisplay.css";
 
 export type SeasonProps = {
   seasonId: number;
 };
 
-export default function Season(props: SeasonProps) {
+export default function SeasonDisplay(props: SeasonProps) {
   function playSeasonGame() {
     console.log("startSeasonGame()");
     fetch(

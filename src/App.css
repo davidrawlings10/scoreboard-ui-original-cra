@@ -1,5 +1,9 @@
 .App {
   background-color: #ccccdd;
   min-height: 100vh;
-  color: white;
+}
+
+.Container {
+  width: 98%;
+  margin: auto;
 }

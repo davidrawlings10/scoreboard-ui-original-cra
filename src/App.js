@@ -28,8 +28,10 @@ const App = (props) => {
 
   return (
     <div className="App">
-      <Header />
-      {displayElement}
+      <div className="Container">
+        <Header />
+        {displayElement}
+      </div>
     </div>
   );
 };
