@@ -1,7 +1,7 @@
 import React from "react";
 import "./Home.css";
 import AddGameForm from "./AddGameFormComponent";
-import Scoreboard from "../Scoreboard";
+import Scoreboard from "./ScoreboardComponent";
 import Season from "../SeasonDisplay";
 import CurrentGameList from "../CurrentGameList";
 import SeasonPage from "../SeasonPage";
