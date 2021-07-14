@@ -1,4 +1,6 @@
-const Header = (props) => {
+export type HeaderProps = {};
+
+const Header = (props: HeaderProps) => {
   return (
     <div className="Header">
       <span style={{ padding: 10 }}>

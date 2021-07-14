@@ -4,10 +4,7 @@ import "./AddGameForm.css";
 
 // keeping this as an example of a class component in tsx
 
-export interface AddGameFormProps {
-  onSubmit: () => void;
-  onChange: () => void;
-}
+export interface AddGameFormProps {}
 
 interface Team {
   id: number;

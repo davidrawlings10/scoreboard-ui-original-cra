@@ -4,7 +4,9 @@ import SeasonPage from "./SeasonPage";
 import AddGameForm from "./AddGameForm";
 import "./App.css";
 
-const App = (props) => {
+export type AppProps = {};
+
+const App = (props: AppProps) => {
   const url = window.location.href;
   const domain = "http://localhost:3000";
 
@@ -13,7 +15,7 @@ const App = (props) => {
     path = url.substr(domain.length);
   }
 
-  let displayElement = "";
+  let displayElement: any = null;
   switch (path) {
     case "/season":
       displayElement = <SeasonPage />;

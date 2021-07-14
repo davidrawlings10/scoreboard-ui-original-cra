@@ -7,12 +7,7 @@ import PlayPauseToggle from "./PlayPauseToggle";
 import Game from "./Entity/Game";
 import TickMilliInput from "./TickMilliInput";
 
-export type HomeProps = {
-  playPauseToggle: Boolean;
-  currentGames: Array<Game>;
-  displayGameIndex: number;
-  seasonId: number;
-};
+export type HomeProps = {};
 
 export default function App(props: HomeProps) {
   const [playPauseToggle, setPlayPauseToggle] = React.useState(true);

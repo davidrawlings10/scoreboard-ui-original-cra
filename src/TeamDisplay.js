@@ -1,4 +1,4 @@
-// keeping this as my example of a class component in js
+// keeping this as an example of js
 
 import React from "react";
 import { searchCacheForTeam, cacheTeam } from "./TeamDisplayCache";
