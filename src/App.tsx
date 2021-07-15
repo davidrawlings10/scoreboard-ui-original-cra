@@ -2,9 +2,14 @@ import Header from "./Header";
 import HomePage from "./HomePage";
 import SeasonPage from "./SeasonPage";
 import AddGameForm from "./AddGameForm";
+import styled from "styled-components";
 import "./App.css";
 
 export type AppProps = {};
+
+const Div = styled.div`
+  background-color: white;
+`;
 
 const App = (props: AppProps) => {
   const url = window.location.href;
@@ -21,7 +26,11 @@ const App = (props: AppProps) => {
       displayElement = <SeasonPage />;
       break;
     case "/addGame":
-      displayElement = <AddGameForm />;
+      displayElement = (
+        <Div>
+          <AddGameForm />
+        </Div>
+      );
       break;
     default:
       displayElement = <HomePage />;
