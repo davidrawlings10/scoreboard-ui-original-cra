@@ -1,8 +1,13 @@
 import React from "react";
 import { Select, InputLabel, MenuItem, Input } from "@material-ui/core";
+import styled from "styled-components";
 import "./AddGameForm.css";
 
 // keeping this as an example of a class component in tsx
+
+const Div = styled.form`
+  background-color: white;
+`;
 
 export interface AddGameFormProps {}
 
@@ -70,37 +75,39 @@ export default class AddGameForm extends React.Component<
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <InputLabel id="labelHome">Home Team</InputLabel>
-        <Select
-          labelId="label"
-          id="selectHome"
-          name="homeTeamId"
-          value={this.state.homeTeamId}
-          onChange={this.handleChange}
-        >
-          {this.state.teams.map((team) => (
-            <MenuItem value={team.id}>
-              {team.location + " " + team.name}
-            </MenuItem>
-          ))}
-        </Select>
-        <InputLabel id="labelAway">Away Team</InputLabel>
-        <Select
-          labelId="label"
-          id="selectAway"
-          name="awayTeamId"
-          value={this.state.awayTeamId}
-          onChange={this.handleChange}
-        >
-          {this.state.teams.map((team) => (
-            <MenuItem value={team.id}>
-              {team.location + " " + team.name}
-            </MenuItem>
-          ))}
-        </Select>
-        <Input type="submit" value="Submit" />
-      </form>
+      <Div>
+        <form onSubmit={this.handleSubmit}>
+          <InputLabel id="labelHome">Home Team</InputLabel>
+          <Select
+            labelId="label"
+            id="selectHome"
+            name="homeTeamId"
+            value={this.state.homeTeamId}
+            onChange={this.handleChange}
+          >
+            {this.state.teams.map((team) => (
+              <MenuItem value={team.id}>
+                {team.location + " " + team.name}
+              </MenuItem>
+            ))}
+          </Select>
+          <InputLabel id="labelAway">Away Team</InputLabel>
+          <Select
+            labelId="label"
+            id="selectAway"
+            name="awayTeamId"
+            value={this.state.awayTeamId}
+            onChange={this.handleChange}
+          >
+            {this.state.teams.map((team) => (
+              <MenuItem value={team.id}>
+                {team.location + " " + team.name}
+              </MenuItem>
+            ))}
+          </Select>
+          <Input type="submit" value="Submit" />
+        </form>
+      </Div>
     );
   }
 }

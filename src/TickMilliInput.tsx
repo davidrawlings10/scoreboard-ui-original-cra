@@ -6,7 +6,14 @@ const Span = styled.span`
 `;
 
 const TickMillisecondsText = styled.span`
+  color: white;
   margin: 0px 5px 0px 5px;
+`;
+
+const Input = styled.input`
+  height: 30px;
+  width: 100px;
+  border-radius: 6px;
 `;
 
 type TickMilliInputProps = {
@@ -28,7 +35,7 @@ export default function TickMilliInput(props: TickMilliInputProps) {
   return (
     <Span>
       <TickMillisecondsText>Tick Milliseconds</TickMillisecondsText>
-      <input
+      <Input
         value={tickMilli}
         onChange={handleChange}
         type="text"

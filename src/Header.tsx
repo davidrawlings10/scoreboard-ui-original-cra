@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 const Div = styled.div`
   margin: 10px 0px 10px 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #00003b;
 `;
 
 const Span = styled.span`

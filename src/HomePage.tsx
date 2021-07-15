@@ -5,6 +5,7 @@ import CurrentGameList from "./CurrentGameList";
 import Button from "./Components/Button";
 import Game from "./Entity/Game";
 import TickMilliInput from "./TickMilliInput";
+import styled from "styled-components";
 
 export type HomeProps = {};
 
@@ -57,6 +58,13 @@ export default function App(props: HomeProps) {
     setPlayPauseToggle(!playPauseToggle);
   }
 
+  const Div = styled.div`
+    background-color: #00003b;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  `;
+
   return (
     <div className="Home">
       <CurrentGameList
@@ -65,12 +73,12 @@ export default function App(props: HomeProps) {
         }
         updateDisplayIndex={(index) => setDisplayGameIndex(index)}
       />
-      <div>
+      <Div>
         <Button onClick={onToggleChange}>
           {playPauseToggle ? "ON" : "OFF"}
         </Button>
         <TickMilliInput updateGetGamesInterval={updateGetGamesInterval} />
-      </div>
+      </Div>
       <Scoreboard
         game={
           currentGames != null && currentGames.length > 0
