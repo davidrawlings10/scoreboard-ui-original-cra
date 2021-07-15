@@ -3,7 +3,6 @@ import Scoreboard from "./Scoreboard";
 import SeasonDisplay from "./SeasonDisplay";
 import CurrentGameList from "./CurrentGameList";
 import Button from "./Components/Button";
-import PlayPauseToggle from "./PlayPauseToggle";
 import Game from "./Entity/Game";
 import TickMilliInput from "./TickMilliInput";
 
@@ -27,20 +26,15 @@ export default function App(props: HomeProps) {
 
   function setGetGamesInterval() {
     timerId = setInterval(() => getGames(), 1000);
-    console.log("timerId:" + timerId);
   }
 
   function clearGetGamesInterval() {
     clearInterval(timerId);
-    console.log("timerId:" + timerId);
   }
 
   function updateGetGamesInterval(ms: number) {
-    console.log("timerId:" + timerId);
-    console.log("updateGetGamesInterval" + ms);
     clearInterval(timerId);
     timerId = setInterval(() => getGames(), ms);
-    console.log("timerId:" + timerId);
   }
 
   function getGames() {
@@ -52,6 +46,7 @@ export default function App(props: HomeProps) {
   }
 
   function onToggleChange() {
+    console.log("onToggleChange");
     if (!playPauseToggle) {
       fetch("http://localhost:8080/game/playGames");
       setGetGamesInterval();
@@ -70,14 +65,10 @@ export default function App(props: HomeProps) {
         }
         updateDisplayIndex={(index) => setDisplayGameIndex(index)}
       />
-      <div className="ControlsContainer">
-        <Button onChange={onToggleChange} style={{ display: "none" }}>
+      <div>
+        <Button onClick={onToggleChange}>
           {playPauseToggle ? "ON" : "OFF"}
         </Button>
-        <PlayPauseToggle
-          toggleValue={playPauseToggle}
-          onChange={onToggleChange}
-        />
         <TickMilliInput updateGetGamesInterval={updateGetGamesInterval} />
       </div>
       <Scoreboard

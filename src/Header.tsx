@@ -1,15 +1,14 @@
-// const styled = require("styled-components");
 import styled from "styled-components";
-
-export type HeaderProps = {};
-
-const Span = styled.span`
-  margin: 10px;
-`;
 
 const Div = styled.div`
   margin: 10px 0px 10px 0px;
 `;
+
+const Span = styled.span`
+  margin-right: 20px;
+`;
+
+export type HeaderProps = {};
 
 const Header = (props: HeaderProps) => {
   return (

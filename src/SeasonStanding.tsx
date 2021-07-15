@@ -27,7 +27,7 @@ export default function SeasonStanding(props: SeasonStandingProps) {
   }
 
   return (
-    <div className="Container">
+    <div className="SeasonStanding-Container">
       <table className="Standing">
         <thead>
           <tr>
