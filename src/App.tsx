@@ -2,12 +2,10 @@ import React from "react";
 import Header from "./Header";
 import HomePage from "./HomePage";
 import SeasonPage from "./SeasonPage";
-import AddGameForm from "./AddGameForm";
-import styled from "styled-components";
+import StartGameForm from "./StartGameForm";
 import { Tabs, Tab, AppBar, Box } from "@material-ui/core";
 import { Home, List, PlayArrow } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import "./App.css";
 
 /*const Div = styled.div`
   background-color: black;
@@ -77,7 +75,7 @@ const App = () => {
         <SeasonPage />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <AddGameForm />
+        <StartGameForm />
       </TabPanel>
     </div>
   );

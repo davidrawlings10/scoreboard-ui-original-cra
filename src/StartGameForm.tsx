@@ -3,17 +3,11 @@
 import React from "react";
 import { Select, InputLabel, MenuItem, Input } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
-import "./AddGameForm.css";
+import Team from "./Entity/Team";
 
-export interface AddGameFormProps {}
+export interface StartGameFormProps {}
 
-interface Team {
-  id: number;
-  location: string;
-  name: string;
-}
-
-export interface AddGameFormState {
+export interface StartGameFormState {
   homeTeamId: number;
   awayTeamId: number;
   teams: Array<Team>;
@@ -21,17 +15,17 @@ export interface AddGameFormState {
 
 // keeping this as an example of a class component
 
-export default class AddGameForm extends React.Component<
-  AddGameFormProps,
-  AddGameFormState
+export default class StartGameForm extends React.Component<
+  StartGameFormProps,
+  StartGameFormState
 > {
-  constructor(props: AddGameFormProps) {
+  constructor(props: StartGameFormProps) {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
 
-    const state: AddGameFormState = {
+    const state: StartGameFormState = {
       homeTeamId: 33,
       awayTeamId: 34,
       teams: [],
@@ -49,8 +43,6 @@ export default class AddGameForm extends React.Component<
   handleChange(event: React.ChangeEvent<any>) {
     const value = event.target.value;
     const name = event.target.name;
-
-    // this.setState({ [name]: value });
 
     if ((name as string) === "homeTeamId") {
       this.setState({ homeTeamId: value });

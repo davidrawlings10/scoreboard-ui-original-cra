@@ -18,7 +18,7 @@ const Div = styled.div`
 export type HomeProps = {};
 
 export default function App(props: HomeProps) {
-  const [playPauseToggle, setPlayPauseToggle] = React.useState(true);
+  const [playPauseToggle, setPlayPauseToggle] = React.useState(false);
   const [currentGames, setCurrentGames] = React.useState(Array<Game>());
   const [displayGameIndex, setDisplayGameIndex] = React.useState(0);
 

@@ -1,7 +1,7 @@
 import Header from "../Header";
 import HomePage from "../HomePage";
 import SeasonPage from "../SeasonPage";
-import AddGameForm from "../AddGameForm";
+import AddGameForm from "../StartGameForm";
 import "./App.css";
 
 const App = (props) => {
