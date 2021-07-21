@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
 import SeasonDisplay from "./SeasonDisplay";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "./Components/Button";
 import Season from "./Entity/Season";
 
-// this actually compiles okay, but the results didn't look acceptable in the ui.
+const useStyles = makeStyles({
+  root: {
+    color: "white",
+  },
+});
 
 export default function SeasonPage() {
   const [seasonId, setSeasonId] = useState(1);
@@ -31,16 +36,19 @@ export default function SeasonPage() {
       .then((json) => setSeasons(json.list));
   });
 
+  const classes = useStyles();
+
   return (
     <div>
       <Button onClick={scheduleNewSeason}>Schedule New Season</Button>
-      <InputLabel id="labelSeason">Season</InputLabel>
+      <InputLabel id="labelSeason" className={classes.root}>Season</InputLabel>
       <Select
         labelId="label"
         id="selectSeason"
         name="seasonId"
         value={seasonId}
         onChange={handleSeasonChange}
+        className={classes.root}
       >
         {seasons?.map((season) => (
           <MenuItem value={season.id}>{season.title}</MenuItem>

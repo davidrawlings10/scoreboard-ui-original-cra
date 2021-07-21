@@ -5,6 +5,7 @@ import CurrentGameList from "./CurrentGameList";
 import Button from "./Components/Button";
 import Game from "./Entity/Game";
 import TickMilliInput from "./TickMilliInput";
+import { AppBar } from "@material-ui/core";
 import styled from "styled-components";
 
 const Div = styled.div`
@@ -73,12 +74,12 @@ export default function App(props: HomeProps) {
         }
         updateDisplayIndex={(index) => setDisplayGameIndex(index)}
       />
-      <Div>
+      <div>
         <Button onClick={onToggleChange}>
           {playPauseToggle ? "ON" : "OFF"}
         </Button>
         <TickMilliInput updateGetGamesInterval={updateGetGamesInterval} />
-      </Div>
+      </div>
       <Scoreboard
         game={
           currentGames != null && currentGames.length > 0

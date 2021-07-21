@@ -2,12 +2,8 @@
 
 import React from "react";
 import { Select, InputLabel, MenuItem, Input } from "@material-ui/core";
-import styled from "styled-components";
+import { styled } from "@material-ui/core/styles";
 import "./AddGameForm.css";
-
-const Div = styled.form`
-  background-color: white;
-`;
 
 export interface AddGameFormProps {}
 
@@ -74,10 +70,26 @@ export default class AddGameForm extends React.Component<
   }
 
   render() {
+    const InputLabelStyled = styled(InputLabel)({
+      color: "white",
+    });
+
+    const SelectStyled = styled(Select)({
+      color: "white",
+    });
+
+    const MenuItemStyled = styled(MenuItem)({
+      color: "black",
+    });
+
+    const InputStyled = styled(Input)({
+      color: "white",
+    });
+
     return (
       <form onSubmit={this.handleSubmit}>
-        <InputLabel id="labelHome">Home Team</InputLabel>
-        <Select
+        <InputLabelStyled id="labelHome">Home Team</InputLabelStyled>
+        <SelectStyled
           labelId="label"
           id="selectHome"
           name="homeTeamId"
@@ -85,13 +97,13 @@ export default class AddGameForm extends React.Component<
           onChange={this.handleChange}
         >
           {this.state.teams.map((team) => (
-            <MenuItem value={team.id}>
+            <MenuItemStyled value={team.id}>
               {team.location + " " + team.name}
-            </MenuItem>
+            </MenuItemStyled>
           ))}
-        </Select>
-        <InputLabel id="labelAway">Away Team</InputLabel>
-        <Select
+        </SelectStyled>
+        <InputLabelStyled id="labelAway">Away Team</InputLabelStyled>
+        <SelectStyled
           labelId="label"
           id="selectAway"
           name="awayTeamId"
@@ -99,12 +111,12 @@ export default class AddGameForm extends React.Component<
           onChange={this.handleChange}
         >
           {this.state.teams.map((team) => (
-            <MenuItem value={team.id}>
+            <MenuItemStyled value={team.id}>
               {team.location + " " + team.name}
-            </MenuItem>
+            </MenuItemStyled>
           ))}
-        </Select>
-        <Input type="submit" value="Submit" />
+        </SelectStyled>
+        <InputStyled type="submit" value="Submit" />
       </form>
     );
   }
