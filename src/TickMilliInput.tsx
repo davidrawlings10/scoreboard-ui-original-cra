@@ -26,7 +26,7 @@ export default function TickMilliInput(props: TickMilliInputProps) {
   function handleChange(event: React.ChangeEvent<any>) {
     if ((event.target.name as string) === "input") {
       const value = event.target.value;
-      fetch("http://localhost:8080/game/setGameplayTickMilli?value=" + value);
+      fetch("http://localhost:8080/game/setTickMilliseconds?value=" + value);
       setTickMilli(value);
       props.updateGetGamesInterval(value);
     }

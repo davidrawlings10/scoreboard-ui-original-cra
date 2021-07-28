@@ -34,14 +34,16 @@ export default function SeasonPage() {
     fetch("http://localhost:8080/season/getSeasons")
       .then((res) => res.json())
       .then((json) => setSeasons(json.list));
-  });
+  }, []);
 
   const classes = useStyles();
 
   return (
     <div>
       <Button onClick={scheduleNewSeason}>Schedule New Season</Button>
-      <InputLabel id="labelSeason" className={classes.root}>Season</InputLabel>
+      <InputLabel id="labelSeason" className={classes.root}>
+        Season
+      </InputLabel>
       <Select
         labelId="label"
         id="selectSeason"

@@ -2,8 +2,9 @@
 
 import React from "react";
 import { Select, InputLabel, MenuItem, Input } from "@material-ui/core";
-import { styled } from "@material-ui/core/styles";
+// import { styled } from "@material-ui/core/styles";
 import Team from "./Entity/Team";
+import styled from "styled-components";
 
 export interface StartGameFormProps {}
 
@@ -62,7 +63,7 @@ export default class StartGameForm extends React.Component<
   }
 
   render() {
-    const InputLabelStyled = styled(InputLabel)({
+    /*const InputLabelStyled = styled(InputLabel)({
       color: "white",
     });
 
@@ -89,7 +90,7 @@ export default class StartGameForm extends React.Component<
           onChange={this.handleChange}
         >
           {this.state.teams.map((team) => (
-            <MenuItemStyled value={team.id}>
+            <MenuItemStyled key={team.id} value={team.id}>
               {team.location + " " + team.name}
             </MenuItemStyled>
           ))}
@@ -103,13 +104,51 @@ export default class StartGameForm extends React.Component<
           onChange={this.handleChange}
         >
           {this.state.teams.map((team) => (
-            <MenuItemStyled value={team.id}>
+            <MenuItemStyled key={team.id} value={team.id}>
               {team.location + " " + team.name}
             </MenuItemStyled>
           ))}
         </SelectStyled>
         <InputStyled type="submit" value="Submit" />
       </form>
+    );*/
+
+    const Form = styled.form`
+      color: white;
+    `;
+
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        <InputLabel id="labelHome">Home Team</InputLabel>
+        <Select
+          labelId="label"
+          id="selectHome"
+          name="homeTeamId"
+          value={this.state.homeTeamId}
+          onChange={this.handleChange}
+        >
+          {this.state.teams.map((team) => (
+            <MenuItem key={team.id} value={team.id}>
+              {team.location + " " + team.name}
+            </MenuItem>
+          ))}
+        </Select>
+        <InputLabel id="labelAway">Away Team</InputLabel>
+        <Select
+          labelId="label"
+          id="selectAway"
+          name="awayTeamId"
+          value={this.state.awayTeamId}
+          onChange={this.handleChange}
+        >
+          {this.state.teams.map((team) => (
+            <MenuItem key={team.id} value={team.id}>
+              {team.location + " " + team.name}
+            </MenuItem>
+          ))}
+        </Select>
+        <Input type="submit" value="Submit" />
+      </Form>
     );
   }
 }

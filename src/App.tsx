@@ -7,10 +7,6 @@ import { Tabs, Tab, AppBar, Box } from "@material-ui/core";
 import { Home, List, PlayArrow } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
-/*const Div = styled.div`
-  background-color: black;
-`;*/
-
 interface TabPanelProps {
   children?: React.ReactNode;
   index: any;

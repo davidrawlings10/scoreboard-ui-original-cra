@@ -6,14 +6,6 @@ import Button from "./Components/Button";
 import Game from "./Entity/Game";
 import TickMilliInput from "./TickMilliInput";
 import { AppBar } from "@material-ui/core";
-import styled from "styled-components";
-
-const Div = styled.div`
-  background-color: #00003b;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-`;
 
 export type HomeProps = {};
 
