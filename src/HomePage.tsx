@@ -5,19 +5,20 @@ import CurrentGameList from "./CurrentGameList";
 import Button from "./Components/Button";
 import Game from "./Entity/Game";
 import TickMilliInput from "./TickMilliInput";
-import { AppBar } from "@material-ui/core";
+import { Switch } from "@material-ui/core";
 
 export type HomeProps = {};
 
 export default function App(props: HomeProps) {
-  const [playPauseToggle, setPlayPauseToggle] = React.useState(false);
+  // const [playPauseToggle, setPlayPauseToggle] = React.useState(false);
   const [currentGames, setCurrentGames] = React.useState(Array<Game>());
   const [displayGameIndex, setDisplayGameIndex] = React.useState(0);
+  const [switchState, setSwitchState] = React.useState(false);
 
   React.useEffect(() => {
-    if (playPauseToggle) {
+    /*if (playPauseToggle) {
       setGetGamesInterval();
-    }
+    }*/
     return function cleanup() {
       clearGetGamesInterval();
     };
@@ -46,7 +47,7 @@ export default function App(props: HomeProps) {
       });
   }
 
-  function onToggleChange() {
+  /*function onToggleChange() {
     console.log("onToggleChange");
     if (!playPauseToggle) {
       fetch("http://localhost:8080/game/playGames");
@@ -56,7 +57,18 @@ export default function App(props: HomeProps) {
       clearGetGamesInterval();
     }
     setPlayPauseToggle(!playPauseToggle);
-  }
+  }*/
+
+  const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (switchState) {
+      fetch("http://localhost:8080/game/pauseGames");
+      clearGetGamesInterval();
+    } else {
+      fetch("http://localhost:8080/game/playGames");
+      setGetGamesInterval();
+    }
+    setSwitchState(event.target.checked);
+  };
 
   return (
     <div className="Home">
@@ -67,9 +79,7 @@ export default function App(props: HomeProps) {
         updateDisplayIndex={(index) => setDisplayGameIndex(index)}
       />
       <div>
-        <Button onClick={onToggleChange}>
-          {playPauseToggle ? "ON" : "OFF"}
-        </Button>
+        <Switch checked={switchState} onChange={handleSwitchChange} />
         <TickMilliInput updateGetGamesInterval={updateGetGamesInterval} />
       </div>
       <Scoreboard

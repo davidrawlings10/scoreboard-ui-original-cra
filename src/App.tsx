@@ -3,9 +3,9 @@ import Header from "./Header";
 import HomePage from "./HomePage";
 import SeasonPage from "./SeasonPage";
 import StartGameForm from "./StartGameForm";
-import { Tabs, Tab, AppBar, Box } from "@material-ui/core";
+import { Tabs, Tab, AppBar, Box, ThemeProvider } from "@material-ui/core";
 import { Home, List, PlayArrow } from "@material-ui/icons";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -48,6 +48,17 @@ const App = () => {
       break;
   }*/
 
+  const theme = createMuiTheme({
+    palette: {
+      background: {
+        default: "#000",
+      },
+      text: {
+        primary: "#fff",
+      },
+    },
+  });
+
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -56,24 +67,26 @@ const App = () => {
   }
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Tabs className={classes.root} value={value} onChange={handleChange}>
-          <Tab label="Home" icon={<Home />} />
-          <Tab label="Season" icon={<List />} />
-          <Tab label="Play Game" icon={<PlayArrow />} />
-        </Tabs>
-      </AppBar>
-      <TabPanel value={value} index={0}>
-        <HomePage />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <SeasonPage />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <StartGameForm />
-      </TabPanel>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Tabs className={classes.root} value={value} onChange={handleChange}>
+            <Tab label="Home" icon={<Home />} />
+            <Tab label="Season" icon={<List />} />
+            <Tab label="Play Game" icon={<PlayArrow />} />
+          </Tabs>
+        </AppBar>
+        <TabPanel value={value} index={0}>
+          <HomePage />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <SeasonPage />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <StartGameForm />
+        </TabPanel>
+      </div>
+    </ThemeProvider>
   );
 };
 
