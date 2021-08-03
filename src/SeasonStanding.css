@@ -6,7 +6,7 @@
 .Standing {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  color: white;
+  /*color: white;*/
   width: 100%;
   text-align: left;
 }
@@ -18,20 +18,20 @@
 }
 
 .Standing tr {
-  background-color: #111;
+  /*background-color: #111;*/
 }
 
 .Standing tr:hover {
-  background-color: #222;
+  /*background-color: #222;*/
 }
 
 .Standing th {
   padding-top: 12px;
   padding-bottom: 12px;
-  background-color: #00013b;
-  color: white;
+  /*background-color: #00013b;
+  color: white;*/
 }
 
 .tiebreaker {
-  color: black;
+  /*color: black;*/
 }

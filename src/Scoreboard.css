@@ -24,7 +24,7 @@
   display: grid;
   grid-template-columns: 15px 300px 50px;
   grid-template-rows: 40px 40px 40px;
-  color: white;
+  /*color: white;*/
   justify-content: center;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -32,7 +32,7 @@
 
 .scoreboard-color {
   border: 1px solid black;
-  background-color: darkblue;
+  /*background-color: darkblue;*/
   /*background-image: linear-gradient(black, blue);*/
 }
 
@@ -40,14 +40,14 @@
   padding: 10px;
   border: 1px solid black;
   /*background-image: linear-gradient(white, #6f263d);*/
-  background-color: #00003b;
+  /*background-color: #00003b;*/
 }
 
 .scoreboard-away-team {
   padding: 10px;
   border: 1px solid black;
   /*background-image: linear-gradient(white, #ec1f26);*/
-  background-color: #00013b;
+  /*background-color: #00013b;*/
 }
 
 .scoreboard-home-score {
@@ -55,7 +55,7 @@
   border: 1px solid black;
   text-align: center;
   /*background-image: linear-gradient(white, black);*/
-  background-color: #00013b;
+  /*background-color: #00013b;*/
 }
 
 .scoreboard-away-score {
@@ -63,7 +63,7 @@
   border: 1px solid black;
   text-align: center;
   /*background-image: linear-gradient(white, black);*/
-  background-color: #00013b;
+  /*background-color: #00013b;*/
 }
 
 .scoreboard-time {
@@ -73,5 +73,5 @@
   text-align: right;
   border: 1px solid black;
   /*background-image: linear-gradient(white, black);*/
-  background-color: #00013b;
+  /*background-color: #00013b;*/
 }

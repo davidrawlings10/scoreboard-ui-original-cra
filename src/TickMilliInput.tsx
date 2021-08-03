@@ -5,10 +5,10 @@ const Span = styled.span`
   margin: 0px 10px 0px 10px;
 `;
 
-const TickMillisecondsText = styled.span`
-  color: white;
+const TickMillisecondsText = styled.span`  
   margin: 0px 5px 0px 5px;
 `;
+/*color: white;*/
 
 const Input = styled.input`
   height: 30px;

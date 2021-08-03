@@ -23,9 +23,9 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-const useStyles = makeStyles({
+/*const useStyles = makeStyles({
   root: { backgroundColor: "#000010", color: "white" },
-});
+});*/
 
 const App = () => {
   /*const url = window.location.href;
@@ -49,17 +49,17 @@ const App = () => {
   }*/
 
   const theme = createMuiTheme({
-    palette: {
+    /*palette: {
       background: {
         default: "#000",
       },
       text: {
         primary: "#fff",
       },
-    },
+    },*/
   });
 
-  const classes = useStyles();
+  // const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   function handleChange(event: React.ChangeEvent<{}>, newValue: number) {
@@ -68,9 +68,12 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className={classes.root}>
+      <div /*className={classes.root}*/>
         <AppBar position="static">
-          <Tabs className={classes.root} value={value} onChange={handleChange}>
+          <Tabs
+            /*className={classes.root}*/ value={value}
+            onChange={handleChange}
+          >
             <Tab label="Home" icon={<Home />} />
             <Tab label="Season" icon={<List />} />
             <Tab label="Play Game" icon={<PlayArrow />} />

@@ -3,7 +3,7 @@
   border-collapse: collapse;
   width: 50%;
   text-align: center;
-  color: white;
+  /*color: white;*/
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -16,18 +16,18 @@
 }
 
 .SeasonGameList tr {
-  background-color: #111;
+  /*background-color: #111;*/
 }
 
 .SeasonGameList tr:hover {
-  background-color: #222;
+  /*background-color: #222;*/
 }
 
 .SeasonGameList th {
   padding-top: 12px;
   padding-bottom: 12px;
-  background-color: #00013b;
-  color: white;
+  /*background-color: #00013b;*/
+  /*color: white;*/
 }
 
 .WinningTeamColor {

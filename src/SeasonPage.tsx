@@ -5,11 +5,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "./Components/Button";
 import Season from "./Entity/Season";
 
-const useStyles = makeStyles({
+/*const useStyles = makeStyles({
   root: {
     color: "white",
   },
-});
+});*/
 
 export default function SeasonPage() {
   const [seasonId, setSeasonId] = useState(1);
@@ -36,12 +36,12 @@ export default function SeasonPage() {
       .then((json) => setSeasons(json.list));
   }, []);
 
-  const classes = useStyles();
+  // const classes = useStyles();
 
   return (
     <div>
       <Button onClick={scheduleNewSeason}>Schedule New Season</Button>
-      <InputLabel id="labelSeason" className={classes.root}>
+      <InputLabel id="labelSeason" /*className={classes.root}*/>
         Season
       </InputLabel>
       <Select
@@ -50,7 +50,7 @@ export default function SeasonPage() {
         name="seasonId"
         value={seasonId}
         onChange={handleSeasonChange}
-        className={classes.root}
+        /*className={classes.root}*/
       >
         {seasons?.map((season) => (
           <MenuItem value={season.id}>{season.title}</MenuItem>
