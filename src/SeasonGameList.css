@@ -9,7 +9,10 @@
   margin-bottom: 20px;
 }
 
-.SeasonGameList td,
+.SeasonGameList td {
+  border: 2px solid black;
+}
+
 .Standing th {
   border: 1px 0px 1px 0px solid #ddd;
   padding: 8px;

@@ -49,14 +49,14 @@ const App = () => {
   }*/
 
   const theme = createMuiTheme({
-    /*palette: {
+    palette: {
       background: {
-        default: "#000",
+        default: "black",
       },
       text: {
-        primary: "#fff",
+        primary: "blue",
       },
-    },*/
+    },
   });
 
   // const classes = useStyles();

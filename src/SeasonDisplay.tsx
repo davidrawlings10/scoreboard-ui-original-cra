@@ -1,6 +1,7 @@
 import SeasonStanding from "./SeasonStanding";
-import SeasonStandingDataGrid from "./SeasonStandingDataGrid";
 import SeasonGameList from "./SeasonGameList";
+import SeasonStandingSortable from "./SeasonStandingSortable";
+import SeasonGameListSortable from "./SeasonGameListSortable";
 import Button from "./Components/Button";
 import "./SeasonDisplay.css";
 
@@ -37,7 +38,8 @@ export default function SeasonDisplay(props: SeasonProps) {
       </Button>
       <SeasonStanding seasonId={props.seasonId} />
       <SeasonGameList seasonId={props.seasonId} />
-      <SeasonStandingDataGrid seasonId={props.seasonId} />
+      <SeasonStandingSortable seasonId={props.seasonId} />
+      <SeasonGameListSortable seasonId={props.seasonId} />
     </div>
   );
 }

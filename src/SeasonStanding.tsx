@@ -2,11 +2,6 @@ import { useState, useEffect } from "react";
 import "./SeasonStanding.css";
 import TeamDisplay from "./TeamDisplay";
 import Standing from "./Entity/Standing";
-import {
-  DataGrid,
-  GridColDef,
-  GridValueGetterParams,
-} from "@material-ui/data-grid";
 
 export type SeasonStandingProps = {
   seasonId: number;
