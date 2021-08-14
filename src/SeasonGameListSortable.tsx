@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import MaterialTable from "material-table";
 import "./SeasonGameList.css";
 import TeamDisplay from "./TeamDisplay";
 import Game from "./Entity/Game";
@@ -22,7 +23,54 @@ export default function SeasonGameList(props: SeasonGameListProps) {
       });
   }, [props.seasonId]);
 
+  const columns = [
+    {
+      title: "Home",
+      field: "homeTeamId",
+      render: (rowData: any) => (
+        <div>
+          <TeamDisplay id={rowData.homeTeamId} />
+        </div>
+      ),
+    },
+    {
+      title: "",
+      field: "homeScore",
+    },
+    {
+      title: "Away",
+      field: "awayTeamId",
+      render: (rowData: any) => (
+        <div>
+          <TeamDisplay id={rowData.awayTeamId} />
+        </div>
+      ),
+    },
+    {
+      title: "",
+      field: "awayScore",
+    },
+    {
+      title: "",
+      field: "endingPeriod",
+    },
+  ];
+
   return (
+    <div>
+      <MaterialTable
+        title="Season Games"
+        data={games}
+        columns={columns}
+        options={{
+          search: true,
+          filtering: true,
+        }}
+      />
+    </div>
+  );
+
+  /*return (
     <table className="SeasonGameList">
       <thead>
         <tr>
@@ -70,20 +118,12 @@ export default function SeasonGameList(props: SeasonGameListProps) {
                 {game.status === "FINAL" ? getFinalText(game.endingPeriod) : ""}
               </td>
               <td>
-                {/* new Date(1624854854000).toLocaleString("en-US", { timeZone: "America/Los_Angeles",}) 
-                  this works but looks off 7 hours 
-
-                  */
-                /*getDateString(
-                    new Date(game.updated))*/
-                /*.toLocaleString("en-US", {
-                    timeZone: "America/Chicago",
-                  })*/}
+                date
               </td>
             </tr>
           );
         })}
       </tbody>
     </table>
-  );
+  );*/
 }

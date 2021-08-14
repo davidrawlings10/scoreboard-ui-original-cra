@@ -1,5 +1,7 @@
 export default interface Game {
   id: number;
+  // created: any;
+  // updated: any;
   seasonId: number;
   homeTeamId: number;
   awayTeamId: number;
@@ -11,7 +13,7 @@ export default interface Game {
   clock: Clock;
 }
 
-interface Clock {
+export interface Clock {
   minutes: number;
   seconds: number;
   period: number;

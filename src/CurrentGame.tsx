@@ -1,10 +1,10 @@
+// keeping this as an example of a class component in tsx
+
 import React from "react";
 import "./CurrentGame.css";
 import TeamDisplay from "./TeamDisplay";
 import ClockDisplay from "./ClockDisplay";
-import Game from "./Domain/Game";
-
-// keeping this as an example of a class component in tsx
+import Game from "./Entity/Game";
 
 export interface CurrentGameProps {
   index: number;

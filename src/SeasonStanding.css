@@ -1,31 +1,39 @@
+.SeasonStanding-Container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .Standing {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 90%;
+  /*color: white;*/
+  width: 100%;
   text-align: left;
 }
 
-.Standing td,
+.Standing td {
+  border: 2px solid black;
+}
 .Standing th {
   border: 1px 0px 1px 0px solid #ddd;
   padding: 8px;
 }
 
 .Standing tr {
-  background-color: #111;
+  /*background-color: #111;*/
 }
 
 .Standing tr:hover {
-  background-color: #222;
+  /*background-color: #222;*/
 }
 
 .Standing th {
   padding-top: 12px;
   padding-bottom: 12px;
-  background-color: #00013b;
-  color: white;
+  /*background-color: #00013b;
+  color: white;*/
 }
 
 .tiebreaker {
-  color: black;
+  /*color: black;*/
 }

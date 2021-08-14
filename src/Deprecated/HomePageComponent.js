@@ -1,12 +1,12 @@
 import React from "react";
 import "./Home.css";
 import AddGameForm from "./AddGameFormComponent";
-import Scoreboard from "./Scoreboard";
-import Season from "./Season";
-import CurrentGameList from "./CurrentGameList";
-import SeasonPage from "./SeasonPage";
+import Scoreboard from "./ScoreboardComponent";
+import Season from "../SeasonDisplay";
+import CurrentGameList from "../CurrentGameList";
+import SeasonPage from "../SeasonPage";
 import Button from "./Button";
-import PlayPauseToggle from "./PlayPauseToggle";
+import PlayPauseToggle from "../PlayPauseToggle";
 
 export default class App extends React.Component {
   constructor(props) {

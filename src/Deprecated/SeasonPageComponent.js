@@ -1,5 +1,5 @@
 import React from "react";
-import Season from "./Season";
+import Season from "../SeasonDisplay";
 import { Button, Select, InputLabel, MenuItem } from "@material-ui/core";
 
 export default class SeasonPage extends React.Component {
@@ -35,6 +35,8 @@ export default class SeasonPage extends React.Component {
   handleSeasonChange(event) {
     const value = event.target.value;
     const name = event.target.name;
+
+    console.log("handleSeasonChange():" + value);
 
     this.setState({ [name]: value });
   }

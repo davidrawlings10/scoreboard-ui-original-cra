@@ -1,14 +1,15 @@
-import React from "react";
 import SeasonStanding from "./SeasonStanding";
 import SeasonGameList from "./SeasonGameList";
-import Button from "./Button";
-import "./Season.css";
+import SeasonStandingSortable from "./SeasonStandingSortable";
+import SeasonGameListSortable from "./SeasonGameListSortable";
+import Button from "./Components/Button";
+import "./SeasonDisplay.css";
 
 export type SeasonProps = {
   seasonId: number;
 };
 
-export default function Season(props: SeasonProps) {
+export default function SeasonDisplay(props: SeasonProps) {
   function playSeasonGame() {
     console.log("startSeasonGame()");
     fetch(
@@ -31,12 +32,14 @@ export default function Season(props: SeasonProps) {
 
   return (
     <div>
-      <SeasonStanding seasonId={props.seasonId} />
-      <SeasonGameList seasonId={props.seasonId} />
-      <Button onClick={playSeasonGame}>Play Season Game</Button>
+      <Button onClick={playSeasonGame}>Play Next Season Game</Button>
       <Button onClick={setSeasonNumOfGamesToPlay}>
         Set Season Num Of Game To Play
       </Button>
+      <SeasonStanding seasonId={props.seasonId} />
+      <SeasonGameList seasonId={props.seasonId} />
+      <SeasonStandingSortable seasonId={props.seasonId} />
+      <SeasonGameListSortable seasonId={props.seasonId} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-// keeping this in js
+// keeping this as an example of js
 
 let teams = {};
 
