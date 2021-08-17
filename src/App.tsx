@@ -4,7 +4,7 @@ import SeasonPage from "./SeasonPage";
 import StartGameForm from "./StartGameForm";
 import ScheduleSeasonForm from "./ScheduleSeasonForm";
 import { Tabs, Tab, AppBar, Box, ThemeProvider } from "@material-ui/core";
-import { Home, List, PlayArrow } from "@material-ui/icons";
+import { Home, List, PlayArrow, PlaylistAdd } from "@material-ui/icons";
 import { createMuiTheme } from "@material-ui/core/styles";
 
 interface TabPanelProps {
@@ -76,8 +76,8 @@ const App = () => {
           >
             <Tab label="Home" icon={<Home />} />
             <Tab label="Season" icon={<List />} />
+            <Tab label="Schedule Season" icon={<PlaylistAdd />} />
             <Tab label="Play Game" icon={<PlayArrow />} />
-            <Tab label="Schedule Season" icon={<PlayArrow />} />
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
@@ -87,10 +87,10 @@ const App = () => {
           <SeasonPage />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <StartGameForm />
+          <ScheduleSeasonForm />
         </TabPanel>
         <TabPanel value={value} index={3}>
-          <ScheduleSeasonForm />
+          <StartGameForm />
         </TabPanel>
       </div>
     </ThemeProvider>
