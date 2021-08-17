@@ -2,6 +2,7 @@ import React from "react";
 import HomePage from "./HomePage";
 import SeasonPage from "./SeasonPage";
 import StartGameForm from "./StartGameForm";
+import ScheduleSeasonForm from "./ScheduleSeasonForm";
 import { Tabs, Tab, AppBar, Box, ThemeProvider } from "@material-ui/core";
 import { Home, List, PlayArrow } from "@material-ui/icons";
 import { createMuiTheme } from "@material-ui/core/styles";
@@ -76,6 +77,7 @@ const App = () => {
             <Tab label="Home" icon={<Home />} />
             <Tab label="Season" icon={<List />} />
             <Tab label="Play Game" icon={<PlayArrow />} />
+            <Tab label="Schedule Season" icon={<PlayArrow />} />
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
@@ -86,6 +88,9 @@ const App = () => {
         </TabPanel>
         <TabPanel value={value} index={2}>
           <StartGameForm />
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <ScheduleSeasonForm />
         </TabPanel>
       </div>
     </ThemeProvider>
