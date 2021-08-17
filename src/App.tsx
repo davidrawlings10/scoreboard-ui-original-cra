@@ -1,11 +1,10 @@
 import React from "react";
-import Header from "./Header";
 import HomePage from "./HomePage";
 import SeasonPage from "./SeasonPage";
 import StartGameForm from "./StartGameForm";
 import { Tabs, Tab, AppBar, Box, ThemeProvider } from "@material-ui/core";
 import { Home, List, PlayArrow } from "@material-ui/icons";
-import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
 
 interface TabPanelProps {
   children?: React.ReactNode;

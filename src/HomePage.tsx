@@ -2,7 +2,6 @@ import React from "react";
 import Scoreboard from "./Scoreboard";
 import SeasonDisplay from "./SeasonDisplay";
 import CurrentGameList from "./CurrentGameList";
-import Button from "./Components/Button";
 import Game from "./Entity/Game";
 import TickMilliInput from "./TickMilliInput";
 import { Switch } from "@material-ui/core";
