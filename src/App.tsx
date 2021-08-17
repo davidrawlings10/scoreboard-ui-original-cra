@@ -51,11 +51,11 @@ const App = () => {
   const theme = createMuiTheme({
     palette: {
       background: {
-        default: "black",
+        default: "#000000",
       },
-      text: {
+      /*text: {
         primary: "blue",
-      },
+      },*/
     },
   });
 
