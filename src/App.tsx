@@ -51,11 +51,14 @@ const App = () => {
   const theme = createMuiTheme({
     palette: {
       background: {
-        default: "#000000",
+        default: "#ffffff",
       },
-      /*text: {
-        primary: "blue",
-      },*/
+      text: {
+        primary: "#000000",
+        secondary: "#000000",
+        disabled: "#000000",
+        hint: "#000000",
+      },
     },
   });
 
@@ -68,7 +71,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div /*className={classes.root}*/>
+      <Box bgcolor="background.default" /*className={classes.root}*/>
         <AppBar position="static">
           <Tabs
             /*className={classes.root}*/ value={value}
@@ -92,7 +95,7 @@ const App = () => {
         <TabPanel value={value} index={3}>
           <StartGameForm />
         </TabPanel>
-      </div>
+      </Box>
     </ThemeProvider>
   );
 };
