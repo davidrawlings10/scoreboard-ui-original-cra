@@ -3,7 +3,6 @@ import MaterialTable from "material-table";
 import "./SeasonGameList.css";
 import TeamDisplay from "./TeamDisplay";
 import Game from "./Entity/Game";
-import { getFinalText } from "./ClockDisplay";
 // import { getDateString } from "./DateUtil";
 
 export type SeasonGameListProps = {

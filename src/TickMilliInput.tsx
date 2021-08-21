@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { Box } from "@material-ui/core";
 
 const Span = styled.span`
   margin: 0px 10px 0px 10px;
 `;
 
-const TickMillisecondsText = styled.span`  
+/*const TickMillisecondsText = styled.span`
   margin: 0px 5px 0px 5px;
-`;
+`;*/
 /*color: white;*/
 
 const Input = styled.input`
@@ -26,18 +27,24 @@ export default function TickMilliInput(props: TickMilliInputProps) {
   function handleChange(event: React.ChangeEvent<any>) {
     if ((event.target.name as string) === "input") {
       const value = event.target.value;
-      fetch("http://localhost:8080/game/setTickMilliseconds?value=" + value);
       setTickMilli(value);
-      props.updateGetGamesInterval(value);
     }
+  }
+
+  function handleBlur() {
+    fetch("http://localhost:8080/game/setTickMilliseconds?value=" + tickMilli);
+    props.updateGetGamesInterval(tickMilli);
   }
 
   return (
     <Span>
-      <TickMillisecondsText>Tick Milliseconds</TickMillisecondsText>
+      <Box m={5} component="span">
+        Tick Milliseconds
+      </Box>
       <Input
         value={tickMilli}
         onChange={handleChange}
+        onBlur={handleBlur}
         type="text"
         name="input"
       />

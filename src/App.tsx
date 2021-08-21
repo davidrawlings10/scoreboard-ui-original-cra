@@ -1,11 +1,11 @@
 import React from "react";
-import Header from "./Header";
 import HomePage from "./HomePage";
 import SeasonPage from "./SeasonPage";
 import StartGameForm from "./StartGameForm";
+import ScheduleSeasonForm from "./ScheduleSeasonForm";
 import { Tabs, Tab, AppBar, Box, ThemeProvider } from "@material-ui/core";
-import { Home, List, PlayArrow } from "@material-ui/icons";
-import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
+import { Home, List, PlayArrow, PlaylistAdd } from "@material-ui/icons";
+import { createMuiTheme } from "@material-ui/core/styles";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -51,10 +51,13 @@ const App = () => {
   const theme = createMuiTheme({
     palette: {
       background: {
-        default: "black",
+        default: "#ffffff",
       },
       text: {
-        primary: "blue",
+        primary: "#000000",
+        secondary: "#000000",
+        disabled: "#000000",
+        hint: "#000000",
       },
     },
   });
@@ -68,7 +71,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div /*className={classes.root}*/>
+      <Box bgcolor="background.default" /*className={classes.root}*/>
         <AppBar position="static">
           <Tabs
             /*className={classes.root}*/ value={value}
@@ -76,6 +79,7 @@ const App = () => {
           >
             <Tab label="Home" icon={<Home />} />
             <Tab label="Season" icon={<List />} />
+            <Tab label="Schedule Season" icon={<PlaylistAdd />} />
             <Tab label="Play Game" icon={<PlayArrow />} />
           </Tabs>
         </AppBar>
@@ -86,9 +90,12 @@ const App = () => {
           <SeasonPage />
         </TabPanel>
         <TabPanel value={value} index={2}>
+          <ScheduleSeasonForm />
+        </TabPanel>
+        <TabPanel value={value} index={3}>
           <StartGameForm />
         </TabPanel>
-      </div>
+      </Box>
     </ThemeProvider>
   );
 };

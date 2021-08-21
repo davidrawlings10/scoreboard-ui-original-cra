@@ -2,7 +2,6 @@ import React from "react";
 import Scoreboard from "./Scoreboard";
 import SeasonDisplay from "./SeasonDisplay";
 import CurrentGameList from "./CurrentGameList";
-import Button from "./Components/Button";
 import Game from "./Entity/Game";
 import TickMilliInput from "./TickMilliInput";
 import { Switch } from "@material-ui/core";
@@ -14,29 +13,41 @@ export default function App(props: HomeProps) {
   const [currentGames, setCurrentGames] = React.useState(Array<Game>());
   const [displayGameIndex, setDisplayGameIndex] = React.useState(0);
   const [switchState, setSwitchState] = React.useState(false);
+  const [tickMilli, setTickMilli] = React.useState<number>(1000);
 
-  React.useEffect(() => {
-    /*if (playPauseToggle) {
+  /*React.useEffect(() => {
+    // if (playPauseToggle) {
       setGetGamesInterval();
-    }*/
+    // }
     return function cleanup() {
       clearGetGamesInterval();
     };
-  }, []);
+  }, []);*/
 
-  let timerId: any;
+  let timerId: any = null;
 
-  function setGetGamesInterval() {
-    timerId = setInterval(() => getGames(), 1000);
+  React.useEffect(() => {
+    setGetGamesInterval(tickMilli);
+    return function cleanup() {
+      clearGetGamesInterval();
+    };
+  }, [tickMilli]);
+
+  function setGetGamesInterval(milliseconds: number) {
+    console.log("setGetGamesInterval()");
+    timerId = setInterval(() => getGames(), Math.max(milliseconds, 200));
   }
 
   function clearGetGamesInterval() {
+    console.log("clearGetGamesInterval()");
     clearInterval(timerId);
   }
 
-  function updateGetGamesInterval(ms: number) {
+  function updateGetGamesInterval(milliseconds: number) {
+    /*console.log("updateGetGamesInterval()");
     clearInterval(timerId);
-    timerId = setInterval(() => getGames(), ms);
+    timerId = setInterval(() => getGames(), ms);*/
+    setTickMilli(milliseconds);
   }
 
   function getGames() {
@@ -62,10 +73,10 @@ export default function App(props: HomeProps) {
   const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (switchState) {
       fetch("http://localhost:8080/game/pauseGames");
-      clearGetGamesInterval();
+      // clearGetGamesInterval();
     } else {
       fetch("http://localhost:8080/game/playGames");
-      setGetGamesInterval();
+      // setGetGamesInterval();
     }
     setSwitchState(event.target.checked);
   };

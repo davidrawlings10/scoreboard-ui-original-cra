@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import SeasonDisplay from "./SeasonDisplay";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "./Components/Button";
 import Season from "./Entity/Season";
 
@@ -17,7 +16,7 @@ export default function SeasonPage() {
 
   function scheduleNewSeason() {
     fetch(
-      "http://localhost:8080/season/schedule?scheduleType=ROUNDS&sport=HOCKEY&leagueId=2&numGames=4"
+      "http://localhost:8080/season/schedule?scheduleType=ROUNDS&sport=HOCKEY&leagueId=2&numGames=6"
     );
     /*fetch(
       "http://localhost:8080/season/schedule?scheduleType=HOME_ROTATION&sport=HOCKEY&leagueId=2"
