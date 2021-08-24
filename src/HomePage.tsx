@@ -4,7 +4,7 @@ import SeasonDisplay from "./SeasonDisplay";
 import CurrentGameList from "./CurrentGameList";
 import Game from "./Entity/Game";
 import TickMilliInput from "./TickMilliInput";
-import { Switch } from "@material-ui/core";
+import { Switch, Box, FormControlLabel } from "@material-ui/core";
 
 export type HomeProps = {};
 
@@ -102,20 +102,29 @@ export default function App(props: HomeProps) {
 
   return (
     <div className="Home">
-      <CurrentGameList
-        games={
-          currentGames != null && currentGames.length > 0 ? currentGames : null
-        }
-        updateDisplayIndex={(index) => setDisplayGameIndex(index)}
-      />
-      <div>
-        <Switch checked={running} onChange={handleRunningChange} />
-        <TickMilliInput
-          updateGetGamesInterval={updateGetGamesInterval}
-          tickMilli={tickMilli}
-          handleChange={handleChange}
+      <Box>
+        <div>
+          <FormControlLabel
+            control={
+              <Switch checked={running} onChange={handleRunningChange} />
+            }
+            label="Playing"
+          />
+          <TickMilliInput
+            updateGetGamesInterval={updateGetGamesInterval}
+            tickMilli={tickMilli}
+            handleChange={handleChange}
+          />
+        </div>
+        <CurrentGameList
+          games={
+            currentGames != null && currentGames.length > 0
+              ? currentGames
+              : null
+          }
+          updateDisplayIndex={(index) => setDisplayGameIndex(index)}
         />
-      </div>
+      </Box>
       <Scoreboard
         game={
           currentGames != null && currentGames.length > 0
