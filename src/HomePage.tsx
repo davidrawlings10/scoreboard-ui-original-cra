@@ -12,8 +12,10 @@ export default function App(props: HomeProps) {
   // const [playPauseToggle, setPlayPauseToggle] = React.useState(false);
   const [currentGames, setCurrentGames] = React.useState(Array<Game>());
   const [displayGameIndex, setDisplayGameIndex] = React.useState(0);
-  const [switchState, setSwitchState] = React.useState(false);
+  const [running, setRunning] = React.useState(false);
   const [tickMilli, setTickMilli] = React.useState<number>(1000);
+  const [tickMilliUserTyping, setTickMilliUserTyping] =
+    React.useState<boolean>(false);
 
   /*React.useEffect(() => {
     // if (playPauseToggle) {
@@ -29,7 +31,9 @@ export default function App(props: HomeProps) {
   React.useEffect(() => {
     setGetGamesInterval(tickMilli);
     return function cleanup() {
-      clearGetGamesInterval();
+      if (!!timerId) {
+        clearGetGamesInterval();
+      }
     };
   }, [tickMilli]);
 
@@ -41,20 +45,19 @@ export default function App(props: HomeProps) {
   function clearGetGamesInterval() {
     console.log("clearGetGamesInterval()");
     clearInterval(timerId);
-  }
-
-  function updateGetGamesInterval(milliseconds: number) {
-    /*console.log("updateGetGamesInterval()");
-    clearInterval(timerId);
-    timerId = setInterval(() => getGames(), ms);*/
-    setTickMilli(milliseconds);
+    timerId = null;
   }
 
   function getGames() {
-    fetch("http://localhost:8080/game/getGames")
+    fetch("http://localhost:8080/game/getScoreboardState")
       .then((res) => res.json())
       .then((json) => {
-        setCurrentGames(json.list);
+        setCurrentGames(json.games);
+        if (!tickMilliUserTyping) {
+          setTickMilli(json.tickMilliseconds);
+        }
+        setRunning(json.running);
+        console.log("json.tickMilliseconds:" + json.tickMilliseconds);
       });
   }
 
@@ -70,15 +73,31 @@ export default function App(props: HomeProps) {
     setPlayPauseToggle(!playPauseToggle);
   }*/
 
-  const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (switchState) {
+  function updateGetGamesInterval() {
+    /*console.log("updateGetGamesInterval()");
+    clearInterval(timerId);
+    timerId = setInterval(() => getGames(), ms);*/
+    fetch("http://localhost:8080/game/setTickMilliseconds?value=" + tickMilli);
+    setTickMilliUserTyping(false);
+    // setTickMilli(tickMilli);
+  }
+
+  function handleChange(value: number) {
+    console.log("HomePage:handleChange()" + value);
+    clearGetGamesInterval();
+    setTickMilli(value);
+    setTickMilliUserTyping(true);
+  }
+
+  const handleRunningChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (running) {
       fetch("http://localhost:8080/game/pauseGames");
       // clearGetGamesInterval();
     } else {
       fetch("http://localhost:8080/game/playGames");
       // setGetGamesInterval();
     }
-    setSwitchState(event.target.checked);
+    setRunning(event.target.checked);
   };
 
   return (
@@ -90,8 +109,12 @@ export default function App(props: HomeProps) {
         updateDisplayIndex={(index) => setDisplayGameIndex(index)}
       />
       <div>
-        <Switch checked={switchState} onChange={handleSwitchChange} />
-        <TickMilliInput updateGetGamesInterval={updateGetGamesInterval} />
+        <Switch checked={running} onChange={handleRunningChange} />
+        <TickMilliInput
+          updateGetGamesInterval={updateGetGamesInterval}
+          tickMilli={tickMilli}
+          handleChange={handleChange}
+        />
       </div>
       <Scoreboard
         game={
