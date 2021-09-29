@@ -19,18 +19,18 @@ const Input = styled.input`
 
 type TickMilliInputProps = {
   updateGetGamesInterval: () => void;
-  handleChange: (value: number) => void;
+  handleTickMilliInputChange: (value: number) => void;
   tickMilli: number;
 };
 
 export default function TickMilliInput(props: TickMilliInputProps) {
   // const [tickMilli, setTickMilli] = React.useState<number>(props.tickMilli);
 
-  function handleChange(event: React.ChangeEvent<any>) {
+  function handleTickMilliInputChange(event: React.ChangeEvent<any>) {
     if ((event.target.name as string) === "input") {
       const value = event.target.value;
-      console.log("TickMilliInput:handleChange()"+value);
-      props.handleChange(value);
+      console.log("TickMilliInput:handleChange()" + value);
+      props.handleTickMilliInputChange(value);
       // setTickMilli(value);
     }
   }
@@ -46,7 +46,7 @@ export default function TickMilliInput(props: TickMilliInputProps) {
       </Box>
       <Input
         value={props.tickMilli}
-        onChange={handleChange}
+        onChange={handleTickMilliInputChange}
         onBlur={handleBlur}
         type="text"
         name="input"

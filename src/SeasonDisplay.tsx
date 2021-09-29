@@ -20,9 +20,7 @@ export default function SeasonDisplay(props: SeasonProps) {
   function setSeasonNumOfGamesToPlay() {
     console.log("setSeasonNumOfGamesToPlay()");
     fetch(
-      "http://localhost:8080/game/setSeasonNumOfGamesToPlay?seasonId=" +
-        props.seasonId +
-        "&numGames=2"
+      "http://localhost:8080/game/setSeasonNumOfGamesToPlay?numberOfGames=2"
     );
   }
 

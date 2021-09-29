@@ -4,7 +4,8 @@ import SeasonDisplay from "./SeasonDisplay";
 import CurrentGameList from "./CurrentGameList";
 import Game from "./Entity/Game";
 import TickMilliInput from "./TickMilliInput";
-import { Switch, Box, FormControlLabel } from "@material-ui/core";
+import { Switch, Box, FormControlLabel, Input } from "@material-ui/core";
+import styled from "styled-components";
 
 export type HomeProps = {};
 
@@ -16,6 +17,7 @@ export default function App(props: HomeProps) {
   const [tickMilli, setTickMilli] = React.useState<number>(1000);
   const [tickMilliUserTyping, setTickMilliUserTyping] =
     React.useState<boolean>(false);
+  const [gamesToPlay, setGamesToPlay] = React.useState<number>(0);
 
   /*React.useEffect(() => {
     // if (playPauseToggle) {
@@ -29,26 +31,26 @@ export default function App(props: HomeProps) {
   let timerId: any = null;
 
   React.useEffect(() => {
-    setGetGamesInterval(tickMilli);
+    setGetScoreboardStateInterval(tickMilli);
     return function cleanup() {
       if (!!timerId) {
-        clearGetGamesInterval();
+        clearGetScoreboardStateInterval();
       }
     };
   }, [tickMilli]);
 
-  function setGetGamesInterval(milliseconds: number) {
+  function setGetScoreboardStateInterval(milliseconds: number) {
     console.log("setGetGamesInterval()");
-    timerId = setInterval(() => getGames(), Math.max(milliseconds, 200));
+    timerId = setInterval(() => getScoreboardState(), Math.max(milliseconds, 200));
   }
 
-  function clearGetGamesInterval() {
+  function clearGetScoreboardStateInterval() {
     console.log("clearGetGamesInterval()");
     clearInterval(timerId);
     timerId = null;
   }
 
-  function getGames() {
+  function getScoreboardState() {
     fetch("http://localhost:8080/game/getScoreboardState")
       .then((res) => res.json())
       .then((json) => {
@@ -73,7 +75,7 @@ export default function App(props: HomeProps) {
     setPlayPauseToggle(!playPauseToggle);
   }*/
 
-  function updateGetGamesInterval() {
+  function updateGetScoreboardStateInterval() {
     /*console.log("updateGetGamesInterval()");
     clearInterval(timerId);
     timerId = setInterval(() => getGames(), ms);*/
@@ -82,9 +84,9 @@ export default function App(props: HomeProps) {
     // setTickMilli(tickMilli);
   }
 
-  function handleChange(value: number) {
+  function handleTickMilliInputChange(value: number) {
     console.log("HomePage:handleChange()" + value);
-    clearGetGamesInterval();
+    clearGetScoreboardStateInterval();
     setTickMilli(value);
     setTickMilliUserTyping(true);
   }
@@ -100,10 +102,20 @@ export default function App(props: HomeProps) {
     setRunning(event.target.checked);
   };
 
+  const handleGamesToPlayChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setGamesToPlay(parseInt(event.target.value));
+  };
+
+  const handleGamesToPlayBlur = () => {
+    fetch("http://localhost:8080/game/setGamesToPlay?numGames=" + gamesToPlay);
+  };
+
   return (
     <div className="Home">
       <Box>
-        <div>
+        <Box>
           <FormControlLabel
             control={
               <Switch checked={running} onChange={handleRunningChange} />
@@ -111,11 +123,22 @@ export default function App(props: HomeProps) {
             label="Playing"
           />
           <TickMilliInput
-            updateGetGamesInterval={updateGetGamesInterval}
+            updateGetGamesInterval={updateGetScoreboardStateInterval}
             tickMilli={tickMilli}
-            handleChange={handleChange}
+            handleTickMilliInputChange={handleTickMilliInputChange}
           />
-        </div>
+          <FormControlLabel
+            label="Number of Games to Play"
+            control={
+              <Input
+                onChange={handleGamesToPlayChange}
+                onBlur={handleGamesToPlayBlur}
+                value={gamesToPlay}
+              />
+            }
+            labelPlacement="start"
+          />
+        </Box>
         <CurrentGameList
           games={
             currentGames != null && currentGames.length > 0
