@@ -5,12 +5,10 @@ import CurrentGameList from "./CurrentGameList";
 import Game from "./Entity/Game";
 import TickMilliInput from "./TickMilliInput";
 import { Switch, Box, FormControlLabel, Input } from "@material-ui/core";
-import styled from "styled-components";
 
 export type HomeProps = {};
 
 export default function App(props: HomeProps) {
-  // const [playPauseToggle, setPlayPauseToggle] = React.useState(false);
   const [currentGames, setCurrentGames] = React.useState(Array<Game>());
   const [displayGameIndex, setDisplayGameIndex] = React.useState(0);
   const [running, setRunning] = React.useState(false);
@@ -19,16 +17,19 @@ export default function App(props: HomeProps) {
     React.useState<boolean>(false);
   const [gamesToPlay, setGamesToPlay] = React.useState<number>(0);
 
-  /*React.useEffect(() => {
-    // if (playPauseToggle) {
-      setGetGamesInterval();
-    // }
-    return function cleanup() {
-      clearGetGamesInterval();
-    };
-  }, []);*/
-
   let timerId: any = null;
+
+  function getScoreboardState() {
+    fetch("http://localhost:8080/game/getScoreboardState")
+      .then((res) => res.json())
+      .then((json) => {
+        setCurrentGames(json.games);
+        if (!tickMilliUserTyping) {
+          setTickMilli(json.tickMilliseconds);
+        }
+        setRunning(json.running);
+      });
+  }
 
   React.useEffect(() => {
     setGetScoreboardStateInterval(tickMilli);
@@ -40,52 +41,23 @@ export default function App(props: HomeProps) {
   }, [tickMilli]);
 
   function setGetScoreboardStateInterval(milliseconds: number) {
-    console.log("setGetGamesInterval()");
-    timerId = setInterval(() => getScoreboardState(), Math.max(milliseconds, 200));
+    timerId = setInterval(
+      () => getScoreboardState(),
+      Math.max(milliseconds, 200)
+    );
   }
 
   function clearGetScoreboardStateInterval() {
-    console.log("clearGetGamesInterval()");
     clearInterval(timerId);
     timerId = null;
   }
 
-  function getScoreboardState() {
-    fetch("http://localhost:8080/game/getScoreboardState")
-      .then((res) => res.json())
-      .then((json) => {
-        setCurrentGames(json.games);
-        if (!tickMilliUserTyping) {
-          setTickMilli(json.tickMilliseconds);
-        }
-        setRunning(json.running);
-        console.log("json.tickMilliseconds:" + json.tickMilliseconds);
-      });
-  }
-
-  /*function onToggleChange() {
-    console.log("onToggleChange");
-    if (!playPauseToggle) {
-      fetch("http://localhost:8080/game/playGames");
-      setGetGamesInterval();
-    } else {
-      fetch("http://localhost:8080/game/pauseGames");
-      clearGetGamesInterval();
-    }
-    setPlayPauseToggle(!playPauseToggle);
-  }*/
-
   function updateGetScoreboardStateInterval() {
-    /*console.log("updateGetGamesInterval()");
-    clearInterval(timerId);
-    timerId = setInterval(() => getGames(), ms);*/
     fetch("http://localhost:8080/game/setTickMilliseconds?value=" + tickMilli);
     setTickMilliUserTyping(false);
-    // setTickMilli(tickMilli);
   }
 
   function handleTickMilliInputChange(value: number) {
-    console.log("HomePage:handleChange()" + value);
     clearGetScoreboardStateInterval();
     setTickMilli(value);
     setTickMilliUserTyping(true);
@@ -94,10 +66,8 @@ export default function App(props: HomeProps) {
   const handleRunningChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (running) {
       fetch("http://localhost:8080/game/pauseGames");
-      // clearGetGamesInterval();
     } else {
       fetch("http://localhost:8080/game/playGames");
-      // setGetGamesInterval();
     }
     setRunning(event.target.checked);
   };
