@@ -28,6 +28,12 @@ export default function App() {
       .then((json) => {
         setCurrentGames(json.games);
         setRunning(json.running);
+        console.log(
+          "tickMilliUserTyping:" +
+            tickMilliUserTyping +
+            ", gamesToPlayTyping:" +
+            gamesToPlayTyping
+        );
         if (!tickMilliUserTyping) {
           setTickMilli(json.tickMilliseconds);
         }
@@ -60,13 +66,29 @@ export default function App() {
 
   function updateGetScoreboardStateInterval() {
     fetch("http://localhost:8080/game/setTickMilliseconds?value=" + tickMilli);
-    setTickMilliUserTyping(false);
+    console.log(
+      "updateGetScoreboardStateInterval() BEFORE - setTickMilliUserTyping:" +
+        tickMilliUserTyping
+    );
+    // setTickMilliUserTyping(false);
+    console.log(
+      "updateGetScoreboardStateInterval() AFTER - setTickMilliUserTyping:" +
+        tickMilliUserTyping
+    );
   }
 
   function handleTickMilliInputChange(value: number) {
     clearGetScoreboardStateInterval();
     setTickMilli(value);
+    console.log(
+      "handleTickMilliInputChange() BEFORE - setTickMilliUserTyping:" +
+        tickMilliUserTyping
+    );
     setTickMilliUserTyping(true);
+    console.log(
+      "handleTickMilliInputChange() AFTER - setTickMilliUserTyping:" +
+        tickMilliUserTyping
+    );
   }
 
   const handleRunningChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,6 +98,17 @@ export default function App() {
       fetch("http://localhost:8080/game/playGames");
     }
     setRunning(event.target.checked);
+  };
+
+  const handleGamesToPlayBlur = () => {
+    fetch("http://localhost:8080/game/setGamesToPlay?numGames=" + gamesToPlay);
+    console.log(
+      "handleGamesToPlayBlur() BEFORE - gamesToPlayTyping:" + gamesToPlayTyping
+    );
+    // setGamesToPlayTyping(false);
+    console.log(
+      "handleGamesToPlayBlur() AFTER - gamesToPlayTyping:" + gamesToPlayTyping
+    );
   };
 
   const handleGamesToPlayChange = (
@@ -89,17 +122,6 @@ export default function App() {
     setGamesToPlayTyping(true);
     console.log(
       "handleGamesToPlayChange() AFTER - gamesToPlayTyping:" + gamesToPlayTyping
-    );
-  };
-
-  const handleGamesToPlayBlur = () => {
-    fetch("http://localhost:8080/game/setGamesToPlay?numGames=" + gamesToPlay);
-    console.log(
-      "handleGamesToPlayBlur() BEFORE - gamesToPlayTyping:" + gamesToPlayTyping
-    );
-    setGamesToPlayTyping(false);
-    console.log(
-      "handleGamesToPlayBlur() AFTER - gamesToPlayTyping:" + gamesToPlayTyping
     );
   };
 
