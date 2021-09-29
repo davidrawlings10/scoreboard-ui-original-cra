@@ -4,18 +4,21 @@ import SeasonDisplay from "./SeasonDisplay";
 import CurrentGameList from "./CurrentGameList";
 import Game from "./Entity/Game";
 import TickMilliInput from "./TickMilliInput";
-import { Switch, Box, FormControlLabel, Input } from "@material-ui/core";
+import { Switch, Box, FormControlLabel } from "@material-ui/core";
 
-export type HomeProps = {};
-
-export default function App(props: HomeProps) {
+export default function App() {
   const [currentGames, setCurrentGames] = React.useState(Array<Game>());
   const [displayGameIndex, setDisplayGameIndex] = React.useState(0);
+
   const [running, setRunning] = React.useState(false);
+
   const [tickMilli, setTickMilli] = React.useState<number>(1000);
   const [tickMilliUserTyping, setTickMilliUserTyping] =
     React.useState<boolean>(false);
+
   const [gamesToPlay, setGamesToPlay] = React.useState<number>(0);
+  const [gamesToPlayTyping, setGamesToPlayTyping] =
+    React.useState<boolean>(false);
 
   let timerId: any = null;
 
@@ -24,10 +27,13 @@ export default function App(props: HomeProps) {
       .then((res) => res.json())
       .then((json) => {
         setCurrentGames(json.games);
+        setRunning(json.running);
         if (!tickMilliUserTyping) {
           setTickMilli(json.tickMilliseconds);
         }
-        setRunning(json.running);
+        if (!gamesToPlayTyping) {
+          setGamesToPlay(json.gamesToPlay);
+        }
       });
   }
 
@@ -76,10 +82,25 @@ export default function App(props: HomeProps) {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setGamesToPlay(parseInt(event.target.value));
+    console.log(
+      "handleGamesToPlayChange() BEFORE - gamesToPlayTyping:" +
+        gamesToPlayTyping
+    );
+    setGamesToPlayTyping(true);
+    console.log(
+      "handleGamesToPlayChange() AFTER - gamesToPlayTyping:" + gamesToPlayTyping
+    );
   };
 
   const handleGamesToPlayBlur = () => {
     fetch("http://localhost:8080/game/setGamesToPlay?numGames=" + gamesToPlay);
+    console.log(
+      "handleGamesToPlayBlur() BEFORE - gamesToPlayTyping:" + gamesToPlayTyping
+    );
+    setGamesToPlayTyping(false);
+    console.log(
+      "handleGamesToPlayBlur() AFTER - gamesToPlayTyping:" + gamesToPlayTyping
+    );
   };
 
   return (
@@ -91,6 +112,7 @@ export default function App(props: HomeProps) {
               <Switch checked={running} onChange={handleRunningChange} />
             }
             label="Playing"
+            labelPlacement="start"
           />
           <TickMilliInput
             updateGetGamesInterval={updateGetScoreboardStateInterval}
@@ -100,7 +122,7 @@ export default function App(props: HomeProps) {
           <FormControlLabel
             label="Number of Games to Play"
             control={
-              <Input
+              <input
                 onChange={handleGamesToPlayChange}
                 onBlur={handleGamesToPlayBlur}
                 value={gamesToPlay}

@@ -24,14 +24,10 @@ type TickMilliInputProps = {
 };
 
 export default function TickMilliInput(props: TickMilliInputProps) {
-  // const [tickMilli, setTickMilli] = React.useState<number>(props.tickMilli);
-
   function handleTickMilliInputChange(event: React.ChangeEvent<any>) {
     if ((event.target.name as string) === "input") {
       const value = event.target.value;
-      console.log("TickMilliInput:handleChange()" + value);
       props.handleTickMilliInputChange(value);
-      // setTickMilli(value);
     }
   }
 
