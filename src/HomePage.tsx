@@ -29,6 +29,8 @@ export default function App() {
     React.useState<boolean>(false);
 
   const [gamesToPlay, setGamesToPlay] = React.useState<number>(0);
+  const [millisecondsPerTick, setMillisecondsPerTick] =
+    React.useState<number>(0);
   /*const [gamesToPlayTyping, setGamesToPlayTyping] =
     React.useState<boolean>(false);*/
 
@@ -49,6 +51,7 @@ export default function App() {
         if (!tickMilliUserTyping) {
           setTickMilli(json.tickMilliseconds);
         }
+        setMillisecondsPerTick(json.tickMilliseconds);
         /*if (!gamesToPlayTyping) {*/
         setGamesToPlay(json.gamesToPlay);
         /*}*/
@@ -139,9 +142,12 @@ export default function App() {
 
   const [open, setOpen] = React.useState(false);
   const [gamesToPlayInput, setGamesToPlayInput] = React.useState<number>(0);
+  const [millisecondsPerTickInput, setMillisecondsPerTickInput] =
+    React.useState<number>(0);
 
   const handleClickOpen = () => {
     setGamesToPlayInput(gamesToPlay);
+    setMillisecondsPerTickInput(millisecondsPerTick);
     setOpen(true);
   };
 
@@ -150,10 +156,21 @@ export default function App() {
   };
 
   const handleSubmit = () => {
-    setGamesToPlay(gamesToPlayInput);
-    fetch(
-      "http://localhost:8080/game/setGamesToPlay?numGames=" + gamesToPlayInput
-    );
+    if (millisecondsPerTick !== millisecondsPerTickInput) {
+      setMillisecondsPerTick(millisecondsPerTickInput);
+      fetch(
+        "http://localhost:8080/game/setTickMilliseconds?value=" +
+          millisecondsPerTickInput
+      );
+    }
+
+    if (gamesToPlay !== gamesToPlayInput) {
+      setGamesToPlay(gamesToPlayInput);
+      fetch(
+        "http://localhost:8080/game/setGamesToPlay?numGames=" + gamesToPlayInput
+      );
+    }
+
     setOpen(false);
   };
 
@@ -161,6 +178,12 @@ export default function App() {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setGamesToPlayInput(parseInt(event.target.value));
+  };
+
+  const millisecondsPerTickInputOnChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setMillisecondsPerTickInput(parseInt(event.target.value));
   };
 
   return (
@@ -180,7 +203,16 @@ export default function App() {
             handleTickMilliInputChange={handleTickMilliInputChange}
           />
           <FormControlLabel
-            label="Number of Games to Play"
+            label="Milliseconds per tick"
+            control={
+              <>
+                <input value={millisecondsPerTick} readOnly={true} />
+              </>
+            }
+            labelPlacement="start"
+          />
+          <FormControlLabel
+            label="Number of games to play"
             control={
               <>
                 <input
@@ -202,18 +234,21 @@ export default function App() {
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Edit Games to Play</DialogTitle>
+          <DialogTitle id="form-dialog-title">
+            Edit Scoreboard Controls
+          </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To subscribe to this website, please enter your email address
-              here. We will send updates occasionally.
+              Set milliseconds per tick and number of games to play
             </DialogContentText>
             <TextField
               autoFocus
               id="tickMilliseconds"
               label="Tick Milliseconds"
               type="number"
+              value={millisecondsPerTickInput}
               fullWidth
+              onChange={millisecondsPerTickInputOnChange}
             />
             <TextField
               autoFocus
