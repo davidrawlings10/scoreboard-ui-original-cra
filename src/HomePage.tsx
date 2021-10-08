@@ -3,7 +3,7 @@ import Scoreboard from "./Scoreboard";
 import SeasonDisplay from "./SeasonDisplay";
 import CurrentGameList from "./CurrentGameList";
 import Game from "./Entity/Game";
-import TickMilliInput from "./TickMilliInput";
+/*import TickMilliInput from "./TickMilliInput";*/
 import {
   Switch,
   Box,
@@ -17,20 +17,21 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { Edit } from "@material-ui/icons";
 
 export default function App() {
   const [currentGames, setCurrentGames] = React.useState(Array<Game>());
   const [displayGameIndex, setDisplayGameIndex] = React.useState(0);
 
   const [running, setRunning] = React.useState(false);
-
-  const [tickMilli, setTickMilli] = React.useState<number>(1000);
-  const [tickMilliUserTyping, setTickMilliUserTyping] =
-    React.useState<boolean>(false);
-
   const [gamesToPlay, setGamesToPlay] = React.useState<number>(0);
   const [millisecondsPerTick, setMillisecondsPerTick] =
     React.useState<number>(0);
+
+  /*const [tickMilli, setTickMilli] = React.useState<number>(1000);
+  const [tickMilliUserTyping, setTickMilliUserTyping] =
+    React.useState<boolean>(false);*/
+
   /*const [gamesToPlayTyping, setGamesToPlayTyping] =
     React.useState<boolean>(false);*/
 
@@ -48,9 +49,9 @@ export default function App() {
             ", gamesToPlayTyping:" +
             gamesToPlayTyping
         );*/
-        if (!tickMilliUserTyping) {
+        /*if (!tickMilliUserTyping) {
           setTickMilli(json.tickMilliseconds);
-        }
+        }*/
         setMillisecondsPerTick(json.tickMilliseconds);
         /*if (!gamesToPlayTyping) {*/
         setGamesToPlay(json.gamesToPlay);
@@ -59,13 +60,13 @@ export default function App() {
   }
 
   React.useEffect(() => {
-    setGetScoreboardStateInterval(tickMilli);
+    setGetScoreboardStateInterval(millisecondsPerTick);
     return function cleanup() {
       if (!!timerId) {
         clearGetScoreboardStateInterval();
       }
     };
-  }, [tickMilli]);
+  }, [millisecondsPerTick]);
 
   function setGetScoreboardStateInterval(milliseconds: number) {
     timerId = setInterval(
@@ -79,7 +80,7 @@ export default function App() {
     timerId = null;
   }
 
-  function updateGetScoreboardStateInterval() {
+  /*function updateGetScoreboardStateInterval() {
     fetch("http://localhost:8080/game/setTickMilliseconds?value=" + tickMilli);
     console.log(
       "updateGetScoreboardStateInterval() BEFORE - setTickMilliUserTyping:" +
@@ -104,7 +105,7 @@ export default function App() {
       "handleTickMilliInputChange() AFTER - setTickMilliUserTyping:" +
         tickMilliUserTyping
     );
-  }
+  }*/
 
   const handleRunningChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (running) {
@@ -186,6 +187,12 @@ export default function App() {
     setMillisecondsPerTickInput(parseInt(event.target.value));
   };
 
+  /*          <TickMilliInput
+            updateGetGamesInterval={updateGetScoreboardStateInterval}
+            tickMilli={tickMilli}
+            handleTickMilliInputChange={handleTickMilliInputChange}
+          />*/
+
   return (
     <div className="Home">
       <Box>
@@ -197,18 +204,10 @@ export default function App() {
             label="Playing"
             labelPlacement="start"
           />
-          <TickMilliInput
-            updateGetGamesInterval={updateGetScoreboardStateInterval}
-            tickMilli={tickMilli}
-            handleTickMilliInputChange={handleTickMilliInputChange}
-          />
+
           <FormControlLabel
             label="Milliseconds per tick"
-            control={
-              <>
-                <input value={millisecondsPerTick} readOnly={true} />
-              </>
-            }
+            control={<input value={millisecondsPerTick} readOnly={true} />}
             labelPlacement="start"
           />
           <FormControlLabel
@@ -225,8 +224,8 @@ export default function App() {
             }
             labelPlacement="start"
           />
-          <Button onClick={handleClickOpen} color="primary">
-            Edit
+          <Button onClick={handleClickOpen} variant="contained" color="primary">
+            <Edit />
           </Button>
         </Box>
         <Dialog
