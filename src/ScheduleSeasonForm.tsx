@@ -7,6 +7,7 @@ import {
   FormGroup,
   Checkbox,
   FormControlLabel,
+  Box,
 } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import Team from "./Entity/Team";
@@ -14,7 +15,7 @@ import Team from "./Entity/Team";
 export type ScheduleSeasonFormProps = {};
 
 export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
-  const [title, setTitle] = useState<string>("Season 1");
+  const [title, setTitle] = useState<string>("<Unnamed Season>");
   const [scheduleType, setScheduleType] = useState<string>("ROUNDS");
   const [sport, setSport] = useState<string>("HOCKEY");
   const [leagueId, setLeagueId] = useState<number>(2);
@@ -90,7 +91,7 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
       .then((res) => res.json())
       .then((json) => {
         setPossibleTeams(json.list);
-        setSelectedTeamIds(json.list.map((team: Team) => team.id));
+        // setSelectedTeamIds(json.list.map((team: Team) => team.id));
       });
   }, [leagueId]);
 
