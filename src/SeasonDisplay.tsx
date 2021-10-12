@@ -17,13 +17,6 @@ export default function SeasonDisplay(props: SeasonProps) {
     );
   }
 
-  function setSeasonNumOfGamesToPlay() {
-    console.log("setSeasonNumOfGamesToPlay()");
-    fetch(
-      "http://localhost:8080/game/setSeasonNumOfGamesToPlay?numberOfGames=2"
-    );
-  }
-
   if (!props.seasonId) {
     return <div></div>;
   }
@@ -31,9 +24,6 @@ export default function SeasonDisplay(props: SeasonProps) {
   return (
     <div>
       <Button onClick={playSeasonGame}>Play Next Season Game</Button>
-      <Button onClick={setSeasonNumOfGamesToPlay}>
-        Set Season Num Of Game To Play
-      </Button>
       <SeasonStanding seasonId={props.seasonId} />
       <SeasonGameList seasonId={props.seasonId} />
       <SeasonStandingSortable seasonId={props.seasonId} />
