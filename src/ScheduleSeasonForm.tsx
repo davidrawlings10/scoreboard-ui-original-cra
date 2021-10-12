@@ -7,7 +7,6 @@ import {
   FormGroup,
   Checkbox,
   FormControlLabel,
-  Box,
 } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import Team from "./Entity/Team";

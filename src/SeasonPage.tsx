@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import SeasonDisplay from "./SeasonDisplay";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
-import Button from "./Components/Button";
 import Season from "./Entity/Season";
 
 /*const useStyles = makeStyles({
