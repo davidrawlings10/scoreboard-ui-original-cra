@@ -63,56 +63,6 @@ export default class StartGameForm extends React.Component<
   }
 
   render() {
-    /*const InputLabelStyled = styled(InputLabel)({
-      color: "white",
-    });
-
-    const SelectStyled = styled(Select)({
-      color: "white",
-    });
-
-    const MenuItemStyled = styled(MenuItem)({
-      color: "black",
-    });
-
-    const InputStyled = styled(Input)({
-      color: "white",
-    });
-
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <InputLabelStyled id="labelHome">Home Team</InputLabelStyled>
-        <SelectStyled
-          labelId="label"
-          id="selectHome"
-          name="homeTeamId"
-          value={this.state.homeTeamId}
-          onChange={this.handleChange}
-        >
-          {this.state.teams.map((team) => (
-            <MenuItemStyled key={team.id} value={team.id}>
-              {team.location + " " + team.name}
-            </MenuItemStyled>
-          ))}
-        </SelectStyled>
-        <InputLabelStyled id="labelAway">Away Team</InputLabelStyled>
-        <SelectStyled
-          labelId="label"
-          id="selectAway"
-          name="awayTeamId"
-          value={this.state.awayTeamId}
-          onChange={this.handleChange}
-        >
-          {this.state.teams.map((team) => (
-            <MenuItemStyled key={team.id} value={team.id}>
-              {team.location + " " + team.name}
-            </MenuItemStyled>
-          ))}
-        </SelectStyled>
-        <InputStyled type="submit" value="Submit" />
-      </form>
-    );*/
-
     const Form = styled.form`
       color: white;
     `;
