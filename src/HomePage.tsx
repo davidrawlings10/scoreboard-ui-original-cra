@@ -1,8 +1,4 @@
 import React from "react";
-import Scoreboard from "./Scoreboard";
-import SeasonDisplay from "./SeasonDisplay";
-import CurrentGameList from "./CurrentGameList";
-import Game from "./Entity/Game";
 import {
   Switch,
   Box,
@@ -16,6 +12,11 @@ import {
   DialogTitle,
 } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
+
+import Scoreboard from "./Scoreboard";
+import SeasonDisplay from "./SeasonDisplay";
+import CurrentGameList from "./CurrentGameList";
+import Game from "./Entity/Game";
 
 export default function App() {
   const [currentGames, setCurrentGames] = React.useState(Array<Game>());
