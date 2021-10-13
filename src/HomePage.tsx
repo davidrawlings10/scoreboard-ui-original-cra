@@ -160,23 +160,42 @@ export default function App() {
 
   return (
     <Box>
-      <Box>
-        <FormControlLabel
-          control={<Switch checked={running} onChange={handleRunningChange} />}
-          label="Playing"
-          labelPlacement="start"
-        />
-
+      <Box display="flex">
+        <Box>
+          <FormControlLabel
+            control={
+              <Switch checked={running} onChange={handleRunningChange} />
+            }
+            label="Playing"
+            labelPlacement="start"
+          />
+        </Box>
         <FormControlLabel
           label="Milliseconds per tick"
-          control={<input value={millisecondsPerTick} readOnly={true} />}
+          control={
+            <TextField
+              value={millisecondsPerTick}
+              variant="outlined"
+              size="small"
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+          }
           labelPlacement="start"
         />
         <FormControlLabel
           label="Number of games to play"
           control={
             <>
-              <input value={gamesToPlay} readOnly={true} />
+              <TextField
+                value={gamesToPlay}
+                variant="outlined"
+                size="small"
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
             </>
           }
           labelPlacement="start"
