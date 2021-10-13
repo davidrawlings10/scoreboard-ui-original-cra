@@ -115,85 +115,81 @@ export default function App() {
     setMillisecondsPerTickInput(parseInt(event.target.value));
   };
 
-  return (
-    <div className="Home">
-      <Box>
-        <Box>
-          <FormControlLabel
-            control={
-              <Switch checked={running} onChange={handleRunningChange} />
-            }
-            label="Playing"
-            labelPlacement="start"
-          />
-
-          <FormControlLabel
-            label="Milliseconds per tick"
-            control={<input value={millisecondsPerTick} readOnly={true} />}
-            labelPlacement="start"
-          />
-          <FormControlLabel
-            label="Number of games to play"
-            control={
-              <>
-                <input value={gamesToPlay} readOnly={true} />
-              </>
-            }
-            labelPlacement="start"
-          />
-          <Button onClick={handleClickOpen} variant="contained" color="primary">
-            <Edit />
-          </Button>
-        </Box>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle id="form-dialog-title">
-            Edit Scoreboard Controls
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Set milliseconds per tick and number of games to play
-            </DialogContentText>
-            <TextField
-              autoFocus
-              id="tickMilliseconds"
-              label="Tick Milliseconds"
-              type="number"
-              value={millisecondsPerTickInput}
-              fullWidth
-              onChange={millisecondsPerTickInputOnChange}
-            />
-            <TextField
-              autoFocus
-              id="gamesToPlay"
-              label="Games to Play"
-              type="number"
-              value={gamesToPlayInput}
-              fullWidth
-              onChange={gamesToPlayInputOnChange}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={handleSubmit} color="primary">
-              Submit
-            </Button>
-          </DialogActions>
-        </Dialog>
-        <CurrentGameList
-          games={
-            currentGames != null && currentGames.length > 0
-              ? currentGames
-              : null
-          }
-          updateDisplayIndex={(index) => setDisplayGameIndex(index)}
+  const ScoreboardControlsDialog = (
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="form-dialog-title"
+    >
+      <DialogTitle id="form-dialog-title">Edit Scoreboard Controls</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          Set milliseconds per tick and number of games to play
+        </DialogContentText>
+        <TextField
+          autoFocus
+          id="tickMilliseconds"
+          label="Tick Milliseconds"
+          type="number"
+          value={millisecondsPerTickInput}
+          fullWidth
+          onChange={millisecondsPerTickInputOnChange}
         />
+        <TextField
+          autoFocus
+          id="gamesToPlay"
+          label="Games to Play"
+          type="number"
+          value={gamesToPlayInput}
+          fullWidth
+          onChange={gamesToPlayInputOnChange}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color="primary">
+          Cancel
+        </Button>
+        <Button onClick={handleSubmit} color="primary">
+          Submit
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+
+  return (
+    <Box>
+      <Box>
+        <FormControlLabel
+          control={<Switch checked={running} onChange={handleRunningChange} />}
+          label="Playing"
+          labelPlacement="start"
+        />
+
+        <FormControlLabel
+          label="Milliseconds per tick"
+          control={<input value={millisecondsPerTick} readOnly={true} />}
+          labelPlacement="start"
+        />
+        <FormControlLabel
+          label="Number of games to play"
+          control={
+            <>
+              <input value={gamesToPlay} readOnly={true} />
+            </>
+          }
+          labelPlacement="start"
+        />
+        <Button onClick={handleClickOpen} variant="contained" color="primary">
+          <Edit />
+        </Button>
+        {ScoreboardControlsDialog}
       </Box>
+      <CurrentGameList
+        games={
+          currentGames != null && currentGames.length > 0 ? currentGames : null
+        }
+        updateDisplayIndex={(index) => setDisplayGameIndex(index)}
+      />
       <Scoreboard
         game={
           currentGames != null && currentGames.length > 0
@@ -202,7 +198,6 @@ export default function App() {
         }
       />
       <SeasonDisplay seasonId={currentGames[displayGameIndex]?.seasonId} />
-      <div style={{ marginTop: 100 }}></div>
-    </div>
+    </Box>
   );
 }
