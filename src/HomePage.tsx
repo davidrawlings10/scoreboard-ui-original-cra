@@ -10,6 +10,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  IconButton,
 } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 
@@ -180,9 +181,9 @@ export default function App() {
           }
           labelPlacement="start"
         />
-        <Button onClick={handleClickOpen} variant="contained" color="primary">
+        <IconButton onClick={handleClickOpen} color="primary">
           <Edit />
-        </Button>
+        </IconButton>
         {ScoreboardControlsDialog}
       </Box>
       <CurrentGameList
