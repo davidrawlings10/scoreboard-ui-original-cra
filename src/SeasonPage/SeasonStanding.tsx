@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./SeasonStanding.css";
-import TeamDisplay from "./TeamDisplay";
-import Standing from "./Entity/Standing";
+import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
+import Standing from "../Entity/Standing";
 
 export type SeasonStandingProps = {
   seasonId: number;

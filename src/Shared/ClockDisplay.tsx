@@ -1,4 +1,4 @@
-import Game, { Clock } from "./Entity/Game";
+import Game, { Clock } from "../Entity/Game";
 
 export function getFinalText(endingPeriod: number) {
   let displayText = "Final ";

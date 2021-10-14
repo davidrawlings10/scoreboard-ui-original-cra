@@ -1,6 +1,6 @@
 import React from "react";
-import HomePage from "./HomePage";
-import SeasonPage from "./SeasonPage";
+import HomePage from "./HomePage/HomePage";
+import SeasonPage from "./SeasonPage/SeasonPage";
 import StartGameForm from "./StartGameForm";
 import ScheduleSeasonForm from "./ScheduleSeasonForm";
 import { Tabs, Tab, AppBar, Box, ThemeProvider } from "@material-ui/core";

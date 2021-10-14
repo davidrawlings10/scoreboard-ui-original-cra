@@ -1,7 +1,7 @@
 import React from "react";
 import "./Scoreboard.css";
-import TeamDisplay from "../TeamDisplay";
-import ClockDisplay from "../ClockDisplay";
+import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
+import ClockDisplay from "../Shared/ClockDisplay";
 
 export default class Scoreboard extends React.Component {
   constructor(props) {

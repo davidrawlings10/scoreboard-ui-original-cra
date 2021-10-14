@@ -2,9 +2,9 @@
 
 import React from "react";
 import "./CurrentGame.css";
-import TeamDisplay from "./TeamDisplay";
-import ClockDisplay from "./ClockDisplay";
-import Game from "./Entity/Game";
+import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
+import ClockDisplay from "../Shared/ClockDisplay";
+import Game from "../Entity/Game";
 
 export interface CurrentGameProps {
   index: number;

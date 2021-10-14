@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import SeasonDisplay from "./SeasonDisplay";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
-import Season from "./Entity/Season";
+
+import SeasonList from "./SeasonList";
+import SeasonDisplay from "./SeasonDisplay";
+import Season from "../Entity/Season";
 
 /*const useStyles = makeStyles({
   root: {
@@ -47,6 +49,7 @@ export default function SeasonPage() {
           <MenuItem value={season.id}>{season.title}</MenuItem>
         ))}
       </Select>
+      <SeasonList />
       <SeasonDisplay seasonId={seasonId} />
     </div>
   );

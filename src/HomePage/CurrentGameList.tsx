@@ -3,7 +3,7 @@
 import React from "react";
 import CurrentGame, { CurrentGameProps } from "./CurrentGame";
 import "./CurrentGameList.css";
-import Game from "./Entity/Game";
+import Game from "../Entity/Game";
 
 export interface CurrentGameListProps {
   games: Array<Game> | null;

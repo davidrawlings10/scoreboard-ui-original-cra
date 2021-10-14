@@ -6,7 +6,7 @@ import SeasonStanding from "./SeasonStanding";
 import SeasonGameList from "./SeasonGameList";
 import SeasonStandingSortable from "./SeasonStandingSortable";
 import SeasonGameListSortable from "./SeasonGameListSortable";
-import Button from "./Components/Button";
+import Button from "../Components/Button";
 import "./SeasonDisplay.css";
 
 export type SeasonProps = {
@@ -45,13 +45,10 @@ export default function SeasonDisplay(props: SeasonProps) {
         <Alert onClose={handleClose} severity="success">
           Game started
         </Alert>
-      </Snackbar>
+      </Snackbar>      
       <Button onClick={playSeasonGame}>Play Next Game</Button>
-
       <SeasonStanding seasonId={props.seasonId} />
       <SeasonGameList seasonId={props.seasonId} />
-      <SeasonStandingSortable seasonId={props.seasonId} />
-      <SeasonGameListSortable seasonId={props.seasonId} />
     </div>
   );
 }

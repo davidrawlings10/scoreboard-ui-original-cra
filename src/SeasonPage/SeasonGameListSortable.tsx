@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import MaterialTable from "material-table";
 import "./SeasonGameList.css";
-import TeamDisplay from "./TeamDisplay";
-import Game from "./Entity/Game";
+import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
+import Game from "../Entity/Game";
 // import { getDateString } from "./DateUtil";
 
 export type SeasonGameListProps = {

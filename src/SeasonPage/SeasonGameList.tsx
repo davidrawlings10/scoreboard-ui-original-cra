@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import "./SeasonGameList.css";
-import TeamDisplay from "./TeamDisplay";
-import Game from "./Entity/Game";
-import { getFinalText } from "./ClockDisplay";
+import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
+import Game from "../Entity/Game";
+import { getFinalText } from "../Shared/ClockDisplay";
 // import { getDateString } from "./DateUtil";
 
 export type SeasonGameListProps = {

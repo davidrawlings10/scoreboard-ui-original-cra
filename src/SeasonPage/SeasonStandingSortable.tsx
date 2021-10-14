@@ -1,7 +1,7 @@
 import React from "react";
 import MaterialTable from "material-table";
-import Standing from "./Entity/Standing";
-import TeamDisplay from "./TeamDisplay";
+import Standing from "../Entity/Standing";
+import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 
 export type SeasonStandingProps = {
   seasonId: number;

@@ -1,5 +1,5 @@
 import Header from "../Header";
-import HomePage from "../HomePage";
+import HomePage from "../HomePage/HomePage";
 import SeasonPage from "../SeasonPage";
 import AddGameForm from "../StartGameForm";
 import "./App.css";
