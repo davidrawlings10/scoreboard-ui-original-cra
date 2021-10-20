@@ -103,6 +103,9 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
         <MenuItem id="HOME_ROTATION" value="HOME_ROTATION">
           Home Rotation
         </MenuItem>
+        <MenuItem id="HOME_ROTATION_RANDOM" value="HOME_ROTATION_RANDOM">
+          Home Rotation Random
+        </MenuItem>
         <MenuItem id="ROUNDS" value="ROUNDS">
           Rounds
         </MenuItem>
