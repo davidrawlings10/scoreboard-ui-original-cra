@@ -43,14 +43,10 @@ export default function SeasonStanding(props: SeasonStandingProps) {
             <th title="Goal Diff">GD</th>
             <th title="Home Points">HPTS</th>
             <th title="Home Games Played">HGP</th>
-            <th title="Home Win">HW</th>
-            <th title="Home Loss">HL</th>
-            <th title="Home Overtime Loss">HOTL</th>
-            <th title="Away Poinst">APTS</th>
+            <th title="Home Record">Home</th>
+            <th title="Away Points">APTS</th>
             <th title="Away Games Played">AGP</th>
-            <th title="Away Win">AW</th>
-            <th title="Away Loss">AL</th>
-            <th title="Away Overtime Loss">AOTL</th>
+            <th title="Away Poinst">Away</th>
             <th title="Point Percentage">PP</th>
           </tr>
         </thead>
@@ -71,14 +67,14 @@ export default function SeasonStanding(props: SeasonStandingProps) {
               <td>{standing.gf - standing.ga}</td>
               <td>{standing.homePoint}</td>
               <td>{standing.homeGp}</td>
-              <td>{standing.homeWin}</td>
-              <td>{standing.homeLoss}</td>
-              <td>{standing.homeOtloss}</td>
+              <td>
+                {standing.homeWin}-{standing.homeLoss}-{standing.homeOtloss}
+              </td>
               <td>{standing.awayPoint}</td>
-              <td>{standing.awayGp}</td>
-              <td>{standing.awayWin}</td>
-              <td>{standing.awayLoss}</td>
-              <td>{standing.awayOtloss}</td>
+              <td>{standing.homeGp}</td>
+              <td>
+                {standing.awayWin}-{standing.awayLoss}-{standing.awayOtloss}
+              </td>
               <td>{calculatedPointPercentage(standing.point, standing.gp)}%</td>
             </tr>
           ))}
