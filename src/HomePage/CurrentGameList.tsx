@@ -1,7 +1,9 @@
 // keeping this as an example of a class component in tsx
 
 import React from "react";
-import CurrentGame, { CurrentGameProps } from "./CurrentGame";
+import { Box } from "@material-ui/core";
+
+import CurrentGame from "./CurrentGame";
 import "./CurrentGameList.css";
 import Game from "../Entity/Game";
 
@@ -26,16 +28,24 @@ export default class CurrentGameList extends React.Component<CurrentGameListProp
     }
 
     return (
-      <div className="current-game-list">
+      <Box
+        display="flex"
+        flexDirection="row"
+        flexWrap="wrap"
+        marginTop={5}
+        marginBottom={5}
+      >
         {this.props.games.map((game, index) => {
-          const currentGameProps: CurrentGameProps = {
-            game: game,
-            index: index,
-            updateDisplayIndex: this.updateDisplayIndex,
-          };
-          return <CurrentGame {...currentGameProps} />;
+          return (
+            <CurrentGame
+              key={game.id}
+              game={game}
+              index={index}
+              updateDisplayIndex={this.updateDisplayIndex}
+            />
+          );
         })}
-      </div>
+      </Box>
     );
   }
 }
