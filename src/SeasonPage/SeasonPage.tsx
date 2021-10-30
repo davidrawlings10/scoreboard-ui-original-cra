@@ -46,7 +46,9 @@ export default function SeasonPage() {
         /*className={classes.root}*/
       >
         {seasons?.map((season) => (
-          <MenuItem value={season.id}>{season.title}</MenuItem>
+          <MenuItem key={season.id} value={season.id}>
+            {season.title}
+          </MenuItem>
         ))}
       </Select>
       <SeasonList />
