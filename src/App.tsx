@@ -3,9 +3,9 @@ import HomePage from "./HomePage/HomePage";
 import SeasonPage from "./SeasonPage/SeasonPage";
 import StartGameForm from "./StartGameForm";
 import ScheduleSeasonForm from "./ScheduleSeasonForm";
-import { Tabs, Tab, AppBar, Box, ThemeProvider } from "@material-ui/core";
+import { Tabs, Tab, AppBar, Box, ThemeProvider, createMuiTheme } from "@material-ui/core";
 import { Home, List, PlayArrow, PlaylistAdd } from "@material-ui/icons";
-import { createMuiTheme } from "@material-ui/core/styles";
+// import { createMuiTheme } from "@material-ui/core/styles";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -51,14 +51,26 @@ const App = () => {
   const theme = createMuiTheme({
     palette: {
       background: {
-        default: "#ffffff",
+        default: "#eeeeff",
       },
-      text: {
+      /*text: {
         primary: "#000000",
         secondary: "#000000",
         disabled: "#000000",
         hint: "#000000",
+      },*/
+      primary: {
+        light: "#7986cb",
+        main: "#3f51b5",
+        dark: "#303f9f",
+        contrastText: "#fff",
       },
+      secondary: {
+        light: "#e57373",
+        main: "#f44336",
+        dark: "#d32f2f",
+        contrastText: "#fff",
+      }
     },
   });
 
