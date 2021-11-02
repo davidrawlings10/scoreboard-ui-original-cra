@@ -71,7 +71,7 @@ export default function SeasonStanding(props: SeasonStandingProps) {
                 {standing.homeWin}-{standing.homeLoss}-{standing.homeOtloss}
               </td>
               <td>{standing.awayPoint}</td>
-              <td>{standing.homeGp}</td>
+              <td>{standing.awayGp}</td>
               <td>
                 {standing.awayWin}-{standing.awayLoss}-{standing.awayOtloss}
               </td>
