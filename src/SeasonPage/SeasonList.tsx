@@ -30,7 +30,7 @@ const Td = styled.td`
   padding: 1px 10px 1px 10px;
 `;
 
-export type SeasonListProps = {};
+export type SeasonListProps = { viewSeason: (seasonId: number) => void };
 
 export default function SeasonList(props: SeasonListProps) {
   const [seasons, setSeasons] = useState<Array<Season>>([]);
@@ -42,6 +42,12 @@ export default function SeasonList(props: SeasonListProps) {
         setSeasons(seasonsResult.list);
       });
   });
+
+  // haven't quite got this working yet
+  function viewSeason(event: any) {
+    console.log(event);
+    // props.viewSeason(id);
+  }
 
   return (
     <Box marginTop={5} marginBottom={5} display="flex" justifyContent="center">
@@ -57,7 +63,11 @@ export default function SeasonList(props: SeasonListProps) {
         </thead>
         <tbody>
           {seasons.map((season) => (
-            <Tr key={season.id}>
+            <Tr
+              key={season.id}
+              data-id={season.id}
+              onClick={(e) => viewSeason(e)}
+            >
               <Td>{season.title}</Td>
               <Td>
                 <TeamDisplay id={season.winnerTeamId} />
@@ -65,7 +75,9 @@ export default function SeasonList(props: SeasonListProps) {
               <Td>{season.numTeams}</Td>
               <Td>{season.scheduleType}</Td>
               <Td>
-                <Button size="small">View</Button>
+                <Button size="small" onClick={(e) => viewSeason(e)}>
+                  View
+                </Button>
               </Td>
             </Tr>
           ))}

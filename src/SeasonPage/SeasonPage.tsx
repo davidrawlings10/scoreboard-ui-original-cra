@@ -21,6 +21,10 @@ export default function SeasonPage() {
     }
   }
 
+  function viewSeason(seasonId: number) {
+    setSeasonId(seasonId);
+  }
+
   useEffect(() => {
     fetch("http://localhost:8080/season/getSeasons")
       .then((res) => res.json())
@@ -51,7 +55,7 @@ export default function SeasonPage() {
           </MenuItem>
         ))}
       </Select>
-      <SeasonList />
+      <SeasonList viewSeason={viewSeason} />
       <SeasonDisplay seasonId={seasonId} />
     </div>
   );
