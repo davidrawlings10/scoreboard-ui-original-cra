@@ -51,7 +51,7 @@ const App = () => {
   const theme = createMuiTheme({
     palette: {
       background: {
-        default: "#eeeeff",
+        default: "#eef",
       },
       /*text: {
         primary: "#000000",

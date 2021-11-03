@@ -1,3 +1,9 @@
+.WinningTeamColor {
+  color: orange; /*#fffaad;*/
+}
+
+/*DEPRECATED ------------------------------------------*/
+
 .SeasonGameList {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -31,8 +37,4 @@
   padding-bottom: 12px;
   /*background-color: #00013b;*/
   /*color: white;*/
-}
-
-.WinningTeamColor {
-  color: orange; /*#fffaad;*/
 }
