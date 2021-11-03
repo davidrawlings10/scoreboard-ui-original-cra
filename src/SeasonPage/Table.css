@@ -1,0 +1,40 @@
+table {
+  text-align: left;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+tr {
+  background-color: #cce;
+  height: 30px;
+  border-bottom: 1px solid #99a;
+}
+
+tr:hover {
+  background-color: #aac;
+}
+
+th {
+  background-color: #aac;
+  padding: 0px 10px 0px 10px;
+}
+
+td {
+  padding: 0px 10px 0px 10px;
+}
+
+.season-list {
+  width: 60%;
+}
+
+.season-standing-list {
+  width: 100%;
+}
+
+.season-game-list {
+  width: 50%;
+}
+
+.winning-team-color {
+  color: #f44336; /* TODO: need to read this value from theme */
+}

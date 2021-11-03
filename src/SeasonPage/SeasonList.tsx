@@ -1,34 +1,9 @@
 import { useState, useEffect } from "react";
 import { Box, Button } from "@material-ui/core";
-import styled from "styled-components";
 
+import "./Table.css";
 import Season from "../Entity/Season";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
-
-const Table = styled.table`
-  width: 80%;
-  text-align: left;
-  border: 1px solid black;
-`;
-
-const TrHeader = styled.tr`
-  background-color: #aac;
-`;
-
-const Tr = styled.tr`
-  background-color: #cce;
-  &:hover {
-    background-color: #aac;
-  }
-`;
-
-const Th = styled.th`
-  padding: 5px 10px 5px 10px;
-`;
-
-const Td = styled.td`
-  padding: 1px 10px 1px 10px;
-`;
 
 export type SeasonListProps = { viewSeason: (seasonId: number) => void };
 
@@ -51,38 +26,38 @@ export default function SeasonList(props: SeasonListProps) {
 
   return (
     <Box marginTop={5} marginBottom={5} display="flex" justifyContent="center">
-      <Table>
+      <table className="season-list">
         <thead>
-          <TrHeader>
-            <Th>Name</Th>
-            <Th>Winner</Th>
-            <Th>Teams</Th>
-            <Th>Schedule</Th>
-            <Th></Th>
-          </TrHeader>
+          <tr>
+            <th>Name</th>
+            <th>Winner</th>
+            <th>Teams</th>
+            <th>Schedule</th>
+            <th></th>
+          </tr>
         </thead>
         <tbody>
           {seasons.map((season) => (
-            <Tr
+            <tr
               key={season.id}
               data-id={season.id}
               onClick={(e) => viewSeason(e)}
             >
-              <Td>{season.title}</Td>
-              <Td>
+              <td>{season.title}</td>
+              <td>
                 <TeamDisplay id={season.winnerTeamId} />
-              </Td>
-              <Td>{season.numTeams}</Td>
-              <Td>{season.scheduleType}</Td>
-              <Td>
+              </td>
+              <td>{season.numTeams}</td>
+              <td>{season.scheduleType}</td>
+              <td>
                 <Button size="small" onClick={(e) => viewSeason(e)}>
                   View
                 </Button>
-              </Td>
-            </Tr>
+              </td>
+            </tr>
           ))}
         </tbody>
-      </Table>
+      </table>
     </Box>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Snackbar } from "@material-ui/core";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 
-import SeasonStanding from "./SeasonStanding";
+import SeasonStanding from "./SeasonStandingList";
 import SeasonGameList from "./SeasonGameList";
 
 export type SeasonProps = {
