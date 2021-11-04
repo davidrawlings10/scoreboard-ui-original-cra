@@ -16,7 +16,7 @@ export default function SeasonList(props: SeasonListProps) {
       .then((seasonsResult) => {
         setSeasons(seasonsResult.list);
       });
-  });
+  }, []);
 
   // haven't quite got this working yet
   function viewSeason(event: any) {
