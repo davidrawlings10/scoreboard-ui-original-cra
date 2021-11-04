@@ -14,6 +14,7 @@ import Season from "../Entity/Season";
 export default function SeasonPage() {
   const [seasonId, setSeasonId] = useState(1);
   const [seasons, setSeasons] = useState(Array<Season>());
+  const [season, setSeason] = useState({ title: "" });
 
   function handleSeasonChange(event: React.ChangeEvent<any>) {
     if ((event.target.name as string) === "seasonId") {
@@ -34,10 +35,20 @@ export default function SeasonPage() {
       });
   }, []);
 
+  useEffect(() => {
+    fetch("http://localhost:8080/season/findById?seasonId=" + seasonId)
+      .then((res) => res.json())
+      .then((json) => {
+        setSeason(json);
+      });
+  }, [seasonId]);
+
   // const classes = useStyles();
 
   return (
     <Box height="100%">
+      <SeasonList viewSeason={viewSeason} />
+      <Box>{season.title}</Box>
       <InputLabel id="labelSeason" /*className={classes.root}*/>
         Season
       </InputLabel>
@@ -55,7 +66,6 @@ export default function SeasonPage() {
           </MenuItem>
         ))}
       </Select>
-      <SeasonList viewSeason={viewSeason} />
       <SeasonDisplay seasonId={seasonId} />
     </Box>
   );
