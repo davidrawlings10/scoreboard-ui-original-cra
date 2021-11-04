@@ -16,7 +16,7 @@ export default function SeasonList(props: SeasonListProps) {
       .then((seasonsResult) => {
         setSeasons(seasonsResult.list);
       });
-  });
+  }, []);
 
   // haven't quite got this working yet
   function viewSeason(event: any) {
@@ -25,12 +25,7 @@ export default function SeasonList(props: SeasonListProps) {
   }
 
   return (
-    <Box
-      marginTop={5}
-      marginBottom={5}
-      display="flex"
-      justifyContent="center"
-    >
+    <Box marginTop={5} marginBottom={5} display="flex" justifyContent="center">
       <table className="season-list">
         <thead>
           <tr>
