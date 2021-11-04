@@ -1,4 +1,6 @@
 import React from "react";
+import { Box } from "@material-ui/core";
+
 import "./Scoreboard.css";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import ClockDisplay from "../Shared/ClockDisplay";
@@ -14,22 +16,30 @@ export default function Scoreboard(props: ScoreboardProps) {
   }
 
   return (
-    <div className="scoreboard">
-      <div
+    <Box className="scoreboard">
+      <Box
         className="scoreboard-color" /*style="background-color: blue"*/
-      ></div>
-      <div className="scoreboard-home-team">
+        bgcolor="primary.main"
+      ></Box>
+      <Box className="scoreboard-home-team" bgcolor="primary.main">
         <TeamDisplay id={props.game.homeTeamId} />
-      </div>
-      <div className="scoreboard-home-score">{props.game.homeScore}</div>
-      <div className="scoreboard-color" /*style="background-color: red"*/></div>
-      <div className="scoreboard-away-team">
+      </Box>
+      <Box className="scoreboard-home-score" bgcolor="primary.main">
+        {props.game.homeScore}
+      </Box>
+      <Box
+        className="scoreboard-color"
+        bgcolor="primary.main" /*style="background-color: red"*/
+      ></Box>
+      <Box className="scoreboard-away-team" bgcolor="primary.main">
         <TeamDisplay id={props.game.awayTeamId} />
-      </div>
-      <div className="scoreboard-away-score">{props.game.awayScore}</div>
-      <div className="scoreboard-time">
+      </Box>
+      <Box className="scoreboard-away-score" bgcolor="primary.main">
+        {props.game.awayScore}
+      </Box>
+      <Box className="scoreboard-time" bgcolor="primary.main">
         <ClockDisplay game={props.game} />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }

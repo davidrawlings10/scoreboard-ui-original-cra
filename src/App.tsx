@@ -58,7 +58,10 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box bgcolor="background.default" /*className={classes.root}*/>
+      <Box
+        bgcolor="background.default"
+        color="text.primary" /*className={classes.root}*/
+      >
         <AppBar position="static">
           <Tabs
             /*className={classes.root}*/ value={value}

@@ -1,29 +1,38 @@
-import { createMuiTheme } from "@material-ui/core";
+import { createTheme } from "@material-ui/core";
+import { deepOrange, grey, indigo } from "@material-ui/core/colors";
 
-const theme = createMuiTheme({
+const darkTheme = createTheme({
   palette: {
     background: {
-      default: "#eef",
+      default: grey[900],
     },
-    /*text: {
-        primary: "#000000",
-        secondary: "#000000",
-        disabled: "#000000",
-        hint: "#000000",
-      },*/
-    primary: {
-      light: "#7986cb",
-      main: "#3f51b5",
-      dark: "#303f9f",
-      contrastText: "#fff",
+    type: "dark",
+    text: {
+      primary: grey[300],
+      secondary: grey[300],
+      disabled: grey[600],
+      hint: grey[300],
     },
-    secondary: {
-      light: "#e57373",
-      main: "#f44336",
-      dark: "#d32f2f",
-      contrastText: "#fff",
-    },
+    primary: { main: indigo[900] },
+    secondary: deepOrange,
   },
 });
 
-export default theme;
+const lightTheme = createTheme({
+  palette: {
+    background: {
+      default: grey[100],
+    },
+    type: "dark",
+    text: {
+      primary: grey[900],
+      secondary: grey[600],
+      disabled: grey[900],
+      hint: grey[900],
+    },
+    primary: { main: indigo[400] },
+    secondary: deepOrange,
+  },
+});
+
+export default darkTheme;

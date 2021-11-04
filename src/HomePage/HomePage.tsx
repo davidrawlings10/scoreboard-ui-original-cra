@@ -159,9 +159,9 @@ export default function HomePage() {
   );
 
   return (
-    <Box>
+    <Box height="100vh">
       <Box display="flex">
-        <Box>
+        <Box marginRight={2}>
           <FormControlLabel
             control={
               <Switch checked={running} onChange={handleRunningChange} />
@@ -170,36 +170,40 @@ export default function HomePage() {
             labelPlacement="start"
           />
         </Box>
-        <FormControlLabel
-          label="Milliseconds per tick"
-          control={
-            <TextField
-              value={millisecondsPerTick}
-              variant="outlined"
-              size="small"
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-          }
-          labelPlacement="start"
-        />
-        <FormControlLabel
-          label="Number of games to play"
-          control={
-            <>
+        <Box marginRight={2}>
+          <FormControlLabel
+            label="Milliseconds per tick"
+            control={
               <TextField
-                value={gamesToPlay}
+                value={millisecondsPerTick}
                 variant="outlined"
                 size="small"
                 InputProps={{
                   readOnly: true,
                 }}
               />
-            </>
-          }
-          labelPlacement="start"
-        />
+            }
+            labelPlacement="start"
+          />
+        </Box>
+        <Box marginRight={2}>
+          <FormControlLabel
+            label="Number of games to play"
+            control={
+              <>
+                <TextField
+                  value={gamesToPlay}
+                  variant="outlined"
+                  size="small"
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                />
+              </>
+            }
+            labelPlacement="start"
+          />
+        </Box>
         <IconButton onClick={handleClickOpen} color="primary">
           <Edit />
         </IconButton>

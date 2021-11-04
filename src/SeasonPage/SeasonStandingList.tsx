@@ -88,7 +88,7 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
           ))}
         </tbody>
       </table>
-      <Box className="tiebreaker">
+      <Box>
         Tiebreaker decided by Points, Wins, Goal Diff, Goals For, Head to head
         outcome, Two game playoff
       </Box>

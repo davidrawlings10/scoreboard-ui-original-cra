@@ -25,7 +25,12 @@ export default function SeasonGameList(props: SeasonGameListProps) {
   }, [props.seasonId]);
 
   return (
-    <Box marginTop={5} marginBottom={5} display="flex" justifyContent="center">
+    <Box
+      marginTop={5}
+      marginBottom={5}
+      display="flex"
+      justifyContent="center"
+    >
       <table className="season-game-list">
         <thead>
           <tr>

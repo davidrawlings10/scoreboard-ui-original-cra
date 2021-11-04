@@ -1,4 +1,5 @@
 import {
+  Box,
   Select,
   InputLabel,
   MenuItem,
@@ -117,20 +118,22 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
       <InputLabel>Number of Games</InputLabel>
       <TextField value={numGames} onChange={numGamesChange} />
       <Input type="submit" value="Submit" />
-      <FormGroup>
-        {possibleTeams.map((team) => (
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={selectedTeamIds.indexOf(team.id) >= 0}
-                onChange={selectedTeamIdsChange}
-                value={team.id}
-              />
-            }
-            label={team.location + " " + team.name}
-          />
-        ))}
-      </FormGroup>
+      <Box>
+        <FormGroup>
+          {possibleTeams.map((team) => (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={selectedTeamIds.indexOf(team.id) >= 0}
+                  onChange={selectedTeamIdsChange}
+                  value={team.id}
+                />
+              }
+              label={team.location + " " + team.name}
+            />
+          ))}
+        </FormGroup>
+      </Box>
     </form>
   );
 }

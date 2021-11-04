@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Select, InputLabel, MenuItem } from "@material-ui/core";
+import { Box, Select, InputLabel, MenuItem } from "@material-ui/core";
 
 import SeasonList from "./SeasonList";
 import SeasonDisplay from "./SeasonDisplay";
@@ -37,7 +37,7 @@ export default function SeasonPage() {
   // const classes = useStyles();
 
   return (
-    <div>
+    <Box height="100%">
       <InputLabel id="labelSeason" /*className={classes.root}*/>
         Season
       </InputLabel>
@@ -57,6 +57,6 @@ export default function SeasonPage() {
       </Select>
       <SeasonList viewSeason={viewSeason} />
       <SeasonDisplay seasonId={seasonId} />
-    </div>
+    </Box>
   );
 }
