@@ -6,7 +6,6 @@ import ScheduleSeasonForm from "./ScheduleSeasonForm";
 import { Tabs, Tab, AppBar, Box, ThemeProvider } from "@material-ui/core";
 import { Home, List, PlayArrow, PlaylistAdd } from "@material-ui/icons";
 import theme from "./theme";
-// import { createMuiTheme } from "@material-ui/core/styles";
 
 interface TabPanelProps {
   children?: React.ReactNode;

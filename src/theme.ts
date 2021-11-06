@@ -1,4 +1,4 @@
-import { createTheme } from "@material-ui/core";
+import { createTheme } from "@material-ui/core/styles";
 import { deepOrange, grey, indigo } from "@material-ui/core/colors";
 
 const darkTheme = createTheme({

@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 import MaterialTable from "material-table";
 import Standing from "../Entity/Standing";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
@@ -39,9 +39,6 @@ export default function SeasonStanding(props: SeasonStandingProps) {
     {
       title: "PTS",
       field: "point",
-      /*cellStyle: {
-        width: "1%",
-      },*/
     },
     {
       title: "GP",
@@ -128,11 +125,6 @@ export default function SeasonStanding(props: SeasonStandingProps) {
         columns={columns}
         options={{
           search: true,
-          /*tableLayout: "fixed",*/
-
-          /*paging: false,
-          filtering: true,
-          exportButton: true,*/
         }}
       />
       <div className="tiebreaker">
@@ -142,3 +134,6 @@ export default function SeasonStanding(props: SeasonStandingProps) {
     </div>
   );
 }
+*/
+
+export {};
