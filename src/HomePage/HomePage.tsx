@@ -14,9 +14,8 @@ import {
 } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 
-import Scoreboard from "../HomePage/Scoreboard";
+import Scoreboard from "./Scoreboard";
 import SeasonDisplay from "../SeasonPage/SeasonDisplay";
-import CurrentGameList from "../HomePage/CurrentGameList";
 import Game from "../Entity/Game";
 
 export default function HomePage() {
@@ -159,7 +158,7 @@ export default function HomePage() {
   );
 
   return (
-    <Box height="100vh">
+    <Box>
       <Box display="flex">
         <Box marginRight={2}>
           <FormControlLabel
@@ -209,19 +208,26 @@ export default function HomePage() {
         </IconButton>
         {ScoreboardControlsDialog}
       </Box>
-      <CurrentGameList
-        games={
-          currentGames != null && currentGames.length > 0 ? currentGames : null
-        }
-        updateDisplayIndex={(index) => setDisplayGameIndex(index)}
-      />
-      <Scoreboard
-        game={
-          currentGames != null && currentGames.length > 0
-            ? currentGames[displayGameIndex]
-            : null
-        }
-      />
+      <Box display="flex" flexDirection="row">
+        {currentGames.map((game, index) =>
+          index !== displayGameIndex ? (
+            <Box onClick={() => setDisplayGameIndex(index)}>
+              <Scoreboard key={game.id} game={game} small />
+            </Box>
+          ) : (
+            <div />
+          )
+        )}
+      </Box>
+      <Box marginTop={4}>
+        <Scoreboard
+          game={
+            currentGames != null && currentGames.length > 0
+              ? currentGames[displayGameIndex]
+              : null
+          }
+        />
+      </Box>
       <SeasonDisplay seasonId={currentGames[displayGameIndex]?.seasonId} />
     </Box>
   );
