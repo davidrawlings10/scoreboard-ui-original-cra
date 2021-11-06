@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+/*import { useState, useEffect } from "react";
 import MaterialTable from "material-table";
 import "./SeasonGameList.css";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import Game from "../Entity/Game";
-// import { getDateString } from "./DateUtil";
 
 export type SeasonGameListProps = {
   seasonId: number;
@@ -68,61 +67,6 @@ export default function SeasonGameList(props: SeasonGameListProps) {
       />
     </div>
   );
-
-  /*return (
-    <table className="SeasonGameList">
-      <thead>
-        <tr>
-          <th>Home</th>
-          <th></th>
-          <th>Away</th>
-          <th></th>
-          <th></th>
-          <th>Played</th>
-        </tr>
-      </thead>
-      <tbody>
-        {games.map((game) => {
-          return (
-            <tr key={game.id}>
-              <td
-                className={
-                  game.homeScore > game.awayScore ? "WinningTeamColor" : ""
-                }
-              >
-                <TeamDisplay id={game.homeTeamId} />
-              </td>
-              <td
-                className={
-                  game.homeScore > game.awayScore ? "WinningTeamColor" : ""
-                }
-              >
-                {game.homeScore}
-              </td>
-              <td
-                className={
-                  game.homeScore < game.awayScore ? "WinningTeamColor" : ""
-                }
-              >
-                <TeamDisplay id={game.awayTeamId} />
-              </td>
-              <td
-                className={
-                  game.homeScore < game.awayScore ? "WinningTeamColor" : ""
-                }
-              >
-                {game.awayScore}
-              </td>
-              <td>
-                {game.status === "FINAL" ? getFinalText(game.endingPeriod) : ""}
-              </td>
-              <td>
-                date
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  );*/
 }
+*/
+export {};
