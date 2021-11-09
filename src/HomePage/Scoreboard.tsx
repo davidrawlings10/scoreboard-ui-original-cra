@@ -3,6 +3,16 @@ import ClockDisplay from "../Shared/ClockDisplay";
 import Game from "../Entity/Game";
 
 import { Box, Grid } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "&:hover": {
+      backgroundColor: theme.palette.primary.dark,
+      cursor: "pointer",
+    },
+  },
+}));
 
 export type ScoreboardProps = {
   game: Game | null;
@@ -10,6 +20,8 @@ export type ScoreboardProps = {
 };
 
 export default function Scoreboard(props: ScoreboardProps) {
+  const classes = useStyles();
+
   if (!props.game) {
     return <div></div>;
   }
@@ -19,6 +31,7 @@ export default function Scoreboard(props: ScoreboardProps) {
       <Box
         bgcolor="primary.main"
         border="1px solid black"
+        className={props.small ? classes.root : ""}
         width={props.small ? 200 : 360}
       >
         <Grid container>
