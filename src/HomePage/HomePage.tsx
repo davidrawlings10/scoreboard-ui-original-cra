@@ -10,7 +10,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  IconButton,
 } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 
@@ -203,12 +202,17 @@ export default function HomePage() {
             labelPlacement="start"
           />
         </Box>
-        <IconButton onClick={handleClickOpen} color="primary">
-          <Edit />
-        </IconButton>
+        <Button
+          onClick={handleClickOpen}
+          color="primary"
+          variant="contained"
+          startIcon={<Edit />}
+        >
+          Edit
+        </Button>
         {ScoreboardControlsDialog}
       </Box>
-      <Box display="flex" flexDirection="row">
+      <Box display="flex" flexDirection="row" marginTop={4}>
         {currentGames.map((game, index) =>
           index !== displayGameIndex ? (
             <Box onClick={() => setDisplayGameIndex(index)}>

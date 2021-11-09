@@ -2,7 +2,8 @@ import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import ClockDisplay from "../Shared/ClockDisplay";
 import Game from "../Entity/Game";
 
-import { Box, Grid } from "@material-ui/core";
+import { Box, Grid, IconButton } from "@material-ui/core";
+import { Delete as DeleteIcon, Edit as EditIcon } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,53 +23,89 @@ export type ScoreboardProps = {
 export default function Scoreboard(props: ScoreboardProps) {
   const classes = useStyles();
 
+  function adjustHandleClick() {
+    if (!!props.game) {
+      fetch(
+        "http://localhost:8080/game/adjustCurrentGame?gameId=" + props.game.id
+      );
+    }
+  }
+
+  function terminateHandleClick() {
+    console.log("terminateHandleClick()");
+    if (!!props.game) {
+      fetch(
+        "http://localhost:8080/game/terminateCurrentGame?gameId=" +
+          props.game.id
+      );
+    }
+  }
+
   if (!props.game) {
     return <div></div>;
   }
 
   return (
     <Box display="flex" justifyContent="center">
-      <Box
-        bgcolor="primary.main"
-        border="1px solid black"
-        className={props.small ? classes.root : ""}
-        width={props.small ? 200 : 360}
-      >
-        <Grid container>
-          <Grid item xs={props.small ? 9 : 10}>
-            <Box border="1px solid black" p={1}>
-              <TeamDisplay
-                id={props.game.homeTeamId}
-                hideLocation={props.small}
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={props.small ? 3 : 2}>
-            <Box border="1px solid black" p={1} textAlign="center">
-              {props.game.homeScore}
-            </Box>
-          </Grid>
-          <Grid item xs={props.small ? 9 : 10}>
-            <Box border="1px solid black" p={1}>
-              <TeamDisplay
-                id={props.game.awayTeamId}
-                hideLocation={props.small}
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={props.small ? 3 : 2}>
-            <Box border="1px solid black" p={1} textAlign="center">
-              {props.game.awayScore}
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <Box border="1px solid black" p={1}>
-              <Box textAlign="right">
-                <ClockDisplay game={props.game} />
+      <Box flexDirection="column">
+        <Box
+          bgcolor="primary.main"
+          border="1px solid black"
+          className={props.small ? classes.root : ""}
+          width={props.small ? 200 : 360}
+        >
+          <Grid container>
+            <Grid item xs={props.small ? 9 : 10}>
+              <Box border="1px solid black" p={1}>
+                <TeamDisplay
+                  id={props.game.homeTeamId}
+                  hideLocation={props.small}
+                />
               </Box>
-            </Box>
+            </Grid>
+            <Grid item xs={props.small ? 3 : 2}>
+              <Box border="1px solid black" p={1} textAlign="center">
+                {props.game.homeScore}
+              </Box>
+            </Grid>
+            <Grid item xs={props.small ? 9 : 10}>
+              <Box border="1px solid black" p={1}>
+                <TeamDisplay
+                  id={props.game.awayTeamId}
+                  hideLocation={props.small}
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={props.small ? 3 : 2}>
+              <Box border="1px solid black" p={1} textAlign="center">
+                {props.game.awayScore}
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Box border="1px solid black" p={1}>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="space-between"
+                >
+                  <ClockDisplay game={props.game} />
+                </Box>
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
+        </Box>
+        <Box display={props.small ? "none" : "flex"}>
+          <Box margin={0.5}>
+            <IconButton size="small" onClick={adjustHandleClick}>
+              <EditIcon />
+            </IconButton>
+          </Box>
+          <Box margin={0.5}>
+            <IconButton size="small" onClick={terminateHandleClick}>
+              <DeleteIcon />
+            </IconButton>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
