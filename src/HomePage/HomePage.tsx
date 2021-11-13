@@ -5,11 +5,6 @@ import {
   FormControlLabel,
   TextField,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
 } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 
@@ -72,95 +67,14 @@ export default function HomePage() {
 
   const [scoreboardControlsDialogOpen, setScoreboardControlsDialogOpen] =
     React.useState(false);
-  /*const [gamesToPlayInput, setGamesToPlayInput] = React.useState<number>(0);
-  const [millisecondsPerTickInput, setMillisecondsPerTickInput] =
-    React.useState<number>(0);*/
 
   const handleScoreboardControlsDialogOpen = () => {
-    /*setGamesToPlayInput(gamesToPlay);
-    setMillisecondsPerTickInput(millisecondsPerTick);*/
     setScoreboardControlsDialogOpen(true);
   };
 
   const handleScoreboardControlsDialogClose = () => {
     setScoreboardControlsDialogOpen(false);
   };
-
-  /*const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleSubmit = () => {
-    if (millisecondsPerTick !== millisecondsPerTickInput) {
-      setMillisecondsPerTick(millisecondsPerTickInput);
-      fetch(
-        "http://localhost:8080/game/setTickMilliseconds?value=" +
-          millisecondsPerTickInput
-      );
-    }
-
-    if (gamesToPlay !== gamesToPlayInput) {
-      setGamesToPlay(gamesToPlayInput);
-      fetch(
-        "http://localhost:8080/game/setGamesToPlay?numGames=" + gamesToPlayInput
-      );
-    }
-
-    setOpen(false);
-  };
-
-  const gamesToPlayInputOnChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setGamesToPlayInput(parseInt(event.target.value));
-  };
-
-  const millisecondsPerTickInputOnChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setMillisecondsPerTickInput(parseInt(event.target.value));
-  };
-
-  const ScoreboardControlsDialog = (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="form-dialog-title"
-    >
-      <DialogTitle id="form-dialog-title">Edit Scoreboard Controls</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          Set milliseconds per tick and number of games to play
-        </DialogContentText>
-        <TextField
-          autoFocus
-          id="tickMilliseconds"
-          label="Tick Milliseconds"
-          type="number"
-          value={millisecondsPerTickInput}
-          fullWidth
-          onChange={millisecondsPerTickInputOnChange}
-        />
-        <TextField
-          autoFocus
-          id="gamesToPlay"
-          label="Games to Play"
-          type="number"
-          value={gamesToPlayInput}
-          fullWidth
-          onChange={gamesToPlayInputOnChange}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleSubmit} color="primary">
-          Submit
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );*/
 
   return (
     <>
@@ -217,7 +131,6 @@ export default function HomePage() {
           >
             Edit
           </Button>
-          {ScoreboardControlsDialog}
         </Box>
         <Box display="flex" flexDirection="row" marginTop={4}>
           {currentGames.map((game, index) =>
