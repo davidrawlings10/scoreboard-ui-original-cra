@@ -4,8 +4,11 @@ import {
   DialogActions,
   Dialog,
   Button,
+  Box,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Game from "../Entity/Game";
+import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 interface ConfirmationDialogProps {
   open: boolean;
   onClose: (confirm: boolean) => void;
+  game: Game;
 }
 
 export default function ConfirmationDialog(props: ConfirmationDialogProps) {
@@ -37,7 +41,19 @@ export default function ConfirmationDialog(props: ConfirmationDialogProps) {
   return (
     <Dialog maxWidth="xs" open={open}>
       <DialogTitle>Are you sure you want to stop this game?</DialogTitle>
-      <DialogContent dividers>Content goes here</DialogContent>
+      <DialogContent dividers>
+        <Box>
+          <TeamDisplay id={props.game.homeTeamId} />
+        </Box>
+        <Box>
+          <TeamDisplay id={props.game.awayTeamId} />
+        </Box>
+        <Box>
+          {props.game.seasonId
+            ? "The game's progress will be discarded and it will be set back to SCHEDULED"
+            : ""}
+        </Box>
+      </DialogContent>
       <DialogActions>
         <Button
           autoFocus

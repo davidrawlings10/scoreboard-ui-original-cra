@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Grid, IconButton } from "@material-ui/core";
-import { Delete as DeleteIcon, Edit as EditIcon } from "@material-ui/icons";
+import {
+  Delete as DeleteIcon /*, Edit as EditIcon*/,
+} from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
@@ -28,22 +30,9 @@ export default function Scoreboard(props: ScoreboardProps) {
   const [confirmationDailogOpen, setConfirmationDailogOpen] =
     React.useState(false);
 
-  function adjustHandleClick() {
-    if (!!props.game) {
-      fetch(
-        "http://localhost:8080/game/adjustCurrentGame?gameId=" + props.game.id
-      );
-    }
-  }
-
   function terminateHandleClick() {
     setConfirmationDailogOpen(true);
   }
-
-  /*function deleteSomething() {
-    setConfirmationDailogOpen(true);
-    console.log("deleteSomething()");
-  }*/
 
   const confirmationDialogHandleClose = (confirm: Boolean) => {
     setConfirmationDailogOpen(false);
@@ -57,6 +46,14 @@ export default function Scoreboard(props: ScoreboardProps) {
       }
     }
   };
+
+  /*function adjustHandleClick() {
+    if (!!props.game) {
+      fetch(
+        "http://localhost:8080/game/adjustCurrentGame?gameId=" + props.game.id
+      );
+    }
+  }*/
 
   if (!props.game) {
     return <div></div>;
@@ -118,17 +115,18 @@ export default function Scoreboard(props: ScoreboardProps) {
                 <DeleteIcon />
               </IconButton>
             </Box>
-            <Box margin={0.5}>
+            {/*<Box margin={0.5}>
               <IconButton size="small" onClick={adjustHandleClick}>
                 <EditIcon />
               </IconButton>
-            </Box>
+            </Box>*/}
           </Box>
         </Box>
       </Box>
       <ConfirmationDialog
         open={confirmationDailogOpen}
         onClose={confirmationDialogHandleClose}
+        game={props.game}
       />
     </>
   );
