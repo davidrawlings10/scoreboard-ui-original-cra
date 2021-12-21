@@ -5,7 +5,7 @@ import { Box } from "@material-ui/core";
 
 import "./CurrentGame.css";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
-import ClockDisplay from "../Shared/ClockDisplay";
+import GameClockDisplay from "../Shared/GameClockDisplay";
 import Game from "../Entity/Game";
 
 export interface CurrentGameProps {
@@ -40,7 +40,7 @@ export default class CurrentGame extends React.Component<CurrentGameProps> {
             </div>
             <div className="current-game-away-score">{game.awayScore}</div>
             <div className="current-game-time">
-              <ClockDisplay game={game} />
+              <GameClockDisplay game={game} />
             </div>
           </div>
         </Box>

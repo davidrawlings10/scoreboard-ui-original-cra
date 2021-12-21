@@ -40,28 +40,33 @@ function PeriodDisplay(period: number) {
   }
 }
 
-export type ClockDisplayProps = {
+export type GameClockDisplayProps = {
   game: Game;
 };
 
-export default function ClockDisplay(props: ClockDisplayProps) {
+export default function GameClockDisplay(props: GameClockDisplayProps) {
   const { game } = props;
 
   if (game.status === "FINAL") {
     return <span>{getFinalText(game.endingPeriod)}</span>;
   }
 
-  if (game.clock.intermission) {
-    return (
-      <span>
-        {PeriodDisplay(game.clock.period)} starts in {TimeDisplay(game.clock)}
-      </span>
-    );
-  } else {
-    return (
-      <span>
-        {TimeDisplay(game.clock)} {PeriodDisplay(game.clock.period)}
-      </span>
-    );
-  }
+  return <ClockDisplay clock={game.clock} />;
+}
+
+export type ClockDisplayProps = {
+  clock: Clock;
+};
+
+export function ClockDisplay(props: ClockDisplayProps) {
+  const { clock } = props;
+  return clock.intermission ? (
+    <>
+      {PeriodDisplay(clock.period)} starts in {TimeDisplay(clock)}
+    </>
+  ) : (
+    <>
+      {TimeDisplay(clock)} {PeriodDisplay(clock.period)}
+    </>
+  );
 }

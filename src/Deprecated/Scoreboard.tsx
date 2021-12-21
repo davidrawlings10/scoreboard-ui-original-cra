@@ -3,7 +3,7 @@ import { Box } from "@material-ui/core";
 
 import "./Scoreboard.css";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
-import ClockDisplay from "../Shared/ClockDisplay";
+import ClockDisplay from "../Shared/GameClockDisplay";
 import Game from "../Entity/Game";
 
 export type ScoreboardProps = {

@@ -10,31 +10,14 @@ import Paper from "@material-ui/core/Paper";
 
 import GameEvent from "../Entity/GameEvent";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
-import ClockDisplay from "../Shared/ClockDisplay";
+import { ClockDisplay } from "../Shared/GameClockDisplay";
+import { Clock } from "../Entity/Game";
 
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
 });
-
-function createData(
-  name: any,
-  calories: any,
-  fat: any,
-  carbs: any,
-  protein: any
-) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
 
 interface GameEventListProps {
   gameEvents: Array<GameEvent>;
@@ -51,20 +34,31 @@ export default function GameEventList(props: GameEventListProps) {
             <TableCell>Team</TableCell>
             <TableCell align="right">Home</TableCell>
             <TableCell align="right">Away</TableCell>
-            <TableCell align="right">Period</TableCell>
+            <TableCell align="right">Time</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.gameEvents.map((gameEvent) => (
-            <TableRow key={gameEvent.id}>
-              <TableCell component="th" scope="row">
-                <TeamDisplay id={gameEvent.teamId} />
-              </TableCell>
-              <TableCell align="right">{gameEvent.homeScore}</TableCell>
-              <TableCell align="right">{gameEvent.awayScore}</TableCell>
-              <TableCell align="right">{gameEvent.period}</TableCell>
-            </TableRow>
-          ))}
+          {props.gameEvents.map((gameEvent) => {
+            const clock: Clock = {
+              period: gameEvent.period,
+              minutes: gameEvent.minutes,
+              seconds: gameEvent.seconds,
+              intermission: false,
+              final: false,
+            };
+            return (
+              <TableRow key={gameEvent.id}>
+                <TableCell component="th" scope="row">
+                  <TeamDisplay id={gameEvent.teamId} />
+                </TableCell>
+                <TableCell align="right">{gameEvent.homeScore}</TableCell>
+                <TableCell align="right">{gameEvent.awayScore}</TableCell>
+                <TableCell align="right">
+                  <ClockDisplay clock={clock} />
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>

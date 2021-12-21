@@ -4,7 +4,7 @@ import { Box } from "@material-ui/core";
 import "./Table.css";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import Game from "../Entity/Game";
-import { getFinalText } from "../Shared/ClockDisplay";
+import { getFinalText } from "../Shared/GameClockDisplay";
 // import { getDateString } from "./DateUtil";
 
 export type SeasonGameListProps = {

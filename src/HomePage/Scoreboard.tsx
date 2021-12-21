@@ -6,7 +6,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
-import ClockDisplay from "../Shared/ClockDisplay";
+import GameClockDisplay from "../Shared/GameClockDisplay";
 import Game from "../Entity/Game";
 import ConfirmationDialog from "./ConfirmationDialog";
 
@@ -103,7 +103,7 @@ export default function Scoreboard(props: ScoreboardProps) {
                     flexDirection="row"
                     justifyContent="space-between"
                   >
-                    <ClockDisplay game={props.game} />
+                    <GameClockDisplay game={props.game} />
                   </Box>
                 </Box>
               </Grid>
