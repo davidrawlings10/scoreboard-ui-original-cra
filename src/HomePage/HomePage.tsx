@@ -12,10 +12,13 @@ import Scoreboard from "./Scoreboard";
 import ScoreboardControlsDialog from "./ScoreboardControlsDialog";
 import SeasonDisplay from "../SeasonPage/SeasonDisplay";
 import Game from "../Entity/Game";
+import GameEvent from "../Entity/GameEvent";
+import GameEventList from "./GameEventList";
 
 export default function HomePage() {
   const [currentGames, setCurrentGames] = React.useState(Array<Game>());
   const [displayGameIndex, setDisplayGameIndex] = React.useState(0);
+  const [gameEvents, setGameEvents] = React.useState(Array<GameEvent>());
 
   const [running, setRunning] = React.useState(false);
   const [gamesToPlay, setGamesToPlay] = React.useState<number>(0);
@@ -42,7 +45,30 @@ export default function HomePage() {
         clearGetScoreboardStateInterval();
       }
     };
-  }, [millisecondsPerTick]);
+  }, [
+    millisecondsPerTick,
+    /*setGetScoreboardStateInterval,
+    clearGetScoreboardStateInterval,
+    timerId,*/
+  ]);
+
+  React.useEffect(
+    () => {
+      if (currentGames.length === 0) {
+        return;
+      }
+
+      fetch(
+        "http://localhost:8080/gameEvent/getByGameId?gameId=" +
+          currentGames[displayGameIndex].id
+      )
+        .then((res) => res.json())
+        .then((json) => {
+          setGameEvents(json.list);
+        });
+    },
+    [displayGameIndex, currentGames] /*, [displayGameIndex, currentGames]*/
+  );
 
   function setGetScoreboardStateInterval(milliseconds: number) {
     timerId = setInterval(
@@ -76,62 +102,64 @@ export default function HomePage() {
     setScoreboardControlsDialogOpen(false);
   };
 
+  const ScoreboardControls = (
+    <Box display="flex">
+      <Box marginRight={2}>
+        <FormControlLabel
+          control={<Switch checked={running} onChange={handleRunningChange} />}
+          label="Playing"
+          labelPlacement="start"
+        />
+      </Box>
+      <Box marginRight={2}>
+        <FormControlLabel
+          label="Milliseconds per tick"
+          control={
+            <TextField
+              value={millisecondsPerTick}
+              variant="outlined"
+              size="small"
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+          }
+          labelPlacement="start"
+        />
+      </Box>
+      <Box marginRight={2}>
+        <FormControlLabel
+          label="Number of games to play"
+          control={
+            <>
+              <TextField
+                value={gamesToPlay}
+                variant="outlined"
+                size="small"
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+            </>
+          }
+          labelPlacement="start"
+        />
+      </Box>
+      <Button
+        onClick={handleScoreboardControlsDialogOpen}
+        color="primary"
+        variant="contained"
+        startIcon={<Edit />}
+      >
+        Edit
+      </Button>
+    </Box>
+  );
+
   return (
     <>
       <Box>
-        <Box display="flex">
-          <Box marginRight={2}>
-            <FormControlLabel
-              control={
-                <Switch checked={running} onChange={handleRunningChange} />
-              }
-              label="Playing"
-              labelPlacement="start"
-            />
-          </Box>
-          <Box marginRight={2}>
-            <FormControlLabel
-              label="Milliseconds per tick"
-              control={
-                <TextField
-                  value={millisecondsPerTick}
-                  variant="outlined"
-                  size="small"
-                  InputProps={{
-                    readOnly: true,
-                  }}
-                />
-              }
-              labelPlacement="start"
-            />
-          </Box>
-          <Box marginRight={2}>
-            <FormControlLabel
-              label="Number of games to play"
-              control={
-                <>
-                  <TextField
-                    value={gamesToPlay}
-                    variant="outlined"
-                    size="small"
-                    InputProps={{
-                      readOnly: true,
-                    }}
-                  />
-                </>
-              }
-              labelPlacement="start"
-            />
-          </Box>
-          <Button
-            onClick={handleScoreboardControlsDialogOpen}
-            color="primary"
-            variant="contained"
-            startIcon={<Edit />}
-          >
-            Edit
-          </Button>
-        </Box>
+        <Box>{ScoreboardControls}</Box>
         <Box display="flex" flexDirection="row" marginTop={4}>
           {currentGames.map((game, index) =>
             index !== displayGameIndex ? (
@@ -152,8 +180,12 @@ export default function HomePage() {
             }
           />
         </Box>
-        <SeasonDisplay seasonId={currentGames[displayGameIndex]?.seasonId} />
+        <Box marginTop={4}>{<GameEventList gameEvents={gameEvents} />}</Box>
+        <Box marginTop={4}>
+          <SeasonDisplay seasonId={currentGames[displayGameIndex]?.seasonId} />
+        </Box>
       </Box>
+
       <ScoreboardControlsDialog
         open={scoreboardControlsDialogOpen}
         onClose={handleScoreboardControlsDialogClose}
