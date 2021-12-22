@@ -158,7 +158,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Box>
+      <Box padding={3}>
         <Box>{ScoreboardControls}</Box>
         <Box display="flex" flexDirection="row" marginTop={4}>
           {currentGames.map((game, index) =>

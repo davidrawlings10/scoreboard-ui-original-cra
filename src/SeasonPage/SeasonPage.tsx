@@ -48,7 +48,7 @@ export default function SeasonPage() {
   // const classes = useStyles();
 
   return (
-    <Box height="100%">
+    <Box padding={3} height="100%">
       <SeasonList viewSeason={viewSeason} />
       <InputLabel id="labelSeason" /*className={classes.root}*/>
         Season
