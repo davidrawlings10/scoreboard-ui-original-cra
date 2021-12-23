@@ -1,4 +1,4 @@
-import Header from "../Header";
+import Header from "./Header";
 import HomePage from "../HomePage/HomePage";
 import SeasonPage from "../SeasonPage";
 import AddGameForm from "../StartGameForm";

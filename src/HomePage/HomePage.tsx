@@ -172,15 +172,19 @@ export default function HomePage() {
           )}
         </Box>
         <Box marginTop={4}>
-          <Scoreboard
-            game={
-              currentGames != null && currentGames.length > 0
-                ? currentGames[displayGameIndex]
-                : null
-            }
-          />
+          {currentGames.length > 0 && (
+            <Scoreboard
+              game={
+                currentGames != null && currentGames.length > 0
+                  ? currentGames[displayGameIndex]
+                  : null
+              }
+            />
+          )}
         </Box>
-        <Box marginTop={4}>{<GameEventList gameEvents={gameEvents} />}</Box>
+        <Box marginTop={4}>
+          {currentGames.length > 0 && <GameEventList gameEvents={gameEvents} />}
+        </Box>
         <Box marginTop={4}>
           <SeasonDisplay seasonId={currentGames[displayGameIndex]?.seasonId} />
         </Box>

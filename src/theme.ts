@@ -13,7 +13,7 @@ const darkTheme = createTheme({
       disabled: grey[600],
       hint: grey[300],
     },
-    primary: { main: indigo[900] },
+    primary: { main: indigo[900], light: "#474f97", dark: "#121858" },
     secondary: deepOrange,
   },
 });
