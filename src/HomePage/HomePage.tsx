@@ -14,6 +14,7 @@ import SeasonDisplay from "../SeasonPage/SeasonDisplay";
 import Game from "../Entity/Game";
 import GameEvent from "../Entity/GameEvent";
 import GameEventList from "./GameEventList";
+import ScoreboardControls from "./ScoreboardControls";
 
 export default function HomePage() {
   const [currentGames, setCurrentGames] = React.useState(Array<Game>());
@@ -82,13 +83,13 @@ export default function HomePage() {
     timerId = null;
   }
 
-  const handleRunningChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRunningChange = (value: boolean) => {
     if (running) {
       fetch("http://localhost:8080/game/pauseGames");
     } else {
       fetch("http://localhost:8080/game/playGames");
     }
-    setRunning(event.target.checked);
+    setRunning(value);
   };
 
   const [scoreboardControlsDialogOpen, setScoreboardControlsDialogOpen] =
@@ -102,7 +103,7 @@ export default function HomePage() {
     setScoreboardControlsDialogOpen(false);
   };
 
-  const ScoreboardControls = (
+  /*const ScoreboardControls = (
     <Box display="flex">
       <Box marginRight={2}>
         <FormControlLabel
@@ -154,12 +155,21 @@ export default function HomePage() {
         Edit
       </Button>
     </Box>
-  );
+  );*/
 
   return (
     <>
       <Box padding={3}>
-        <Box>{ScoreboardControls}</Box>
+        {/*<Box>{ScoreboardControls}</Box>*/}
+        <ScoreboardControls
+          running={running}
+          millisecondsPerTick={millisecondsPerTick}
+          gamesToPlay={gamesToPlay}
+          handleRunningChange={handleRunningChange}
+          handleScoreboardControlsDialogOpen={
+            handleScoreboardControlsDialogOpen
+          }
+        />
         <Box display="flex" flexDirection="row" marginTop={4}>
           {currentGames.map((game, index) =>
             index !== displayGameIndex ? (
