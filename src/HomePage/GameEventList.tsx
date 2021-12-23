@@ -27,21 +27,21 @@ interface GameEventListProps {
 }
 
 export default function GameEventList(props: GameEventListProps) {
-  const {gameEvents} = props;
+  const { gameEvents } = props;
 
   const classes = useStyles();
 
   return (
     <Box display="flex" justifyContent="center">
-      <Box width="60%">
+      <Box width="50%">
         <TableContainer component={Paper}>
           <Table className={classes.table} size="small">
             <TableHead>
               <TableRow>
                 <TableCell>Team</TableCell>
-                <TableCell align="right">Home</TableCell>
-                <TableCell align="right">Away</TableCell>
-                <TableCell align="right">Time</TableCell>
+                <TableCell>Home</TableCell>
+                <TableCell>Away</TableCell>
+                <TableCell>Time</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -55,12 +55,12 @@ export default function GameEventList(props: GameEventListProps) {
                 };
                 return (
                   <TableRow key={gameEvent.id}>
-                    <TableCell scope="row">
-                      <TeamDisplay id={gameEvent.teamId} />
+                    <TableCell>
+                      <TeamDisplay id={gameEvent.teamId} hideLocation />
                     </TableCell>
-                    <TableCell align="right">{gameEvent.homeScore}</TableCell>
-                    <TableCell align="right">{gameEvent.awayScore}</TableCell>
-                    <TableCell align="right">
+                    <TableCell>{gameEvent.homeScore}</TableCell>
+                    <TableCell>{gameEvent.awayScore}</TableCell>
+                    <TableCell>
                       <ClockDisplay clock={clock} />
                     </TableCell>
                   </TableRow>
