@@ -21,6 +21,9 @@ export default function NavBar() {
                 color: theme.palette.text.primary,
                 textDecoration: "none",
                 fontWeight: "bold",
+                /*"&:hover": {
+                  color: theme.palette.text.secondary,
+                },*/
               }}
             >
               <Box display="flex" flexDirection="row" marginRight={2}>

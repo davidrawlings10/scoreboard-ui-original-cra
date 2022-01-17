@@ -11,7 +11,7 @@ export default function SeasonHeader(props: SeasonHeaderProps) {
   return (
     <Box>
       <Box marginTop={1} border="1px solid #474f97" bgcolor="primary.main">
-        <Box padding={1} display="flex">
+        <Box display="flex" paddingLeft={4}>
           <Box marginRight={6}>
             <h1>{season.title}</h1>
           </Box>
@@ -58,7 +58,14 @@ export default function SeasonHeader(props: SeasonHeaderProps) {
         </Box>
       </Box>
       {!!season.summary && (
-        <Box padding={1} bgcolor="primary.dark" border="1px solid #474f97">
+        <Box
+          paddingLeft={4}
+          paddingRight={4}
+          paddingTop={1}
+          paddingBottom={1}
+          bgcolor="primary.dark"
+          border="1px solid #474f97"
+        >
           {season.summary}
         </Box>
       )}

@@ -9,12 +9,12 @@ const darkTheme = createTheme({
     type: "dark",
     text: {
       primary: grey[300],
-      secondary: grey[300],
+      secondary: deepOrange[500],
       disabled: grey[600],
       hint: grey[300],
     },
     primary: { main: indigo[900], light: "#474f97", dark: "#121858" },
-    secondary: deepOrange,
+    secondary: { main: deepOrange[600] },
   },
 });
 

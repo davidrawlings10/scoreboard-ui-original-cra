@@ -1,4 +1,3 @@
-import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Table,
@@ -11,23 +10,25 @@ import {
   Box,
 } from "@material-ui/core";
 
+import theme from "../theme";
 import GameEvent from "../Entity/GameEvent";
+import Game, { Clock } from "../Entity/Game";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import { ClockDisplay } from "../Shared/GameClockDisplay";
-import { Clock } from "../Entity/Game";
 
 const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
+  highlight: {
+    color: theme.palette.text.secondary,
   },
 });
 
 interface GameEventListProps {
   gameEvents: Array<GameEvent>;
+  game: Game;
 }
 
 export default function GameEventList(props: GameEventListProps) {
-  const { gameEvents } = props;
+  const { gameEvents, game } = props;
 
   const classes = useStyles();
 
@@ -35,13 +36,14 @@ export default function GameEventList(props: GameEventListProps) {
     <Box display="flex" justifyContent="center">
       <Box width="50%">
         <TableContainer component={Paper}>
-          <Table className={classes.table} size="small">
+          <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>Team</TableCell>
-                <TableCell>Home</TableCell>
-                <TableCell>Away</TableCell>
-                <TableCell>Time</TableCell>
+                <TableCell style={{ width: "20%" }}>Home</TableCell>
+                <TableCell style={{ width: "20%" }}></TableCell>
+                <TableCell style={{ width: "20%" }}>Away</TableCell>
+                <TableCell style={{ width: "20%" }}></TableCell>
+                <TableCell style={{ width: "20%" }}>Time</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -53,13 +55,32 @@ export default function GameEventList(props: GameEventListProps) {
                   intermission: false,
                   final: false,
                 };
+                const homeTeamTextStyle =
+                  gameEvent.teamId === game.homeTeamId ? classes.highlight : "";
+                const awayTeamTextStyle =
+                  gameEvent.teamId === game.awayTeamId ? classes.highlight : "";
                 return (
                   <TableRow key={gameEvent.id}>
                     <TableCell>
-                      <TeamDisplay id={gameEvent.teamId} hideLocation />
+                      <Box className={homeTeamTextStyle}>
+                        <TeamDisplay id={game.homeTeamId} hideLocation />
+                      </Box>
                     </TableCell>
-                    <TableCell>{gameEvent.homeScore}</TableCell>
-                    <TableCell>{gameEvent.awayScore}</TableCell>
+                    <TableCell>
+                      <Box className={homeTeamTextStyle}>
+                        {gameEvent.homeScore}
+                      </Box>
+                    </TableCell>
+                    <TableCell>
+                      <Box className={awayTeamTextStyle}>
+                        <TeamDisplay id={game.awayTeamId} hideLocation />
+                      </Box>
+                    </TableCell>
+                    <TableCell>
+                      <Box className={awayTeamTextStyle}>
+                        {gameEvent.awayScore}
+                      </Box>
+                    </TableCell>
                     <TableCell>
                       <ClockDisplay clock={clock} />
                     </TableCell>

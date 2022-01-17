@@ -193,7 +193,7 @@ export default function HomePage() {
           )}
         </Box>
         <Box marginTop={4}>
-          {currentGames.length > 0 && <GameEventList gameEvents={gameEvents} />}
+          {currentGames.length > 0 && <GameEventList gameEvents={gameEvents} game={currentGames[displayGameIndex]} />}
         </Box>
         <Box marginTop={4}>
           <SeasonDisplay seasonId={currentGames[displayGameIndex]?.seasonId} />
