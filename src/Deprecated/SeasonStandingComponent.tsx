@@ -29,7 +29,7 @@ export default class SeasonStanding extends React.Component<
   }
 
   setSeasonStanding(seasonId: number) {
-    fetch("http://localhost:8080/standing/get?seasonId=" + seasonId)
+    fetch("http://192.168.1.71:8080/standing/get?seasonId=" + seasonId)
       .then((res) => res.json())
       .then(
         (result) => {

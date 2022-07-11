@@ -27,7 +27,7 @@ export default function SeasonDisplay(props: SeasonProps) {
   function playSeasonGame() {
     setOpen(true);
     fetch(
-      "http://localhost:8080/game/startSeasonGame?seasonId=" + props.seasonId
+      "http://192.168.1.71:8080/game/startSeasonGame?seasonId=" + props.seasonId
     );
   }
 

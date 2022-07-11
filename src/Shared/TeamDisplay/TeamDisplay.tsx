@@ -16,7 +16,7 @@ export default function TeamDisplayFunc(props: TeamDisplayFuncProps) {
 
   async function getTeamDisplay(id: number) {
     var res = await fetch(
-      "http://localhost:8080/team/getTeamById?teamId=" + id
+      "http://192.168.1.71:8080/team/getTeamById?teamId=" + id
     );
     var team = await res.json();
     return team;

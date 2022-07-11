@@ -40,7 +40,7 @@ export default function Scoreboard(props: ScoreboardProps) {
     if (confirm) {
       if (!!props.game) {
         fetch(
-          "http://localhost:8080/game/terminateCurrentGame?gameId=" +
+          "http://192.168.1.71:8080/game/terminateCurrentGame?gameId=" +
             props.game.id
         );
       }
@@ -50,7 +50,7 @@ export default function Scoreboard(props: ScoreboardProps) {
   /*function adjustHandleClick() {
     if (!!props.game) {
       fetch(
-        "http://localhost:8080/game/adjustCurrentGame?gameId=" + props.game.id
+        "http://192.168.1.71:8080/game/adjustCurrentGame?gameId=" + props.game.id
       );
     }
   }*/

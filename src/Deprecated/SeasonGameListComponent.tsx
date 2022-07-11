@@ -30,7 +30,7 @@ export default class SeasonGameList extends React.Component<
 
   setSeasonGames(seasonId: number) {
     fetch(
-      "http://localhost:8080/game/getGamesBySeasonId?seasonId=" +
+      "http://192.168.1.71:8080/game/getGamesBySeasonId?seasonId=" +
         this.props.seasonId
     )
       .then((res) => res.json())

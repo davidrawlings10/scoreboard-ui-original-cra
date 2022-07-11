@@ -28,7 +28,7 @@ export default function SeasonPage() {
   }
 
   useEffect(() => {
-    fetch("http://localhost:8080/season/getSeasons")
+    fetch("http://192.168.1.71:8080/season/getSeasons")
       .then((res) => res.json())
       .then((json) => {
         setSeasons(json.list);
@@ -37,7 +37,7 @@ export default function SeasonPage() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:8080/season/findById?seasonId=" + seasonId)
+    fetch("http://192.168.1.71:8080/season/findById?seasonId=" + seasonId)
       .then((res) => res.json())
       .then((json) => {
         console.log(json);

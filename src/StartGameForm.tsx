@@ -36,7 +36,7 @@ export default class StartGameForm extends React.Component<
   }
 
   componentDidMount() {
-    fetch("http://localhost:8080/team/getTeams?leagueId=2")
+    fetch("http://192.168.1.71:8080/team/getTeams?leagueId=2")
       .then((res) => res.json())
       .then((json) => this.setState({ teams: json.list }));
   }
@@ -54,7 +54,7 @@ export default class StartGameForm extends React.Component<
 
   handleSubmit(event: React.ChangeEvent<any>) {
     fetch(
-      "http://localhost:8080/game/startGame?sport=HOCKEY&homeTeamId=" +
+      "http://192.168.1.71:8080/game/startGame?sport=HOCKEY&homeTeamId=" +
         this.state.homeTeamId +
         "&awayTeamId=" +
         this.state.awayTeamId
