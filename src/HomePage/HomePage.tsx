@@ -1,12 +1,7 @@
 import React from "react";
 import {
-  Switch,
   Box,
-  FormControlLabel,
-  TextField,
-  Button,
 } from "@material-ui/core";
-import { Edit } from "@material-ui/icons";
 
 import Scoreboard from "./Scoreboard";
 import ScoreboardControlsDialog from "./ScoreboardControlsDialog";
@@ -48,9 +43,6 @@ export default function HomePage() {
     };
   }, [
     millisecondsPerTick,
-    /*setGetScoreboardStateInterval,
-    clearGetScoreboardStateInterval,
-    timerId,*/
   ]);
 
   React.useEffect(
@@ -68,7 +60,7 @@ export default function HomePage() {
           setGameEvents(json.list);
         });
     },
-    [displayGameIndex, currentGames] /*, [displayGameIndex, currentGames]*/
+    [displayGameIndex, currentGames]
   );
 
   function setGetScoreboardStateInterval(milliseconds: number) {
@@ -103,64 +95,9 @@ export default function HomePage() {
     setScoreboardControlsDialogOpen(false);
   };
 
-  /*const ScoreboardControls = (
-    <Box display="flex">
-      <Box marginRight={2}>
-        <FormControlLabel
-          control={<Switch checked={running} onChange={handleRunningChange} />}
-          label="Playing"
-          labelPlacement="start"
-        />
-      </Box>
-      <Box marginRight={2}>
-        <FormControlLabel
-          label="Milliseconds per tick"
-          control={
-            <TextField
-              value={millisecondsPerTick}
-              variant="outlined"
-              size="small"
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-          }
-          labelPlacement="start"
-        />
-      </Box>
-      <Box marginRight={2}>
-        <FormControlLabel
-          label="Number of games to play"
-          control={
-            <>
-              <TextField
-                value={gamesToPlay}
-                variant="outlined"
-                size="small"
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            </>
-          }
-          labelPlacement="start"
-        />
-      </Box>
-      <Button
-        onClick={handleScoreboardControlsDialogOpen}
-        color="primary"
-        variant="contained"
-        startIcon={<Edit />}
-      >
-        Edit
-      </Button>
-    </Box>
-  );*/
-
   return (
     <>
       <Box padding={3}>
-        {/*<Box>{ScoreboardControls}</Box>*/}
         <ScoreboardControls
           running={running}
           millisecondsPerTick={millisecondsPerTick}
