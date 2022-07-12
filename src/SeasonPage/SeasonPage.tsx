@@ -17,13 +17,14 @@ export default function SeasonPage() {
   const [seasons, setSeasons] = useState(Array<Season>());
   const [season, setSeason] = useState<any>({});
 
-  function handleSeasonChange(event: React.ChangeEvent<any>) {
+  /*function handleSeasonChange(event: React.ChangeEvent<any>) {
     if ((event.target.name as string) === "seasonId") {
       setSeasonId(event.target.value);
     }
-  }
+  }*/
 
   function viewSeason(seasonId: number) {
+    console.log("seasonId", seasonId);
     setSeasonId(seasonId);
   }
 
@@ -50,7 +51,7 @@ export default function SeasonPage() {
   return (
     <Box padding={3} height="100%">
       <SeasonList viewSeason={viewSeason} />
-      <InputLabel id="labelSeason" /*className={classes.root}*/>
+      {/*<InputLabel id="labelSeason">
         Season
       </InputLabel>
       <Select
@@ -59,14 +60,13 @@ export default function SeasonPage() {
         name="seasonId"
         value={seasonId}
         onChange={handleSeasonChange}
-        /*className={classes.root}*/
-      >
+        >
         {seasons?.map((season) => (
           <MenuItem key={season.id} value={season.id}>
             {season.title}
           </MenuItem>
         ))}
-      </Select>
+      </Select>*/}
       <Box marginBottom={4}>
         <SeasonHeader season={season} />
       </Box>

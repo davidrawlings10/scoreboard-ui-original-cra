@@ -31,6 +31,14 @@ export default function SeasonDisplay(props: SeasonProps) {
     );
   }
 
+  function updateSeason() {
+    fetch("http://192.168.1.71:8080/season/update?seasonId=" + props.seasonId + "&summary=abcyoyo");
+  }
+
+  function deleteSeason() {
+    console.log("not implemented");
+  }
+
   if (!props.seasonId) {
     return <div></div>;
   }
@@ -44,6 +52,12 @@ export default function SeasonDisplay(props: SeasonProps) {
       </Snackbar>
       <Button onClick={playSeasonGame} color="primary" variant="contained">
         Play Next Game
+      </Button>
+      <Button onClick={updateSeason} color="primary" variant="contained">
+        Edit
+      </Button>
+      <Button onClick={deleteSeason} color="secondary" variant="contained">
+        Delete
       </Button>
       <SeasonStanding seasonId={props.seasonId} />
       <SeasonGameList seasonId={props.seasonId} />

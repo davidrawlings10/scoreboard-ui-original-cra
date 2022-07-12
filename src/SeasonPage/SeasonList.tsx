@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Box, Button } from "@material-ui/core";
+import { Box} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 import "./Table.css";
 import Season from "../Entity/Season";
@@ -7,7 +8,17 @@ import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 
 export type SeasonListProps = { viewSeason: (seasonId: number) => void };
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
+}));
+
 export default function SeasonList(props: SeasonListProps) {
+  const classes = useStyles();
+
   const [seasons, setSeasons] = useState<Array<Season>>([]);
 
   useEffect(() => {
@@ -18,10 +29,8 @@ export default function SeasonList(props: SeasonListProps) {
       });
   }, []);
 
-  // haven't quite got this working yet
-  function viewSeason(event: any) {
-    console.log(event);
-    // props.viewSeason(id);
+  function viewSeason(seasonId: number) {
+    props.viewSeason(seasonId);
   }
 
   return (
@@ -33,15 +42,14 @@ export default function SeasonList(props: SeasonListProps) {
             <th>Winner</th>
             <th>Teams</th>
             <th>Schedule</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
           {seasons.map((season) => (
             <tr
               key={season.id}
-              data-id={season.id}
-              onClick={(e) => viewSeason(e)}
+              onClick={() => viewSeason(season.id)}
+              className={classes.root}
             >
               <td>{season.title}</td>
               <td>
@@ -49,11 +57,6 @@ export default function SeasonList(props: SeasonListProps) {
               </td>
               <td>{season.numTeams}</td>
               <td>{season.scheduleType}</td>
-              <td>
-                <Button size="small" onClick={(e) => viewSeason(e)}>
-                  View
-                </Button>
-              </td>
             </tr>
           ))}
         </tbody>
