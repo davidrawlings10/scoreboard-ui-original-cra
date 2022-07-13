@@ -58,6 +58,7 @@ export default class SeasonPage extends React.Component {
           name="seasonId"
           value={this.state.seasonId}
           onChange={this.handleSeasonChange}
+          variant="outlined"
         >
           {this.state.seasons?.map((season) => (
             <MenuItem value={season.id}>{season.title}</MenuItem>

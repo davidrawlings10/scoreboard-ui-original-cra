@@ -78,6 +78,7 @@ export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
           id="summary"
           label="Summary"
           type="text"
+          variant="outlined"
           multiline
           value={summary}
           fullWidth

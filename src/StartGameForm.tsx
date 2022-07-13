@@ -76,6 +76,7 @@ export default class StartGameForm extends React.Component<
           name="homeTeamId"
           value={this.state.homeTeamId}
           onChange={this.handleChange}
+          variant="outlined"
         >
           {this.state.teams.map((team) => (
             <MenuItem key={team.id} value={team.id}>
@@ -90,6 +91,7 @@ export default class StartGameForm extends React.Component<
           name="awayTeamId"
           value={this.state.awayTeamId}
           onChange={this.handleChange}
+          variant="outlined"
         >
           {this.state.teams.map((team) => (
             <MenuItem key={team.id} value={team.id}>

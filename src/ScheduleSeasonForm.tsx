@@ -98,9 +98,13 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
   return (
     <form onSubmit={handleSubmit}>
       <InputLabel>Season Title</InputLabel>
-      <TextField value={title} onChange={titleChange} />
+      <TextField value={title} onChange={titleChange} variant="outlined" />
       <InputLabel>Schedule Type</InputLabel>
-      <Select value={scheduleType} onChange={scheduleTypeChange}>
+      <Select
+        value={scheduleType}
+        onChange={scheduleTypeChange}
+        variant="outlined"
+      >
         <MenuItem id="HOME_ROTATION" value="HOME_ROTATION">
           Home Rotation
         </MenuItem>
@@ -112,11 +116,19 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
         </MenuItem>
       </Select>
       <InputLabel>Sport</InputLabel>
-      <TextField value={sport} onChange={sportChange} />
+      <TextField value={sport} onChange={sportChange} variant="outlined" />
       <InputLabel>League</InputLabel>
-      <TextField value={leagueId} onChange={leagueIdChange} />
+      <TextField
+        value={leagueId}
+        onChange={leagueIdChange}
+        variant="outlined"
+      />
       <InputLabel>Number of Games</InputLabel>
-      <TextField value={numGames} onChange={numGamesChange} />
+      <TextField
+        value={numGames}
+        onChange={numGamesChange}
+        variant="outlined"
+      />
       <Input type="submit" value="Submit" />
       <Box>
         <FormGroup>

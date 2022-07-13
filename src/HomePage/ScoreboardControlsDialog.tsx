@@ -79,6 +79,7 @@ export default function ScoreboardControlsDialog(
           id="tickMilliseconds"
           label="Tick Milliseconds"
           type="number"
+          variant="outlined"
           value={millisecondsPerTick}
           fullWidth
           onChange={millisecondsPerTickOnChange}
@@ -88,6 +89,7 @@ export default function ScoreboardControlsDialog(
           id="gamesToPlay"
           label="Games to Play"
           type="number"
+          variant="outlined"
           value={gamesToPlay}
           fullWidth
           onChange={gamesToPlayInputOnChange}
