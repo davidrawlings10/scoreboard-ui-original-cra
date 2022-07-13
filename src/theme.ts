@@ -9,7 +9,7 @@ const darkTheme = createTheme({
     type: "dark",
     text: {
       primary: grey[300],
-      secondary: deepOrange[500],
+      secondary: grey[400] /* deepOrange[500], */,
       disabled: grey[600],
       hint: grey[300],
     },

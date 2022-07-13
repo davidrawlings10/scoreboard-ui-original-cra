@@ -66,6 +66,8 @@ export default function ScoreboardControlsDialog(
       open={props.open}
       onClose={handleCancel}
       aria-labelledby="form-dialog-title"
+      maxWidth="sm"
+      fullWidth
     >
       <DialogTitle id="form-dialog-title">Edit Scoreboard Controls</DialogTitle>
       <DialogContent>

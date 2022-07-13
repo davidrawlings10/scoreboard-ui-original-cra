@@ -4,6 +4,7 @@ import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 
 import SeasonStanding from "./SeasonStandingList";
 import SeasonGameList from "./SeasonGameList";
+import SeasonUpdateDialog from "./SeasonUpdateDialog";
 
 export type SeasonProps = {
   seasonId: number;
@@ -14,26 +15,41 @@ function Alert(props: AlertProps) {
 }
 
 export default function SeasonDisplay(props: SeasonProps) {
-  const [open, setOpen] = React.useState(false);
+  const [gameStartedAlertOpen, setGameStartedAlertOpen] = React.useState(false);
+  const [seasonUpdateDialogOpen, setSeasonUpdateDialogOpen] =
+    React.useState(false);
 
-  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+  const handleGameStartedAlertClose = (
+    event?: React.SyntheticEvent,
+    reason?: string
+  ) => {
     if (reason === "clickaway") {
       return;
     }
 
-    setOpen(false);
+    setSeasonUpdateDialogOpen(false);
   };
 
   function playSeasonGame() {
-    setOpen(true);
+    setGameStartedAlertOpen(true);
     fetch(
-      "http://192.168.68.129:8080/game/startSeasonGame?seasonId=" + props.seasonId
+      "http://192.168.68.129:8080/game/startSeasonGame?seasonId=" +
+        props.seasonId
     );
   }
 
   function updateSeason() {
-    fetch("http://192.168.68.129:8080/season/update?seasonId=" + props.seasonId + "&summary=abcyoyo");
+    /* fetch(
+      "http://192.168.68.129:8080/season/update?seasonId=" +
+        props.seasonId +
+        "&summary=abcyoyo"
+    ); */
+    setSeasonUpdateDialogOpen(true);
   }
+
+  const handleSeasonUpdateDialogOpenClose = () => {
+    setSeasonUpdateDialogOpen(false);
+  };
 
   function deleteSeason() {
     console.log("not implemented");
@@ -45,8 +61,12 @@ export default function SeasonDisplay(props: SeasonProps) {
 
   return (
     <div>
-      <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success">
+      <Snackbar
+        open={gameStartedAlertOpen}
+        autoHideDuration={1000}
+        onClose={handleGameStartedAlertClose}
+      >
+        <Alert onClose={handleGameStartedAlertClose} severity="success">
           Game started
         </Alert>
       </Snackbar>
@@ -69,6 +89,11 @@ export default function SeasonDisplay(props: SeasonProps) {
       </Box>
       <SeasonStanding seasonId={props.seasonId} />
       <SeasonGameList seasonId={props.seasonId} />
+      <SeasonUpdateDialog
+        open={seasonUpdateDialogOpen}
+        onClose={handleSeasonUpdateDialogOpenClose}
+        seasonId={props.seasonId}
+      />
     </div>
   );
 }
