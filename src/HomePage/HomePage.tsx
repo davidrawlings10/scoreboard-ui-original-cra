@@ -24,7 +24,7 @@ export default function HomePage() {
   let timerId: any = null;
 
   function getScoreboardState() {
-    fetch("http://192.168.1.71:8080/game/getScoreboardState")
+    fetch("http://192.168.68.129:8080/game/getScoreboardState")
       .then((res) => res.json())
       .then((json) => {
         setCurrentGames(json.games);
@@ -52,7 +52,7 @@ export default function HomePage() {
       }
 
       fetch(
-        "http://192.168.1.71:8080/gameEvent/getByGameId?gameId=" +
+        "http://192.168.68.129:8080/gameEvent/getByGameId?gameId=" +
           currentGames[displayGameIndex].id
       )
         .then((res) => res.json())
@@ -77,9 +77,9 @@ export default function HomePage() {
 
   const handleRunningChange = (value: boolean) => {
     if (running) {
-      fetch("http://192.168.1.71:8080/game/pauseGames");
+      fetch("http://192.168.68.129:8080/game/pauseGames");
     } else {
-      fetch("http://192.168.1.71:8080/game/playGames");
+      fetch("http://192.168.68.129:8080/game/playGames");
     }
     setRunning(value);
   };

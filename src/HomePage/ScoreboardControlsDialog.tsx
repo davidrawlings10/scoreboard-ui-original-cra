@@ -46,7 +46,7 @@ export default function ScoreboardControlsDialog(
     if (millisecondsPerTick !== props.millisecondsPerTick) {
       setMillisecondsPerTick(millisecondsPerTick);
       fetch(
-        "http://192.168.1.71:8080/game/setTickMilliseconds?value=" +
+        "http://192.168.68.129:8080/game/setTickMilliseconds?value=" +
           millisecondsPerTick
       );
     }
@@ -54,7 +54,7 @@ export default function ScoreboardControlsDialog(
     if (gamesToPlay !== props.gamesToPlay) {
       setGamesToPlay(gamesToPlay);
       fetch(
-        "http://192.168.1.71:8080/game/setGamesToPlay?numGames=" + gamesToPlay
+        "http://192.168.68.129:8080/game/setGamesToPlay?numGames=" + gamesToPlay
       );
     }
 

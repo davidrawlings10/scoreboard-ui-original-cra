@@ -1,13 +1,29 @@
 import { Box } from "@material-ui/core";
 import Season from "../Entity/Season";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
+import {useState, useEffect} from "react";
 
 export type SeasonHeaderProps = {
-  season: Season;
+  seasonId: number;
 };
 
 export default function SeasonHeader(props: SeasonHeaderProps) {
-  const { season } = props;
+  const { seasonId } = props;
+
+  const [season, setSeason] = useState<Season>();
+
+  useEffect(() => {
+    fetch("http://192.168.68.129:8080/season/findById?seasonId=" + seasonId)
+      .then((res) => res.json())
+      .then((json) => {
+        setSeason(json);
+      });
+  }, [seasonId]);
+
+  if (!season) {
+    return <Box></Box>
+  }
+
   return (
     <Box>
       <Box marginTop={1} border="1px solid #474f97" bgcolor="primary.main">

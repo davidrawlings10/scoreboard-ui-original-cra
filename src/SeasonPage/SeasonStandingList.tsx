@@ -62,7 +62,7 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
   const [standings, setStandings] = useState<Array<Standing>>([]);
 
   useEffect(() => {
-    fetch("http://192.168.1.71:8080/standing/get?seasonId=" + props.seasonId)
+    fetch("http://192.168.68.129:8080/standing/get?seasonId=" + props.seasonId)
       .then((res) => res.json())
       .then((standingsResult) => {
         setStandings(standingsResult.list);

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Snackbar } from "@material-ui/core";
+import { Box, Button, Snackbar } from "@material-ui/core";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 
 import SeasonStanding from "./SeasonStandingList";
@@ -27,12 +27,12 @@ export default function SeasonDisplay(props: SeasonProps) {
   function playSeasonGame() {
     setOpen(true);
     fetch(
-      "http://192.168.1.71:8080/game/startSeasonGame?seasonId=" + props.seasonId
+      "http://192.168.68.129:8080/game/startSeasonGame?seasonId=" + props.seasonId
     );
   }
 
   function updateSeason() {
-    fetch("http://192.168.1.71:8080/season/update?seasonId=" + props.seasonId + "&summary=abcyoyo");
+    fetch("http://192.168.68.129:8080/season/update?seasonId=" + props.seasonId + "&summary=abcyoyo");
   }
 
   function deleteSeason() {
@@ -50,15 +50,23 @@ export default function SeasonDisplay(props: SeasonProps) {
           Game started
         </Alert>
       </Snackbar>
-      <Button onClick={playSeasonGame} color="primary" variant="contained">
-        Play Next Game
-      </Button>
-      <Button onClick={updateSeason} color="primary" variant="contained">
-        Edit
-      </Button>
-      <Button onClick={deleteSeason} color="secondary" variant="contained">
-        Delete
-      </Button>
+      <Box display="flex">
+        <Box marginRight={1}>
+          <Button onClick={playSeasonGame} color="primary" variant="contained">
+            Play Next Game
+          </Button>
+        </Box>
+        <Box marginRight={1}>
+          <Button onClick={updateSeason} color="primary" variant="contained">
+            Edit
+          </Button>
+        </Box>
+        <Box marginRight={1}>
+          <Button onClick={deleteSeason} color="secondary" variant="contained">
+            Delete
+          </Button>
+        </Box>
+      </Box>
       <SeasonStanding seasonId={props.seasonId} />
       <SeasonGameList seasonId={props.seasonId} />
     </div>

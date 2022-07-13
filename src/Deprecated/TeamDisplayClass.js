@@ -13,7 +13,7 @@ export default class TeamDisplay extends React.Component {
     WORKING EXAMPLE OF getTeamDisplay() WITH ONLY PROMISE AND NOT ASYNC/AWAIT
     getTeamDisplay(id) {
         return new Promise((callback) => {
-          fetch("http://192.168.1.71:8080/team/getTeamById?teamId="+id)
+          fetch("http://192.168.68.129:8080/team/getTeamById?teamId="+id)
           .then(res => res.json())
           .then(team => {
             callback(team.name);
@@ -23,7 +23,7 @@ export default class TeamDisplay extends React.Component {
 
   async getTeamDisplay(id) {
     var res = await fetch(
-      "http://192.168.1.71:8080/team/getTeamById?teamId=" + id
+      "http://192.168.68.129:8080/team/getTeamById?teamId=" + id
     );
     var team = await res.json();
     return team;

@@ -18,17 +18,17 @@ export default class SeasonPage extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://192.168.1.71:8080/season/getSeasons")
+    fetch("http://192.168.68.129:8080/season/getSeasons")
       .then((res) => res.json())
       .then((json) => this.setState({ seasons: json.list }));
   }
 
   scheduleNewSeason() {
     fetch(
-      "http://192.168.1.71:8080/season/schedule?scheduleType=ROUNDS&sport=HOCKEY&leagueId=1&numGames=12"
+      "http://192.168.68.129:8080/season/schedule?scheduleType=ROUNDS&sport=HOCKEY&leagueId=1&numGames=12"
     );
     /*fetch(
-      "http://192.168.1.71:8080/season/schedule?scheduleType=HOME_ROTATION&sport=HOCKEY&leagueId=2"
+      "http://192.168.68.129:8080/season/schedule?scheduleType=HOME_ROTATION&sport=HOCKEY&leagueId=2"
     );*/
   }
 

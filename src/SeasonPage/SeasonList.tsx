@@ -22,7 +22,7 @@ export default function SeasonList(props: SeasonListProps) {
   const [seasons, setSeasons] = useState<Array<Season>>([]);
 
   useEffect(() => {
-    fetch("http://192.168.1.71:8080/season/getSeasons")
+    fetch("http://192.168.68.129:8080/season/getSeasons")
       .then((res) => res.json())
       .then((seasonsResult) => {
         setSeasons(seasonsResult.list);

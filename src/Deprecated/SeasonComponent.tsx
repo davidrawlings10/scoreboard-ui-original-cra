@@ -20,7 +20,7 @@ export default class Season extends React.Component<SeasonProps, SeasonState> {
   playSeasonGame() {
     console.log("startSeasonGame()");
     fetch(
-      "http://192.168.1.71:8080/game/startSeasonGame?seasonId=" +
+      "http://192.168.68.129:8080/game/startSeasonGame?seasonId=" +
         this.props.seasonId
     );
   }
@@ -28,7 +28,7 @@ export default class Season extends React.Component<SeasonProps, SeasonState> {
   setSeasonNumOfGamesToPlay() {
     console.log("setSeasonNumOfGamesToPlay()");
     fetch(
-      "http://192.168.1.71:8080/game/setSeasonNumOfGamesToPlay?seasonId=" +
+      "http://192.168.68.129:8080/game/setSeasonNumOfGamesToPlay?seasonId=" +
         this.props.seasonId +
         "&numGames=2"
     );

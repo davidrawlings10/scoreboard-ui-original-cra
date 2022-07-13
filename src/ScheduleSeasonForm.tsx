@@ -70,7 +70,7 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
 
   function handleSubmit(event: React.ChangeEvent<any>) {
     fetch(
-      "http://192.168.1.71:8080/season/schedule?scheduleType=" +
+      "http://192.168.68.129:8080/season/schedule?scheduleType=" +
         scheduleType +
         "&sport=" +
         sport +
@@ -87,7 +87,7 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
   }
 
   useEffect(() => {
-    fetch("http://192.168.1.71:8080/team/getTeams?leagueId=" + leagueId)
+    fetch("http://192.168.68.129:8080/team/getTeams?leagueId=" + leagueId)
       .then((res) => res.json())
       .then((json) => {
         setPossibleTeams(json.list);

@@ -16,7 +16,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
 
   useEffect(() => {
     fetch(
-      "http://192.168.1.71:8080/game/getGamesBySeasonId?seasonId=" + props.seasonId
+      "http://192.168.68.129:8080/game/getGamesBySeasonId?seasonId=" + props.seasonId
     )
       .then((res) => res.json())
       .then((gamesResult) => {
