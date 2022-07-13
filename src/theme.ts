@@ -8,13 +8,13 @@ const darkTheme = createTheme({
     },
     type: "dark",
     text: {
-      primary: grey[300],
-      secondary: grey[400] /* deepOrange[500], */,
-      disabled: grey[600],
-      hint: grey[300],
+      primary: "#fff",
+      secondary: "rgba(255, 255, 255, 0.7)",
+      disabled: "rgba(255, 255, 255, 0.5)",
+      hint: "rgba(255, 255, 255, 0.5)",
     },
     primary: { main: indigo[900], light: "#474f97", dark: "#121858" },
-    secondary: { main: deepOrange[600] },
+    secondary: { main: deepOrange[400] },
   },
 });
 

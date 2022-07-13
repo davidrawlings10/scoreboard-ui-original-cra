@@ -18,7 +18,7 @@ import { ClockDisplay } from "../Shared/GameClockDisplay";
 
 const useStyles = makeStyles({
   highlight: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.secondary.main,
   },
 });
 
