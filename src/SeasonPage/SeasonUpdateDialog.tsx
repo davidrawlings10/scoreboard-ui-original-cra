@@ -7,8 +7,10 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  MenuItem,
+  Select,
 } from "@material-ui/core";
-import Season from "../Entity/Season";
+import Team from "../Entity/Team";
 
 interface SeasonControlsDialogProps {
   open: boolean;
@@ -18,6 +20,9 @@ interface SeasonControlsDialogProps {
 
 export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
   const [summary, setSummary] = useState<string>();
+  const [title, setTitle] = useState<string>();
+  const [winnerTeamId, setWinnerTeamId] = useState<number>();
+  const [teams, setTeams] = useState<Array<Team>>();
 
   useEffect(() => {
     fetch(
@@ -26,6 +31,13 @@ export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
       .then((res) => res.json())
       .then((season) => {
         setSummary(season.summary);
+        setTitle(season.title);
+        setWinnerTeamId(season.winnerTeamId);
+        fetch(
+          "http://192.168.68.129:8080/team/getTeams?leagueId=" + season.leagueId
+        )
+          .then((res) => res.json())
+          .then((json) => setTeams(json.list));
       });
   }, [props.seasonId]);
 
@@ -34,29 +46,26 @@ export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
   };
 
   const handleSubmit = () => {
-    /* if (millisecondsPerTick !== props.millisecondsPerTick) {
-            setMillisecondsPerTick(millisecondsPerTick);
-            fetch(
-            "http://192.168.68.129:8080/game/setTickMilliseconds?value=" +
-                millisecondsPerTick
-            );
-        }
-
-        if (gamesToPlay !== props.gamesToPlay) {
-            setGamesToPlay(gamesToPlay);
-            fetch(
-            "http://192.168.68.129:8080/game/setGamesToPlay?numGames=" + gamesToPlay
-            );
-        } */
-
     fetch(
       "http://192.168.68.129:8080/season/update?seasonId=" +
         props.seasonId +
+        "&title=" +
+        title +
+        "&winnerTeamId=" +
+        winnerTeamId +
         "&summary=" +
         summary
     );
 
     props.onClose();
+  };
+
+  const titleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+
+  const winnerTeamIdOnChange = (event: any) => {
+    setWinnerTeamId(parseInt(event.target.value));
   };
 
   const summaryOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,6 +81,35 @@ export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
       fullWidth
     >
       <DialogTitle id="form-dialog-title">Edit Season</DialogTitle>
+      <DialogContent>
+        <TextField
+          autoFocus
+          id="title"
+          label="Title"
+          type="text"
+          variant="outlined"
+          value={title}
+          fullWidth
+          onChange={titleOnChange}
+        />
+      </DialogContent>
+      <DialogContent>
+        <Select
+          labelId="label"
+          id="winnerTeamId"
+          name="winnerTeamId"
+          value={winnerTeamId}
+          onChange={winnerTeamIdOnChange}
+          variant="outlined"
+          fullWidth
+        >
+          {teams?.map((team) => (
+            <MenuItem key={team.id} value={team.id}>
+              {team.location ? team.location + " " + team.name : team.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </DialogContent>
       <DialogContent>
         <TextField
           autoFocus

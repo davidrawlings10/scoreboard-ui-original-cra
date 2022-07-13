@@ -39,11 +39,6 @@ export default function SeasonDisplay(props: SeasonProps) {
   }
 
   function updateSeason() {
-    /* fetch(
-      "http://192.168.68.129:8080/season/update?seasonId=" +
-        props.seasonId +
-        "&summary=abcyoyo"
-    ); */
     setSeasonUpdateDialogOpen(true);
   }
 
