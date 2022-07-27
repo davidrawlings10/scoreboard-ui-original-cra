@@ -9,6 +9,8 @@ import {
   DialogTitle,
 } from "@material-ui/core";
 
+import config from "../config";
+
 interface ScoreboardControlsDialogProps {
   open: boolean;
   onClose: () => void;
@@ -46,16 +48,15 @@ export default function ScoreboardControlsDialog(
     if (millisecondsPerTick !== props.millisecondsPerTick) {
       setMillisecondsPerTick(millisecondsPerTick);
       fetch(
-        "http://192.168.68.129:8080/game/setTickMilliseconds?value=" +
+        config.baseUrl +
+          "/game/setTickMilliseconds?value=" +
           millisecondsPerTick
       );
     }
 
     if (gamesToPlay !== props.gamesToPlay) {
       setGamesToPlay(gamesToPlay);
-      fetch(
-        "http://192.168.68.129:8080/game/setGamesToPlay?numGames=" + gamesToPlay
-      );
+      fetch(config.baseUrl + "/game/setGamesToPlay?numGames=" + gamesToPlay);
     }
 
     props.onClose();

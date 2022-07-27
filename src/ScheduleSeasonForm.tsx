@@ -10,6 +10,8 @@ import {
   FormControlLabel,
 } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
+
+import config from "./config";
 import Team from "./Entity/Team";
 
 export type ScheduleSeasonFormProps = {};
@@ -70,7 +72,8 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
 
   function handleSubmit(event: React.ChangeEvent<any>) {
     fetch(
-      "http://192.168.68.129:8080/season/schedule?scheduleType=" +
+      config.baseUrl +
+        "/season/schedule?scheduleType=" +
         scheduleType +
         "&sport=" +
         sport +
@@ -87,7 +90,7 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
   }
 
   useEffect(() => {
-    fetch("http://192.168.68.129:8080/team/getTeams?leagueId=" + leagueId)
+    fetch(config.baseUrl + "/team/getTeams?leagueId=" + leagueId)
       .then((res) => res.json())
       .then((json) => {
         setPossibleTeams(json.list);

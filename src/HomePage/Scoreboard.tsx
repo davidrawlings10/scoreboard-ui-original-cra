@@ -5,6 +5,7 @@ import {
 } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
+import config from "../config";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import GameClockDisplay from "../Shared/GameClockDisplay";
 import Game from "../Entity/Game";
@@ -40,8 +41,7 @@ export default function Scoreboard(props: ScoreboardProps) {
     if (confirm) {
       if (!!props.game) {
         fetch(
-          "http://192.168.68.129:8080/game/terminateCurrentGame?gameId=" +
-            props.game.id
+          config.baseUrl + "/game/terminateCurrentGame?gameId=" + props.game.id
         );
       }
     }
@@ -50,7 +50,7 @@ export default function Scoreboard(props: ScoreboardProps) {
   /*function adjustHandleClick() {
     if (!!props.game) {
       fetch(
-        "http://192.168.68.129:8080/game/adjustCurrentGame?gameId=" + props.game.id
+        config.baseUrl + "/game/adjustCurrentGame?gameId=" + props.game.id
       );
     }
   }*/

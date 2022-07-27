@@ -1,7 +1,10 @@
 // keeping this as an example of js
 
 import React from "react";
-import { searchCacheForTeam, cacheTeam } from "../Shared/TeamDisplay/TeamDisplayCache";
+import {
+  searchCacheForTeam,
+  cacheTeam,
+} from "../Shared/TeamDisplay/TeamDisplayCache";
 
 export default class TeamDisplay extends React.Component {
   constructor(props) {
@@ -13,7 +16,7 @@ export default class TeamDisplay extends React.Component {
     WORKING EXAMPLE OF getTeamDisplay() WITH ONLY PROMISE AND NOT ASYNC/AWAIT
     getTeamDisplay(id) {
         return new Promise((callback) => {
-          fetch("http://192.168.68.129:8080/team/getTeamById?teamId="+id)
+          fetch(config.baseUrl + "/team/getTeamById?teamId="+id)
           .then(res => res.json())
           .then(team => {
             callback(team.name);
@@ -22,9 +25,7 @@ export default class TeamDisplay extends React.Component {
     }*/
 
   async getTeamDisplay(id) {
-    var res = await fetch(
-      "http://192.168.68.129:8080/team/getTeamById?teamId=" + id
-    );
+    var res = await fetch(config.baseUrl + "/team/getTeamById?teamId=" + id);
     var team = await res.json();
     return team;
   }

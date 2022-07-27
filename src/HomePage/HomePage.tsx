@@ -1,8 +1,7 @@
 import React from "react";
-import {
-  Box,
-} from "@material-ui/core";
+import { Box } from "@material-ui/core";
 
+import config from "../config";
 import Scoreboard from "./Scoreboard";
 import ScoreboardControlsDialog from "./ScoreboardControlsDialog";
 import SeasonDisplay from "../SeasonPage/SeasonDisplay";
@@ -24,7 +23,7 @@ export default function HomePage() {
   let timerId: any = null;
 
   function getScoreboardState() {
-    fetch("http://192.168.68.129:8080/game/getScoreboardState")
+    fetch(config.baseUrl + "/game/getScoreboardState")
       .then((res) => res.json())
       .then((json) => {
         setCurrentGames(json.games);
@@ -41,31 +40,28 @@ export default function HomePage() {
         clearGetScoreboardStateInterval();
       }
     };
-  }, [
-    millisecondsPerTick,
-  ]);
+  }, [millisecondsPerTick]);
 
-  React.useEffect(
-    () => {
-      if (currentGames.length === 0) {
-        return;
-      }
+  React.useEffect(() => {
+    if (currentGames.length === 0) {
+      return;
+    }
 
-      fetch(
-        "http://192.168.68.129:8080/gameEvent/getByGameId?gameId=" +
-          currentGames[displayGameIndex].id
-      )
-        .then((res) => res.json())
-        .then((json) => {
-          setGameEvents(json.list);
-        });
-    },
-    [displayGameIndex, currentGames]
-  );
+    fetch(
+      config.baseUrl +
+        "/gameEvent/getByGameId?gameId=" +
+        currentGames[displayGameIndex].id
+    )
+      .then((res) => res.json())
+      .then((json) => {
+        setGameEvents(json.list);
+      });
+  }, [displayGameIndex, currentGames]);
 
   function setGetScoreboardStateInterval(milliseconds: number) {
     timerId = setInterval(
       () => getScoreboardState(),
+      // every 200ms is the most frequent we should get new scoreboard state even if the game tick is running faster than this
       Math.max(milliseconds, 200)
     );
   }
@@ -77,9 +73,9 @@ export default function HomePage() {
 
   const handleRunningChange = (value: boolean) => {
     if (running) {
-      fetch("http://192.168.68.129:8080/game/pauseGames");
+      fetch(config.baseUrl + "/game/pauseGames");
     } else {
-      fetch("http://192.168.68.129:8080/game/playGames");
+      fetch(config.baseUrl + "/game/playGames");
     }
     setRunning(value);
   };
@@ -130,7 +126,12 @@ export default function HomePage() {
           )}
         </Box>
         <Box marginTop={4}>
-          {currentGames.length > 0 && <GameEventList gameEvents={gameEvents} game={currentGames[displayGameIndex]} />}
+          {currentGames.length > 0 && (
+            <GameEventList
+              gameEvents={gameEvents}
+              game={currentGames[displayGameIndex]}
+            />
+          )}
         </Box>
         <Box marginTop={4}>
           <SeasonDisplay seasonId={currentGames[displayGameIndex]?.seasonId} />

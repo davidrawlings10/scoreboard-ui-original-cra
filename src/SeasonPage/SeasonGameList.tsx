@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box } from "@material-ui/core";
 
+import config from "../config";
 import "./Table.css";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import Game from "../Entity/Game";
@@ -16,7 +17,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
 
   useEffect(() => {
     fetch(
-      "http://192.168.68.129:8080/game/getGamesBySeasonId?seasonId=" + props.seasonId
+      config.baseUrl + "/game/getGamesBySeasonId?seasonId=" + props.seasonId
     )
       .then((res) => res.json())
       .then((gamesResult) => {

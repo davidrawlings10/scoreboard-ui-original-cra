@@ -13,7 +13,7 @@ export default class AddGameForm extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://192.168.68.129:8080/team/getTeams?leagueId=2")
+    fetch(config.baseUrl + "/team/getTeams?leagueId=2")
       .then((res) => res.json())
       .then((json) => this.setState({ teams: json.list }));
   }
@@ -27,7 +27,8 @@ export default class AddGameForm extends React.Component {
 
   handleSubmit(event) {
     fetch(
-      "http://192.168.68.129:8080/game/startGame?sport=HOCKEY&homeTeamId=" +
+      config.baseUrl +
+        "/game/startGame?sport=HOCKEY&homeTeamId=" +
         this.state.homeTeamId +
         "&awayTeamId=" +
         this.state.awayTeamId

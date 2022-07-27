@@ -40,7 +40,7 @@ export default class App extends React.Component {
   }
 
   getGames() {
-    fetch("http://192.168.68.129:8080/game/getGames")
+    fetch(config.baseUrl + "/game/getGames")
       .then((res) => res.json())
       .then((json) => {
         this.setState({ currentGames: json.list });
@@ -50,10 +50,10 @@ export default class App extends React.Component {
   onToggleChange() {
     console.log("playPauseToggle" + this.state.playPauseToggle);
     if (!this.state.playPauseToggle) {
-      fetch("http://192.168.68.129:8080/game/playGames");
+      fetch(config.baseUrl + "/game/playGames");
       this.setGetGamesInterval();
     } else {
-      fetch("http://192.168.68.129:8080/game/pauseGames");
+      fetch(config.baseUrl + "/game/pauseGames");
       this.clearGetGamesInterval();
     }
     this.setState((state) => ({

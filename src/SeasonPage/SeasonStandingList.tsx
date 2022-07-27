@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box } from "@material-ui/core";
 
+import config from "../config";
 import "./Table.css";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import Standing from "../Entity/Standing";
@@ -62,7 +63,7 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
   const [standings, setStandings] = useState<Array<Standing>>([]);
 
   useEffect(() => {
-    fetch("http://192.168.68.129:8080/standing/get?seasonId=" + props.seasonId)
+    fetch(config.baseUrl + "/standing/get?seasonId=" + props.seasonId)
       .then((res) => res.json())
       .then((standingsResult) => {
         setStandings(standingsResult.list);

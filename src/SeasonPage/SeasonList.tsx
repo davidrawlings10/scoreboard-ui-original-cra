@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { Box} from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
+import config from "../config";
 import "./Table.css";
 import Season from "../Entity/Season";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
@@ -22,7 +23,7 @@ export default function SeasonList(props: SeasonListProps) {
   const [seasons, setSeasons] = useState<Array<Season>>([]);
 
   useEffect(() => {
-    fetch("http://192.168.68.129:8080/season/getSeasons")
+    fetch(config.baseUrl + "/season/getSeasons")
       .then((res) => res.json())
       .then((seasonsResult) => {
         setSeasons(seasonsResult.list);

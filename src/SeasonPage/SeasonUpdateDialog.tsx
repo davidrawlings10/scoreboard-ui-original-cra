@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+
+import config from "../config";
 import {
   TextField,
   Button,
@@ -25,17 +27,13 @@ export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
   const [teams, setTeams] = useState<Array<Team>>();
 
   useEffect(() => {
-    fetch(
-      "http://192.168.68.129:8080/season/findById?seasonId=" + props.seasonId
-    )
+    fetch(config.baseUrl + "/season/findById?seasonId=" + props.seasonId)
       .then((res) => res.json())
       .then((season) => {
         setSummary(season.summary);
         setTitle(season.title);
         setWinnerTeamId(season.winnerTeamId);
-        fetch(
-          "http://192.168.68.129:8080/team/getTeams?leagueId=" + season.leagueId
-        )
+        fetch(config.baseUrl + "/team/getTeams?leagueId=" + season.leagueId)
           .then((res) => res.json())
           .then((json) => setTeams(json.list));
       });
@@ -47,7 +45,8 @@ export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
 
   const handleSubmit = () => {
     fetch(
-      "http://192.168.68.129:8080/season/update?seasonId=" +
+      config.baseUrl +
+        "/season/update?seasonId=" +
         props.seasonId +
         "&title=" +
         title +

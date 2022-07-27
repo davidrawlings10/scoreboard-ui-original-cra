@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Button, Snackbar } from "@material-ui/core";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 
+import config from "../config";
 import SeasonStanding from "./SeasonStandingList";
 import SeasonGameList from "./SeasonGameList";
 import SeasonUpdateDialog from "./SeasonUpdateDialog";
@@ -32,10 +33,7 @@ export default function SeasonDisplay(props: SeasonProps) {
 
   function playSeasonGame() {
     setGameStartedAlertOpen(true);
-    fetch(
-      "http://192.168.68.129:8080/game/startSeasonGame?seasonId=" +
-        props.seasonId
-    );
+    fetch(config.baseUrl + "/game/startSeasonGame?seasonId=" + props.seasonId);
   }
 
   function updateSeason() {

@@ -11,7 +11,7 @@ export default function SeasonStanding(props: SeasonStandingProps) {
   const [standings, setStandings] = React.useState<Array<Standing>>([]);
 
   React.useEffect(() => {
-    fetch("http://192.168.68.129:8080/standing/get?seasonId=" + props.seasonId)
+    fetch(config.baseUrl + "/standing/get?seasonId=" + props.seasonId)
       .then((res) => res.json())
       .then((standingsResult) => {
         setStandings(standingsResult.list);

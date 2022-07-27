@@ -1,4 +1,6 @@
 import React from "react";
+
+import config from "../../config";
 import { searchCacheForTeam, cacheTeam } from "./TeamDisplayCache";
 import Team from "../../Entity/Team";
 
@@ -15,9 +17,7 @@ export default function TeamDisplayFunc(props: TeamDisplayFuncProps) {
   });
 
   async function getTeamDisplay(id: number) {
-    var res = await fetch(
-      "http://192.168.68.129:8080/team/getTeamById?teamId=" + id
-    );
+    var res = await fetch(config.baseUrl + "/team/getTeamById?teamId=" + id);
     var team = await res.json();
     return team;
   }
