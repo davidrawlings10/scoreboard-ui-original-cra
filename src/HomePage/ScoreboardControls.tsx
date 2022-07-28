@@ -19,12 +19,9 @@ interface ScoreboardControlsProps {
 export default function ScoreboardControls(props: ScoreboardControlsProps) {
   const { millisecondsPerTick, gamesToPlay } = props;
 
-  const [running, setRunning] = React.useState(props.running);
-
   const handleRunningChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const running: boolean = event.target.checked;
     props.handleRunningChange(running);
-    setRunning(running);
   };
 
   const handleScoreboardControlsDialogOpen = () => {
@@ -35,7 +32,9 @@ export default function ScoreboardControls(props: ScoreboardControlsProps) {
     <Box display="flex">
       <Box marginRight={2}>
         <FormControlLabel
-          control={<Switch checked={running} onChange={handleRunningChange} />}
+          control={
+            <Switch checked={props.running} onChange={handleRunningChange} />
+          }
           label="Playing"
           labelPlacement="start"
         />
