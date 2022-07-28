@@ -20,7 +20,6 @@ export default function HomePage() {
   const [millisecondsPerTick, setMillisecondsPerTick] =
     React.useState<number>(0);
 
-  // let timerId: any = null;
   const [timerId, setTimerId] = React.useState<any>(null);
 
   function getScoreboardState() {
@@ -32,7 +31,6 @@ export default function HomePage() {
         setMillisecondsPerTick(json.tickMilliseconds);
         setGamesToPlay(json.gamesToPlay);
       });
-    console.log(currentGames);
   }
 
   React.useEffect(() => {
@@ -102,15 +100,16 @@ export default function HomePage() {
           }
         />
         <Box display="flex" flexDirection="row" marginTop={4}>
-          {currentGames.map((game, index) =>
-            index !== displayGameIndex ? (
+          {currentGames
+            .slice(0, displayGameIndex)
+            .concat(
+              currentGames.slice(displayGameIndex + 1, currentGames.length)
+            )
+            .map((game, index) => (
               <Box key={game.id} onClick={() => setDisplayGameIndex(index)}>
                 <Scoreboard game={game} small />
               </Box>
-            ) : (
-              <div />
-            )
-          )}
+            ))}
         </Box>
         <Box marginTop={4}>
           {currentGames.length > 0 && (
