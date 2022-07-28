@@ -20,7 +20,8 @@ export default function HomePage() {
   const [millisecondsPerTick, setMillisecondsPerTick] =
     React.useState<number>(0);
 
-  let timerId: any = null;
+  // let timerId: any = null;
+  const [timerId, setTimerId] = React.useState<any>(null);
 
   function getScoreboardState() {
     fetch(config.baseUrl + "/game/getScoreboardState")
@@ -31,17 +32,27 @@ export default function HomePage() {
         setMillisecondsPerTick(json.tickMilliseconds);
         setGamesToPlay(json.gamesToPlay);
       });
+    console.log(currentGames);
   }
 
   React.useEffect(() => {
-    setGetScoreboardStateInterval(millisecondsPerTick);
+    setTimerId(
+      setInterval(
+        () => getScoreboardState(),
+        // every 200ms is the most frequent we should get new scoreboard state even if the game tick is running faster than this
+        Math.max(millisecondsPerTick, 200)
+      )
+    );
+
     return function cleanup() {
       if (!!timerId) {
-        clearGetScoreboardStateInterval();
+        clearInterval(timerId);
+        setTimerId(null);
       }
     };
   }, [millisecondsPerTick]);
 
+  // request game events (on every new state for now until caching can be implemented)
   React.useEffect(() => {
     if (currentGames.length === 0) {
       return;
@@ -57,19 +68,6 @@ export default function HomePage() {
         setGameEvents(json.list);
       });
   }, [displayGameIndex, currentGames]);
-
-  function setGetScoreboardStateInterval(milliseconds: number) {
-    timerId = setInterval(
-      () => getScoreboardState(),
-      // every 200ms is the most frequent we should get new scoreboard state even if the game tick is running faster than this
-      Math.max(milliseconds, 200)
-    );
-  }
-
-  function clearGetScoreboardStateInterval() {
-    clearInterval(timerId);
-    timerId = null;
-  }
 
   const handleRunningChange = (value: boolean) => {
     if (running) {
@@ -106,8 +104,8 @@ export default function HomePage() {
         <Box display="flex" flexDirection="row" marginTop={4}>
           {currentGames.map((game, index) =>
             index !== displayGameIndex ? (
-              <Box onClick={() => setDisplayGameIndex(index)}>
-                <Scoreboard key={game.id} game={game} small />
+              <Box key={game.id} onClick={() => setDisplayGameIndex(index)}>
+                <Scoreboard game={game} small />
               </Box>
             ) : (
               <div />
