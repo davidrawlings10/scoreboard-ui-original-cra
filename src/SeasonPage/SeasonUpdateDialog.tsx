@@ -10,6 +10,7 @@ import {
   DialogTitle,
   MenuItem,
   Select,
+  Box,
 } from "@material-ui/core";
 import Team from "../Entity/Team";
 
@@ -20,8 +21,8 @@ interface SeasonControlsDialogProps {
 }
 
 export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
-  const [summary, setSummary] = useState<string>();
-  const [title, setTitle] = useState<string>();
+  const [summary, setSummary] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
   const [winnerTeamId, setWinnerTeamId] = useState<number>();
   const [teams, setTeams] = useState<Array<Team>>();
 
@@ -81,7 +82,6 @@ export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
       <DialogTitle id="form-dialog-title">Edit Season</DialogTitle>
       <DialogContent>
         <TextField
-          autoFocus
           id="title"
           label="Title"
           type="text"
@@ -110,7 +110,6 @@ export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
       </DialogContent>
       <DialogContent>
         <TextField
-          autoFocus
           id="summary"
           label="Summary"
           type="text"
@@ -122,12 +121,24 @@ export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleCancel} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleSubmit} color="primary">
-          Submit
-        </Button>
+        <Box
+          marginBottom={2}
+          marginRight={2}
+          marginTop={1}
+          display="flex"
+          flexDirection="row"
+        >
+          <Box marginRight={2}>
+            <Button onClick={handleCancel} color="primary">
+              Cancel
+            </Button>
+          </Box>
+          <Box>
+            <Button onClick={handleSubmit} color="primary" variant="contained">
+              Submit
+            </Button>
+          </Box>
+        </Box>
       </DialogActions>
     </Dialog>
   );

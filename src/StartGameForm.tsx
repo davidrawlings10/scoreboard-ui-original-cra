@@ -1,7 +1,7 @@
 // keeping this as an example of a class component in tsx
 
 import React from "react";
-import { Select, InputLabel, MenuItem, Input } from "@material-ui/core";
+import { Select, InputLabel, MenuItem, Button, Box } from "@material-ui/core";
 // import { styled } from "@material-ui/core/styles";
 
 import config from "./config";
@@ -71,39 +71,58 @@ export default class StartGameForm extends React.Component<
     `;
 
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <InputLabel id="labelHome">Home Team</InputLabel>
-        <Select
-          labelId="label"
-          id="selectHome"
-          name="homeTeamId"
-          value={this.state.homeTeamId}
-          onChange={this.handleChange}
-          variant="outlined"
-        >
-          {this.state.teams.map((team) => (
-            <MenuItem key={team.id} value={team.id}>
-              {team.location + " " + team.name}
-            </MenuItem>
-          ))}
-        </Select>
-        <InputLabel id="labelAway">Away Team</InputLabel>
-        <Select
-          labelId="label"
-          id="selectAway"
-          name="awayTeamId"
-          value={this.state.awayTeamId}
-          onChange={this.handleChange}
-          variant="outlined"
-        >
-          {this.state.teams.map((team) => (
-            <MenuItem key={team.id} value={team.id}>
-              {team.location + " " + team.name}
-            </MenuItem>
-          ))}
-        </Select>
-        <Input type="submit" value="Submit" />
-      </Form>
+      <Box display="flex" justifyContent="center" width="100%" margin={2}>
+        <Box width="40%">
+          <Form onSubmit={this.handleSubmit}>
+            <Box margin={2}>
+              <InputLabel id="labelHome">Home Team</InputLabel>
+              <Select
+                labelId="label"
+                id="selectHome"
+                name="homeTeamId"
+                value={this.state.homeTeamId}
+                onChange={this.handleChange}
+                variant="outlined"
+                fullWidth
+              >
+                {this.state.teams.map((team) => (
+                  <MenuItem key={team.id} value={team.id}>
+                    {team.location + " " + team.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Box>
+            <Box margin={2}>
+              <InputLabel id="labelAway">Away Team</InputLabel>
+              <Select
+                labelId="label"
+                id="selectAway"
+                name="awayTeamId"
+                value={this.state.awayTeamId}
+                onChange={this.handleChange}
+                variant="outlined"
+                fullWidth
+              >
+                {this.state.teams.map((team) => (
+                  <MenuItem key={team.id} value={team.id}>
+                    {team.location + " " + team.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Box>
+            <Box display="flex" justifyContent="end" margin={2}>
+              <Button
+                type="submit"
+                value="Submit"
+                variant="contained"
+                color="primary"
+              >
+                Start Game
+              </Button>
+            </Box>
+          </Form>
+        </Box>
+      </Box>
     );
   }
 }
