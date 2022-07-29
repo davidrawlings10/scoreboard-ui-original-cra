@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  FormControlLabel,
-  Switch,
-  TextField,
-} from "@material-ui/core";
+import { Box, Button, FormControlLabel, Switch } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 
 interface ScoreboardControlsProps {
@@ -29,8 +23,8 @@ export default function ScoreboardControls(props: ScoreboardControlsProps) {
   };
 
   return (
-    <Box display="flex">
-      <Box marginRight={2}>
+    <Box display="flex" alignItems="center">
+      <Box marginRight={8}>
         <FormControlLabel
           control={
             <Switch checked={props.running} onChange={handleRunningChange} />
@@ -39,40 +33,10 @@ export default function ScoreboardControls(props: ScoreboardControlsProps) {
           labelPlacement="start"
         />
       </Box>
-      <Box marginRight={2}>
-        <FormControlLabel
-          label="Milliseconds per tick"
-          control={
-            <TextField
-              value={millisecondsPerTick}
-              variant="outlined"
-              size="small"
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-          }
-          labelPlacement="start"
-        />
-      </Box>
-      <Box marginRight={2}>
-        <FormControlLabel
-          label="Number of games to play"
-          control={
-            <>
-              <TextField
-                value={gamesToPlay}
-                variant="outlined"
-                size="small"
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            </>
-          }
-          labelPlacement="start"
-        />
-      </Box>
+      <Box marginRight={3}>Milliseconds Per Tick</Box>
+      <Box marginRight={8}>{millisecondsPerTick}</Box>
+      <Box marginRight={3}>Number of Games to Play</Box>
+      <Box marginRight={8}>{gamesToPlay}</Box>
       <Button
         onClick={handleScoreboardControlsDialogOpen}
         color="primary"

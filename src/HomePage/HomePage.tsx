@@ -123,7 +123,7 @@ export default function HomePage() {
           )}
         </Box>
         <Box marginTop={4}>
-          {currentGames.length > 0 && (
+          {currentGames.length > 0 && gameEvents.length > 0 && (
             <GameEventList
               gameEvents={gameEvents}
               game={currentGames[displayGameIndex]}

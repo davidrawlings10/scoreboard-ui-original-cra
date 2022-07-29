@@ -2,6 +2,7 @@ import React from "react";
 import {
   TextField,
   Button,
+  Box,
   Dialog,
   DialogActions,
   DialogContent,
@@ -75,26 +76,30 @@ export default function ScoreboardControlsDialog(
         <DialogContentText>
           Set milliseconds per tick and number of games to play
         </DialogContentText>
-        <TextField
-          autoFocus
-          id="tickMilliseconds"
-          label="Tick Milliseconds"
-          type="number"
-          variant="outlined"
-          value={millisecondsPerTick}
-          fullWidth
-          onChange={millisecondsPerTickOnChange}
-        />
-        <TextField
-          autoFocus
-          id="gamesToPlay"
-          label="Games to Play"
-          type="number"
-          variant="outlined"
-          value={gamesToPlay}
-          fullWidth
-          onChange={gamesToPlayInputOnChange}
-        />
+        <Box marginTop={3}>
+          <TextField
+            autoFocus
+            id="tickMilliseconds"
+            label="Tick Milliseconds"
+            type="number"
+            variant="outlined"
+            value={millisecondsPerTick}
+            fullWidth
+            onChange={millisecondsPerTickOnChange}
+          />
+        </Box>
+        <Box marginTop={3}>
+          <TextField
+            autoFocus
+            id="gamesToPlay"
+            label="Games to Play"
+            type="number"
+            variant="outlined"
+            value={gamesToPlay}
+            fullWidth
+            onChange={gamesToPlayInputOnChange}
+          />
+        </Box>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCancel} color="primary">
