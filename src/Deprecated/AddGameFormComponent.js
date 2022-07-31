@@ -50,7 +50,7 @@ export default class AddGameForm extends React.Component {
         >
           {this.state.teams.map((team) => (
             <MenuItem value={team.id}>
-              {team.location + " " + team.name}
+              {team.location ? team.location + " " + team.name : team.name}
             </MenuItem>
           ))}
         </Select>
@@ -65,7 +65,7 @@ export default class AddGameForm extends React.Component {
         >
           {this.state.teams.map((team) => (
             <MenuItem value={team.id}>
-              {team.location + " " + team.name}
+              {team.location ? team.location + " " + team.name : team.name}
             </MenuItem>
           ))}
         </Select>

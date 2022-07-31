@@ -3,11 +3,12 @@ import {
   Select,
   InputLabel,
   MenuItem,
-  Input,
+  Button,
   TextField,
   FormGroup,
   Checkbox,
   FormControlLabel,
+  Grid,
 } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 
@@ -19,9 +20,9 @@ export type ScheduleSeasonFormProps = {};
 export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
   const [title, setTitle] = useState<string>("<Unnamed Season>");
   const [scheduleType, setScheduleType] = useState<string>("ROUNDS");
-  const [sport, setSport] = useState<string>("HOCKEY");
   const [leagueId, setLeagueId] = useState<number>(2);
   const [numGames, setNumGames] = useState<number>(4);
+  const [showNumGamesInput, setShowNumGamesInput] = useState<boolean>(true);
   const [possibleTeams, setPossibleTeams] = useState<Array<Team>>([]);
   const [selectedTeamIds, setSelectedTeamIds] = useState<Array<number>>([]);
 
@@ -33,10 +34,6 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
     setScheduleType(event.target.value);
   }
 
-  function sportChange(event: React.ChangeEvent<any>) {
-    setSport(event.target.value);
-  }
-
   function leagueIdChange(event: React.ChangeEvent<any>) {
     setLeagueId(event.target.value);
   }
@@ -46,28 +43,15 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
   }
 
   function selectedTeamIdsChange(event: React.ChangeEvent<HTMLInputElement>) {
-    /*console.log("event.target.checked:   " + event.target.checked);
-    console.log("event.target.value:     " + event.target.value);
-    console.log("selectedTeamIds before: " + selectedTeamIds);*/
-
     // must perform push and splice on deep copy because it can't be performed on state array directly
     // let selectedTeamIdsCopy: Array<number> = selectedTeamIds.map((id) => id);
     if (event.target.checked) {
-      // selectedTeamIdsCopy.push(parseInt(event.target.value));
       setSelectedTeamIds(selectedTeamIds.concat(parseInt(event.target.value)));
     } else {
-      /*selectedTeamIdsCopy.splice(
-        selectedTeamIds.indexOf(parseInt(event.target.value)),
-        1
-      );*/
       setSelectedTeamIds(
         selectedTeamIds.filter((id) => id !== parseInt(event.target.value))
       );
     }
-    // setSelectedTeamIds(selectedTeamIdsCopy);
-
-    /*console.log("selectedTeamIds after:  " + selectedTeamIds);
-    console.log("selectedTeamIdsCopy after:  " + selectedTeamIdsCopy);*/
   }
 
   function handleSubmit(event: React.ChangeEvent<any>) {
@@ -75,8 +59,7 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
       config.baseUrl +
         "/season/schedule?scheduleType=" +
         scheduleType +
-        "&sport=" +
-        sport +
+        "&sport=HOCKEY" +
         "&leagueId=" +
         leagueId +
         "&teamIds=" +
@@ -94,61 +77,114 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
       .then((res) => res.json())
       .then((json) => {
         setPossibleTeams(json.list);
-        // setSelectedTeamIds(json.list.map((team: Team) => team.id));
       });
   }, [leagueId]);
 
+  useEffect(() => {
+    if (scheduleType === "ROUNDS") {
+      setShowNumGamesInput(true);
+    } else {
+      setShowNumGamesInput(false);
+    }
+  }, [scheduleType]);
+
   return (
-    <form onSubmit={handleSubmit}>
-      <InputLabel>Season Title</InputLabel>
-      <TextField value={title} onChange={titleChange} variant="outlined" />
-      <InputLabel>Schedule Type</InputLabel>
-      <Select
-        value={scheduleType}
-        onChange={scheduleTypeChange}
-        variant="outlined"
-      >
-        <MenuItem id="HOME_ROTATION" value="HOME_ROTATION">
-          Home Rotation
-        </MenuItem>
-        <MenuItem id="HOME_ROTATION_RANDOM" value="HOME_ROTATION_RANDOM">
-          Home Rotation Random
-        </MenuItem>
-        <MenuItem id="ROUNDS" value="ROUNDS">
-          Rounds
-        </MenuItem>
-      </Select>
-      <InputLabel>Sport</InputLabel>
-      <TextField value={sport} onChange={sportChange} variant="outlined" />
-      <InputLabel>League</InputLabel>
-      <TextField
-        value={leagueId}
-        onChange={leagueIdChange}
-        variant="outlined"
-      />
-      <InputLabel>Number of Games</InputLabel>
-      <TextField
-        value={numGames}
-        onChange={numGamesChange}
-        variant="outlined"
-      />
-      <Input type="submit" value="Submit" />
-      <Box>
-        <FormGroup>
-          {possibleTeams.map((team) => (
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={selectedTeamIds.indexOf(team.id) >= 0}
-                  onChange={selectedTeamIdsChange}
-                  value={team.id}
+    <Box display="flex" justifyContent="center" width="100%" margin={2}>
+      <Box width="85%">
+        <form onSubmit={handleSubmit}>
+          <Box>
+            <Box margin={2}>
+              <InputLabel>Season Title</InputLabel>
+              <TextField
+                value={title}
+                onChange={titleChange}
+                variant="outlined"
+                fullWidth
+              />
+            </Box>
+            <Box margin={2}>
+              <InputLabel>League</InputLabel>
+              <TextField
+                value={leagueId}
+                onChange={leagueIdChange}
+                variant="outlined"
+                fullWidth
+              />
+            </Box>
+            <Box margin={2}>
+              <InputLabel>Schedule Type</InputLabel>
+              <Select
+                value={scheduleType}
+                onChange={scheduleTypeChange}
+                variant="outlined"
+                fullWidth
+              >
+                <MenuItem id="HOME_ROTATION" value="HOME_ROTATION">
+                  Home Rotation
+                </MenuItem>
+                <MenuItem
+                  id="HOME_ROTATION_RANDOM"
+                  value="HOME_ROTATION_RANDOM"
+                >
+                  Home Rotation Random
+                </MenuItem>
+                <MenuItem id="ROUNDS" value="ROUNDS">
+                  Rounds
+                </MenuItem>
+              </Select>
+            </Box>
+            {showNumGamesInput && (
+              <Box margin={2}>
+                <InputLabel>Number of Games</InputLabel>
+                <TextField
+                  value={numGames}
+                  onChange={numGamesChange}
+                  variant="outlined"
+                  fullWidth
                 />
-              }
-              label={team.location + " " + team.name}
-            />
-          ))}
-        </FormGroup>
+              </Box>
+            )}
+          </Box>
+          <Box paddingLeft={12} paddingRight={6}>
+            <Box
+              display="flex"
+              flexDirection="column"
+              flexWrap="wrap"
+              justifyContent="start"
+              height={360}
+            >
+              {possibleTeams.map((team) => (
+                <Box>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={selectedTeamIds.indexOf(team.id) >= 0}
+                        onChange={selectedTeamIdsChange}
+                        value={team.id}
+                      />
+                    }
+                    label={
+                      team.location
+                        ? team.location + " " + team.name
+                        : team.name
+                    }
+                  />
+                </Box>
+              ))}
+            </Box>
+          </Box>
+          <Box display="flex" justifyContent="end">
+            <Button
+              type="submit"
+              value="Submit"
+              variant="contained"
+              color="primary"
+            >
+              Schedule Season
+            </Button>
+          </Box>
+        </form>
       </Box>
-    </form>
+    </Box>
   );
 }
