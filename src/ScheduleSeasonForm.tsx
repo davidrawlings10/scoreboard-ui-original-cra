@@ -5,22 +5,24 @@ import {
   MenuItem,
   Button,
   TextField,
-  FormGroup,
   Checkbox,
   FormControlLabel,
-  Grid,
 } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 
 import config from "./config";
 import Team from "./Entity/Team";
 
+const leagues = [{ value: "AVES" }, { value: "NHL" }, { value: "TEST" }];
+
 export type ScheduleSeasonFormProps = {};
 
 export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
   const [title, setTitle] = useState<string>("<Unnamed Season>");
-  const [scheduleType, setScheduleType] = useState<string>("ROUNDS");
-  const [leagueId, setLeagueId] = useState<number>(2);
+  const [scheduleType, setScheduleType] = useState<string>(
+    "HOME_ROTATION_RANDOM"
+  );
+  const [league, setLeague] = useState<string>("NHL");
   const [numGames, setNumGames] = useState<number>(4);
   const [showNumGamesInput, setShowNumGamesInput] = useState<boolean>(true);
   const [possibleTeams, setPossibleTeams] = useState<Array<Team>>([]);
@@ -34,8 +36,8 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
     setScheduleType(event.target.value);
   }
 
-  function leagueIdChange(event: React.ChangeEvent<any>) {
-    setLeagueId(event.target.value);
+  function leagueChange(event: React.ChangeEvent<any>) {
+    setLeague(event.target.value);
   }
 
   function numGamesChange(event: React.ChangeEvent<any>) {
@@ -60,8 +62,8 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
         "/season/schedule?scheduleType=" +
         scheduleType +
         "&sport=HOCKEY" +
-        "&leagueId=" +
-        leagueId +
+        "&league=" +
+        league +
         "&teamIds=" +
         selectedTeamIds +
         "&numGames=" +
@@ -73,13 +75,14 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
   }
 
   useEffect(() => {
-    fetch(config.baseUrl + "/team/getTeams?leagueId=" + leagueId)
+    fetch(config.baseUrl + "/team/getTeams?league=" + league)
       .then((res) => res.json())
       .then((json) => {
         setPossibleTeams(json.list);
       });
-  }, [leagueId]);
+  }, [league]);
 
+  // hide number of games input unless schedule type is Rounds
   useEffect(() => {
     if (scheduleType === "ROUNDS") {
       setShowNumGamesInput(true);
@@ -104,12 +107,18 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
             </Box>
             <Box margin={2}>
               <InputLabel>League</InputLabel>
-              <TextField
-                value={leagueId}
-                onChange={leagueIdChange}
+              <Select
+                value={league}
+                onChange={leagueChange}
                 variant="outlined"
                 fullWidth
-              />
+              >
+                {leagues.map((league) => (
+                  <MenuItem id={league.value} value={league.value}>
+                    {league.value}
+                  </MenuItem>
+                ))}
+              </Select>
             </Box>
             <Box margin={2}>
               <InputLabel>Schedule Type</InputLabel>
@@ -135,7 +144,7 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
             </Box>
             {showNumGamesInput && (
               <Box margin={2}>
-                <InputLabel>Number of Games</InputLabel>
+                <InputLabel>Number of Games per Team</InputLabel>
                 <TextField
                   value={numGames}
                   onChange={numGamesChange}

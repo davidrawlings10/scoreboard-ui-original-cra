@@ -38,7 +38,7 @@ export default class StartGameForm extends React.Component<
   }
 
   componentDidMount() {
-    fetch(config.baseUrl + "/team/getTeams?leagueId=2")
+    fetch(config.baseUrl + "/team/getTeams?league=NHL")
       .then((res) => res.json())
       .then((json) => this.setState({ teams: json.list }));
   }

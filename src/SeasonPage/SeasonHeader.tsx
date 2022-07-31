@@ -58,8 +58,8 @@ export default function SeasonHeader(props: SeasonHeaderProps) {
               flexDirection="column"
               justifyContent="center"
             >
-              <Box>League Id</Box>
-              <Box>{season.leagueId}</Box>
+              <Box>League</Box>
+              <Box>{season.league}</Box>
             </Box>
             <Box
               marginRight={6}

@@ -1,6 +1,7 @@
 import React from "react";
 import { Select, InputLabel, MenuItem, Input } from "@material-ui/core";
 import "./AddGameForm.css";
+import config from "../config";
 
 export default class AddGameForm extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ export default class AddGameForm extends React.Component {
   }
 
   componentDidMount() {
-    fetch(config.baseUrl + "/team/getTeams?leagueId=2")
+    fetch(config.baseUrl + "/team/getTeams?league=NHL")
       .then((res) => res.json())
       .then((json) => this.setState({ teams: json.list }));
   }

@@ -1,6 +1,7 @@
 import React from "react";
 import Season from "../SeasonDisplay";
 import { Button, Select, InputLabel, MenuItem } from "@material-ui/core";
+import config from "../config";
 
 export default class SeasonPage extends React.Component {
   constructor(props) {
@@ -26,10 +27,10 @@ export default class SeasonPage extends React.Component {
   scheduleNewSeason() {
     fetch(
       config.baseUrl +
-        "/season/schedule?scheduleType=ROUNDS&sport=HOCKEY&leagueId=1&numGames=12"
+        "/season/schedule?scheduleType=ROUNDS&sport=HOCKEY&league=AVES&numGames=12"
     );
     /*fetch(
-      config.baseUrl + "/season/schedule?scheduleType=HOME_ROTATION&sport=HOCKEY&leagueId=2"
+      config.baseUrl + "/season/schedule?scheduleType=HOME_ROTATION&sport=HOCKEY&league=NHL"
     );*/
   }
 

@@ -33,7 +33,7 @@ export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
         setSummary(season.summary);
         setTitle(season.title);
         setWinnerTeamId(season.winnerTeamId);
-        fetch(config.baseUrl + "/team/getTeams?leagueId=" + season.leagueId)
+        fetch(config.baseUrl + "/team/getTeams?league=" + season.league)
           .then((res) => res.json())
           .then((json) => setTeams(json.list));
       });
