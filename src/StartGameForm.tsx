@@ -11,6 +11,7 @@ import styled from "styled-components";
 export interface StartGameFormProps {}
 
 export interface StartGameFormState {
+  league: string;
   homeTeamId: number;
   awayTeamId: number;
   teams: Array<Team>;
@@ -29,6 +30,7 @@ export default class StartGameForm extends React.Component<
     this.handleChange = this.handleChange.bind(this);
 
     const state: StartGameFormState = {
+      league: "NHL",
       homeTeamId: 33,
       awayTeamId: 34,
       teams: [],
@@ -38,7 +40,7 @@ export default class StartGameForm extends React.Component<
   }
 
   componentDidMount() {
-    fetch(config.baseUrl + "/team/getTeams?league=NHL")
+    fetch(config.baseUrl + "/team/getTeams?league=" + this.state.league)
       .then((res) => res.json())
       .then((json) => this.setState({ teams: json.list }));
   }

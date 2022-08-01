@@ -100,16 +100,15 @@ export default function HomePage() {
           }
         />
         <Box display="flex" flexDirection="row" marginTop={4}>
-          {currentGames
-            .slice(0, displayGameIndex)
-            .concat(
-              currentGames.slice(displayGameIndex + 1, currentGames.length)
-            )
-            .map((game, index) => (
-              <Box key={game.id} onClick={() => setDisplayGameIndex(index)}>
-                <Scoreboard game={game} small />
+          {currentGames.map((game, index) =>
+            index !== displayGameIndex ? (
+              <Box onClick={() => setDisplayGameIndex(index)}>
+                <Scoreboard key={game.id} game={game} small />
               </Box>
-            ))}
+            ) : (
+              <div />
+            )
+          )}
         </Box>
         <Box marginTop={4}>
           {currentGames.length > 0 && (

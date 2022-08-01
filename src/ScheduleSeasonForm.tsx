@@ -11,13 +11,13 @@ import {
 import React, { useState, useEffect } from "react";
 
 import config from "./config";
+import { getLeagueList } from "./Shared/LeagueHelper";
 import Team from "./Entity/Team";
-
-const leagues = [{ value: "AVES" }, { value: "NHL" }, { value: "TEST" }];
 
 export type ScheduleSeasonFormProps = {};
 
 export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
+  const [leaguesT, setLeaguesT] = useState<Array<object>>();
   const [title, setTitle] = useState<string>("<Unnamed Season>");
   const [scheduleType, setScheduleType] = useState<string>(
     "HOME_ROTATION_RANDOM"
@@ -27,6 +27,15 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
   const [showNumGamesInput, setShowNumGamesInput] = useState<boolean>(true);
   const [possibleTeams, setPossibleTeams] = useState<Array<Team>>([]);
   const [selectedTeamIds, setSelectedTeamIds] = useState<Array<number>>([]);
+
+  useEffect(() => {
+    /*fetch(config.baseUrl + "/season/getLeagues")
+      .then((res) => res.json())
+      .then((json) => {
+        setLeaguesT(json.list);
+      });*/
+    getLeagueList().then((list) => setLeaguesT(list));
+  }, []);
 
   function titleChange(event: React.ChangeEvent<any>) {
     setTitle(event.target.value);
@@ -113,11 +122,12 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
                 variant="outlined"
                 fullWidth
               >
-                {leagues.map((league) => (
-                  <MenuItem id={league.value} value={league.value}>
-                    {league.value}
-                  </MenuItem>
-                ))}
+                {leaguesT &&
+                  leaguesT.map((league: any) => (
+                    <MenuItem id={league.value} value={league.value}>
+                      {league.title}
+                    </MenuItem>
+                  ))}
               </Select>
             </Box>
             <Box margin={2}>
