@@ -23,7 +23,7 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
   const [scheduleType, setScheduleType] = useState<string>(
     "HOME_ROTATION_RANDOM"
   );
-  const [league, setLeague] = useState<League | undefined>(undefined);
+  const [league, setLeague] = useState<string>("");
   const [numGames, setNumGames] = useState<number>(4);
   const [showNumGamesInput, setShowNumGamesInput] = useState<boolean>(true);
   const [possibleTeams, setPossibleTeams] = useState<Array<Team>>([]);
