@@ -17,7 +17,7 @@ import Team from "./Entity/Team";
 export type ScheduleSeasonFormProps = {};
 
 export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
-  const [leaguesT, setLeaguesT] = useState<Array<object>>();
+  const [leagues, setLeagues] = useState<Array<object>>();
   const [title, setTitle] = useState<string>("<Unnamed Season>");
   const [scheduleType, setScheduleType] = useState<string>(
     "HOME_ROTATION_RANDOM"
@@ -29,12 +29,7 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
   const [selectedTeamIds, setSelectedTeamIds] = useState<Array<number>>([]);
 
   useEffect(() => {
-    /*fetch(config.baseUrl + "/season/getLeagues")
-      .then((res) => res.json())
-      .then((json) => {
-        setLeaguesT(json.list);
-      });*/
-    getLeagueList().then((list) => setLeaguesT(list));
+    getLeagueList().then((list) => setLeagues(list));
   }, []);
 
   function titleChange(event: React.ChangeEvent<any>) {
@@ -122,8 +117,8 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
                 variant="outlined"
                 fullWidth
               >
-                {leaguesT &&
-                  leaguesT.map((league: any) => (
+                {leagues &&
+                  leagues.map((league: any) => (
                     <MenuItem id={league.value} value={league.value}>
                       {league.title}
                     </MenuItem>

@@ -5,12 +5,14 @@ import { Select, InputLabel, MenuItem, Button, Box } from "@material-ui/core";
 // import { styled } from "@material-ui/core/styles";
 
 import config from "./config";
+import { getLeagueList } from "./Shared/LeagueHelper";
 import Team from "./Entity/Team";
 import styled from "styled-components";
 
 export interface StartGameFormProps {}
 
 export interface StartGameFormState {
+  leagues: Array<object>;
   league: string;
   homeTeamId: number;
   awayTeamId: number;
@@ -27,9 +29,10 @@ export default class StartGameForm extends React.Component<
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleTeamChange = this.handleTeamChange.bind(this);
 
     const state: StartGameFormState = {
+      leagues: [],
       league: "NHL",
       homeTeamId: 33,
       awayTeamId: 34,
@@ -40,12 +43,13 @@ export default class StartGameForm extends React.Component<
   }
 
   componentDidMount() {
+    getLeagueList().then((list) => this.setState({ leagues: list }));
     fetch(config.baseUrl + "/team/getTeams?league=" + this.state.league)
       .then((res) => res.json())
       .then((json) => this.setState({ teams: json.list }));
   }
 
-  handleChange(event: React.ChangeEvent<any>) {
+  handleTeamChange(event: React.ChangeEvent<any>) {
     const value = event.target.value;
     const name = event.target.name;
 
@@ -77,13 +81,31 @@ export default class StartGameForm extends React.Component<
         <Box width="40%">
           <Form onSubmit={this.handleSubmit}>
             <Box margin={2}>
+              <InputLabel>League</InputLabel>
+              <Select
+                value={this.state.league}
+                onChange={(event: React.ChangeEvent<any>) =>
+                  this.setState({ league: event.target.value })
+                }
+                variant="outlined"
+                fullWidth
+              >
+                {this.state.leagues &&
+                  this.state.leagues.map((league: any) => (
+                    <MenuItem id={league.value} value={league.value}>
+                      {league.title}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </Box>
+            <Box margin={2}>
               <InputLabel id="labelHome">Home Team</InputLabel>
               <Select
                 labelId="label"
                 id="selectHome"
                 name="homeTeamId"
                 value={this.state.homeTeamId}
-                onChange={this.handleChange}
+                onChange={this.handleTeamChange}
                 variant="outlined"
                 fullWidth
               >
@@ -103,7 +125,7 @@ export default class StartGameForm extends React.Component<
                 id="selectAway"
                 name="awayTeamId"
                 value={this.state.awayTeamId}
-                onChange={this.handleChange}
+                onChange={this.handleTeamChange}
                 variant="outlined"
                 fullWidth
               >
