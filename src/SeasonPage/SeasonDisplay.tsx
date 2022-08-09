@@ -44,10 +44,6 @@ export default function SeasonDisplay(props: SeasonProps) {
     setSeasonUpdateDialogOpen(false);
   };
 
-  function deleteSeason() {
-    console.log("not implemented");
-  }
-
   if (!props.seasonId) {
     return <div></div>;
   }
@@ -72,11 +68,6 @@ export default function SeasonDisplay(props: SeasonProps) {
         <Box marginRight={1}>
           <Button onClick={updateSeason} color="primary" variant="contained">
             Edit
-          </Button>
-        </Box>
-        <Box marginRight={1}>
-          <Button onClick={deleteSeason} color="secondary" variant="contained">
-            Delete
           </Button>
         </Box>
       </Box>

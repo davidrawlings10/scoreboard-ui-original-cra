@@ -28,10 +28,12 @@ export default function TeamDisplayFunc(props: TeamDisplayFuncProps) {
     if (!!team) {
       setTeam({ id: props.id, location: team.location, name: team.name });
     } else {
-      getTeamDisplay(props.id).then((team) => {
-        setTeam({ id: props.id, location: team.location, name: team.name });
-        cacheTeam(props.id, team);
-      });
+      if (!!props.id) {
+        getTeamDisplay(props.id).then((team) => {
+          setTeam({ id: props.id, location: team.location, name: team.name });
+          cacheTeam(props.id, team);
+        });
+      }
     }
   }, [props.id]);
 
