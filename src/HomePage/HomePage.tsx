@@ -12,6 +12,7 @@ import ScoreboardControls from "./ScoreboardControls";
 
 export default function HomePage() {
   const [currentGames, setCurrentGames] = React.useState(Array<Game>());
+  const [finishedGames, setFinishedGames] = React.useState(Array<Game>());
   const [displayGameIndex, setDisplayGameIndex] = React.useState(0);
   const [gameEvents, setGameEvents] = React.useState(Array<GameEvent>());
 
@@ -27,6 +28,7 @@ export default function HomePage() {
       .then((res) => res.json())
       .then((json) => {
         setCurrentGames(json.games);
+        setFinishedGames(json.finishedGames);
         setRunning(json.running);
         setMillisecondsPerTick(json.tickMilliseconds);
         setGamesToPlay(json.gamesToPlay);
@@ -50,7 +52,7 @@ export default function HomePage() {
     };
   }, [millisecondsPerTick]);
 
-  // request game events (on every new state for now until caching can be implemented)
+  // request game events for the displayed game (on every new state for now until caching can be implemented)
   React.useEffect(() => {
     if (currentGames.length === 0) {
       return;
@@ -100,7 +102,7 @@ export default function HomePage() {
           }
         />
         <Box display="flex" flexDirection="row" marginTop={4}>
-          {currentGames.map((game, index) =>
+          {currentGames.concat(finishedGames).map((game, index) =>
             index !== displayGameIndex ? (
               <Box onClick={() => setDisplayGameIndex(index)}>
                 <Scoreboard key={game.id} game={game} small />
