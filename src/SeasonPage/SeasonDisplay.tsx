@@ -6,6 +6,7 @@ import config from "../config";
 import SeasonStanding from "./SeasonStandingList";
 import SeasonGameList from "./SeasonGameList";
 import SeasonUpdateDialog from "./SeasonUpdateDialog";
+import { PlayArrow, Edit } from "@material-ui/icons";
 
 export type SeasonProps = {
   seasonId: number;
@@ -61,12 +62,22 @@ export default function SeasonDisplay(props: SeasonProps) {
       </Snackbar>
       <Box display="flex">
         <Box marginRight={1}>
-          <Button onClick={playSeasonGame} color="primary" variant="contained">
+          <Button
+            onClick={playSeasonGame}
+            color="primary"
+            variant="contained"
+            startIcon={<PlayArrow />}
+          >
             Play Next Game
           </Button>
         </Box>
         <Box marginRight={1}>
-          <Button onClick={updateSeason} color="primary" variant="contained">
+          <Button
+            onClick={updateSeason}
+            color="primary"
+            variant="contained"
+            startIcon={<Edit />}
+          >
             Edit
           </Button>
         </Box>

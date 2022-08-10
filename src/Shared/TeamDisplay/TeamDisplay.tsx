@@ -33,6 +33,8 @@ export default function TeamDisplayFunc(props: TeamDisplayFuncProps) {
           setTeam({ id: props.id, location: team.location, name: team.name });
           cacheTeam(props.id, team);
         });
+      } else {
+        setTeam({ id: -1, location: "", name: "" });
       }
     }
   }, [props.id]);

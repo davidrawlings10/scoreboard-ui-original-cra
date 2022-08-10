@@ -57,7 +57,7 @@ export default function NavBar() {
               }}
             >
               <Box display="flex" flexDirection="row" marginRight={2}>
-                <PlayArrow />
+                <PlaylistAdd />
                 <Box marginLeft={1}>Schedule Season</Box>
               </Box>
             </Link>
@@ -72,7 +72,7 @@ export default function NavBar() {
               }}
             >
               <Box display="flex" flexDirection="row" marginRight={2}>
-                <PlaylistAdd />
+                <PlayArrow />
                 <Box marginLeft={1}>Start Game</Box>
               </Box>
             </Link>
