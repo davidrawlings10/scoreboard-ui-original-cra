@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   TextField,
   Button,
@@ -28,6 +28,14 @@ export default function ScoreboardControlsDialog(
   const [millisecondsPerTick, setMillisecondsPerTick] = React.useState<number>(
     props.millisecondsPerTick
   );
+
+  useEffect(() => {
+    setGamesToPlay(props.gamesToPlay);
+  }, [props.gamesToPlay]);
+
+  useEffect(() => {
+    setMillisecondsPerTick(props.millisecondsPerTick);
+  }, [props.millisecondsPerTick]);
 
   const gamesToPlayInputOnChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -80,7 +88,7 @@ export default function ScoreboardControlsDialog(
           <TextField
             autoFocus
             id="tickMilliseconds"
-            label="Tick Milliseconds"
+            label="Milliseconds Per Tick"
             type="number"
             variant="outlined"
             value={millisecondsPerTick}
@@ -92,7 +100,7 @@ export default function ScoreboardControlsDialog(
           <TextField
             autoFocus
             id="gamesToPlay"
-            label="Games to Play"
+            label="Number of Games to Play"
             type="number"
             variant="outlined"
             value={gamesToPlay}
@@ -102,10 +110,10 @@ export default function ScoreboardControlsDialog(
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleCancel} color="primary">
+        <Button onClick={handleCancel} variant="outlined">
           Cancel
         </Button>
-        <Button onClick={handleSubmit} color="primary">
+        <Button onClick={handleSubmit} color="primary" variant="contained">
           Submit
         </Button>
       </DialogActions>
