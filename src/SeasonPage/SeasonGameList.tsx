@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box } from "@material-ui/core";
+import { Box, Select, InputLabel, MenuItem } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 
 import config from "../config";
@@ -18,6 +18,14 @@ export default function SeasonGameList(props: SeasonGameListProps) {
 
   const [games, setGames] = useState<Array<Game>>([]);
   const [page, setPage] = useState<number>(1);
+  const [distinctTeamIds, setDistinctTeamIds] = useState<Array<number>>([]);
+  const [homeTeamIdFilter, setHomeTeamIdFilter] = useState<number | null>(null);
+  const [awayTeamIdFilter, setAwayTeamIdFilter] = useState<number | null>(null);
+
+  useEffect(() => {
+    setHomeTeamIdFilter(null);
+    setAwayTeamIdFilter(null);
+  }, [props.seasonId]);
 
   useEffect(() => {
     fetch(
@@ -27,19 +35,57 @@ export default function SeasonGameList(props: SeasonGameListProps) {
         "&page=" +
         page +
         "&pageSize=" +
-        PAGE_SIZE
+        PAGE_SIZE +
+        "&homeTeamId=" +
+        homeTeamIdFilter +
+        "&awayTeamId=" +
+        awayTeamIdFilter
     )
       .then((res) => res.json())
       .then((gamesResult) => {
         setGames(gamesResult.list);
+        if (homeTeamIdFilter == null && awayTeamIdFilter == null) {
+          setDistinctTeamIds(getDistinctTeamIds(gamesResult.list));
+        }
       });
     setPage(1);
-  }, [props.seasonId]);
+  }, [props.seasonId, page, homeTeamIdFilter, awayTeamIdFilter]);
+
+  function getDistinctTeamIds(games: Array<Game>): Array<number> {
+    const teams: Array<number> = [];
+    if (!games) {
+      return teams;
+    }
+
+    games.forEach((game) => {
+      if (!teams.includes(game.homeTeamId)) {
+        teams.push(game.homeTeamId);
+      }
+    });
+    return teams;
+  }
+
+  function handleHomeTeamIdFilterChange(event: React.ChangeEvent<any>) {
+    if (event.target.value === 0) {
+      setHomeTeamIdFilter(null);
+    } else {
+      setHomeTeamIdFilter(event.target.value);
+    }
+  }
+
+  function handleAwayTeamIdFilterChange(event: React.ChangeEvent<any>) {
+    if (event.target.value === 0) {
+      setAwayTeamIdFilter(null);
+    } else {
+      setAwayTeamIdFilter(event.target.value);
+    }
+  }
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     value: number
   ) => {
+    console.log("handlePageChange", value);
     setPage(value);
   };
 
@@ -51,17 +97,60 @@ export default function SeasonGameList(props: SeasonGameListProps) {
       flexDirection="column"
       justifyContent="center"
     >
-      <Box display="flex" m={1}>
-        <Box>
-          {games.filter((game) => game.endingPeriod != null).length} of{" "}
-          {games.length} games played
+      <Box>
+        <Box display="flex" flexDirection="row">
+          <Box marginRight={1} width={200}>
+            <InputLabel id="labelHome">Home Team</InputLabel>
+            <Select
+              labelId="label"
+              id="selectHome"
+              name="homeTeamId"
+              value={homeTeamIdFilter}
+              onChange={handleHomeTeamIdFilterChange}
+              variant="outlined"
+              fullWidth
+            >
+              <MenuItem value={0}>All</MenuItem>
+              {distinctTeamIds.map((teamId) => (
+                <MenuItem key={teamId} value={teamId}>
+                  <TeamDisplay id={teamId} />
+                </MenuItem>
+              ))}
+            </Select>
+          </Box>
+          <Box width={200}>
+            <InputLabel id="labelHome">Away Team</InputLabel>
+            <Select
+              labelId="label"
+              id="selectAway"
+              name="awayTeamId"
+              value={awayTeamIdFilter}
+              onChange={handleAwayTeamIdFilterChange}
+              variant="outlined"
+              fullWidth
+            >
+              <MenuItem value={0}>All</MenuItem>
+              {distinctTeamIds.map((teamId) => (
+                <MenuItem key={teamId} value={teamId}>
+                  <TeamDisplay id={teamId} />
+                </MenuItem>
+              ))}
+            </Select>
+          </Box>
         </Box>
         <Box>
-          <Pagination
-            onChange={handlePageChange}
-            page={page}
-            count={Math.floor((games.length - 1) / PAGE_SIZE + 1)}
-          />
+          <Box>
+            <Pagination
+              onChange={handlePageChange}
+              page={page}
+              count={!!games && Math.floor((games.length - 1) / PAGE_SIZE + 1)}
+            />
+          </Box>
+          <Box>
+            {!!games &&
+              games.filter((game) => game.endingPeriod != null).length}{" "}
+            of {!!games && games.length} games played
+          </Box>
         </Box>
       </Box>
       <Box>
@@ -77,66 +166,67 @@ export default function SeasonGameList(props: SeasonGameListProps) {
             </tr>
           </thead>
           <tbody>
-            {games
-              .slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
-              .map((game) => {
-                return (
-                  <tr key={game.id}>
-                    <td
-                      className={
-                        game.homeScore > game.awayScore
-                          ? "winning-team-color"
-                          : ""
-                      }
-                    >
-                      <TeamDisplay id={game.homeTeamId} />
-                    </td>
-                    <td
-                      className={
-                        game.homeScore > game.awayScore
-                          ? "winning-team-color"
-                          : ""
-                      }
-                    >
-                      {game.homeScore}
-                    </td>
-                    <td
-                      className={
-                        game.homeScore < game.awayScore
-                          ? "winning-team-color"
-                          : ""
-                      }
-                    >
-                      <TeamDisplay id={game.awayTeamId} />
-                    </td>
-                    <td
-                      className={
-                        game.homeScore < game.awayScore
-                          ? "winning-team-color"
-                          : ""
-                      }
-                    >
-                      {game.awayScore}
-                    </td>
-                    <td>
-                      {game.status === "FINAL"
-                        ? getFinalText(game.endingPeriod)
-                        : ""}
-                    </td>
-                    <td>
-                      {/* new Date(1624854854000).toLocaleString("en-US", { timeZone: "America/Los_Angeles",}) 
+            {!!games &&
+              games
+                /*.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)*/
+                .map((game) => {
+                  return (
+                    <tr key={game.id}>
+                      <td
+                        className={
+                          game.homeScore > game.awayScore
+                            ? "winning-team-color"
+                            : ""
+                        }
+                      >
+                        <TeamDisplay id={game.homeTeamId} />
+                      </td>
+                      <td
+                        className={
+                          game.homeScore > game.awayScore
+                            ? "winning-team-color"
+                            : ""
+                        }
+                      >
+                        {game.homeScore}
+                      </td>
+                      <td
+                        className={
+                          game.homeScore < game.awayScore
+                            ? "winning-team-color"
+                            : ""
+                        }
+                      >
+                        <TeamDisplay id={game.awayTeamId} />
+                      </td>
+                      <td
+                        className={
+                          game.homeScore < game.awayScore
+                            ? "winning-team-color"
+                            : ""
+                        }
+                      >
+                        {game.awayScore}
+                      </td>
+                      <td>
+                        {game.status === "FINAL"
+                          ? getFinalText(game.endingPeriod)
+                          : ""}
+                      </td>
+                      <td>
+                        {/* new Date(1624854854000).toLocaleString("en-US", { timeZone: "America/Los_Angeles",}) 
                   this works but looks off 7 hours 
 
                   */
-                      /*getDateString(
+                        /*getDateString(
                     new Date(game.updated))*/
-                      /*.toLocaleString("en-US", {
+                        /*.toLocaleString("en-US", {
                     timeZone: "America/Chicago",
                   })*/}
-                    </td>
-                  </tr>
-                );
-              })}
+                      </td>
+                    </tr>
+                  );
+                })}
           </tbody>
         </table>
       </Box>
