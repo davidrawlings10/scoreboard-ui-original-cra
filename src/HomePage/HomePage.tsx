@@ -13,7 +13,7 @@ import ScoreboardControls from "./ScoreboardControls";
 export default function HomePage() {
   const [currentGames, setCurrentGames] = React.useState(Array<Game>());
   const [finishedGames, setFinishedGames] = React.useState(Array<Game>());
-  const [displayGameIndex, setDisplayGameIndex] = React.useState(0);
+  const [displayGame, setDisplayGame] = React.useState<Game | null>(null);
   const [gameEvents, setGameEvents] = React.useState(Array<GameEvent>());
 
   const [running, setRunning] = React.useState(false);
@@ -54,20 +54,16 @@ export default function HomePage() {
 
   // request game events for the displayed game (on every new state for now until caching can be implemented)
   React.useEffect(() => {
-    if (currentGames.length === 0) {
+    if (currentGames.length === 0 || !displayGame) {
       return;
     }
 
-    fetch(
-      config.baseUrl +
-        "/gameEvent/getByGameId?gameId=" +
-        currentGames[displayGameIndex].id
-    )
+    fetch(config.baseUrl + "/gameEvent/getByGameId?gameId=" + displayGame.id)
       .then((res) => res.json())
       .then((json) => {
         setGameEvents(json.list);
       });
-  }, [displayGameIndex, currentGames]);
+  }, [displayGame, currentGames]);
 
   const handleRunningChange = (value: boolean) => {
     if (running) {
@@ -102,9 +98,9 @@ export default function HomePage() {
           }
         />
         <Box display="flex" flexDirection="row" marginTop={4}>
-          {currentGames.concat(finishedGames).map((game, index) =>
-            index !== displayGameIndex ? (
-              <Box onClick={() => setDisplayGameIndex(index)}>
+          {currentGames.concat(finishedGames).map((game) =>
+            game !== displayGame ? (
+              <Box onClick={() => setDisplayGame(game)}>
                 <Scoreboard key={game.id} game={game} small />
               </Box>
             ) : (
@@ -117,22 +113,21 @@ export default function HomePage() {
             <Scoreboard
               game={
                 currentGames != null && currentGames.length > 0
-                  ? currentGames[displayGameIndex]
+                  ? displayGame
                   : null
               }
             />
           )}
         </Box>
         <Box marginTop={4}>
-          {currentGames.length > 0 && gameEvents.length > 0 && (
-            <GameEventList
-              gameEvents={gameEvents}
-              game={currentGames[displayGameIndex]}
-            />
-          )}
+          {currentGames.length > 0 &&
+            gameEvents.length > 0 &&
+            !!displayGame && (
+              <GameEventList gameEvents={gameEvents} game={displayGame} />
+            )}
         </Box>
         <Box marginTop={4}>
-          <SeasonDisplay seasonId={currentGames[displayGameIndex]?.seasonId} />
+          {!!displayGame && <SeasonDisplay seasonId={displayGame?.seasonId} />}
         </Box>
       </Box>
 
