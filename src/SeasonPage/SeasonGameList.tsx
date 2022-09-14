@@ -19,12 +19,14 @@ export default function SeasonGameList(props: SeasonGameListProps) {
   const [games, setGames] = useState<Array<Game>>([]);
   const [page, setPage] = useState<number>(1);
   const [distinctTeamIds, setDistinctTeamIds] = useState<Array<number>>([]);
-  const [homeTeamIdFilter, setHomeTeamIdFilter] = useState<number | null>(null);
-  const [awayTeamIdFilter, setAwayTeamIdFilter] = useState<number | null>(null);
+  const [teamIdFilter, setTeamIdFilter] = useState<number | null>(null);
+  /*const [homeTeamIdFilter, setHomeTeamIdFilter] = useState<number | null>(null);
+  const [awayTeamIdFilter, setAwayTeamIdFilter] = useState<number | null>(null);*/
 
   useEffect(() => {
-    setHomeTeamIdFilter(null);
-    setAwayTeamIdFilter(null);
+    setTeamIdFilter(null);
+    /*setHomeTeamIdFilter(null);
+    setAwayTeamIdFilter(null);*/
   }, [props.seasonId]);
 
   useEffect(() => {
@@ -36,20 +38,18 @@ export default function SeasonGameList(props: SeasonGameListProps) {
         page +
         "&pageSize=" +
         PAGE_SIZE +
-        "&homeTeamId=" +
-        homeTeamIdFilter +
-        "&awayTeamId=" +
-        awayTeamIdFilter
+        "&teamId=" +
+        teamIdFilter
     )
       .then((res) => res.json())
       .then((gamesResult) => {
         setGames(gamesResult.list);
-        if (homeTeamIdFilter == null && awayTeamIdFilter == null) {
+        if (teamIdFilter == null) {
           setDistinctTeamIds(getDistinctTeamIds(gamesResult.list));
         }
       });
     setPage(1);
-  }, [props.seasonId, page, homeTeamIdFilter, awayTeamIdFilter]);
+  }, [props.seasonId, page, teamIdFilter]);
 
   function getDistinctTeamIds(games: Array<Game>): Array<number> {
     const teams: Array<number> = [];
@@ -65,7 +65,15 @@ export default function SeasonGameList(props: SeasonGameListProps) {
     return teams;
   }
 
-  function handleHomeTeamIdFilterChange(event: React.ChangeEvent<any>) {
+  function handleTeamIdFilterChange(event: React.ChangeEvent<any>) {
+    if (event.target.value === 0) {
+      setTeamIdFilter(null);
+    } else {
+      setTeamIdFilter(event.target.value);
+    }
+  }
+
+  /*function handleHomeTeamIdFilterChange(event: React.ChangeEvent<any>) {
     if (event.target.value === 0) {
       setHomeTeamIdFilter(null);
     } else {
@@ -79,7 +87,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
     } else {
       setAwayTeamIdFilter(event.target.value);
     }
-  }
+  }*/
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
@@ -100,6 +108,25 @@ export default function SeasonGameList(props: SeasonGameListProps) {
       <Box>
         <Box display="flex" flexDirection="row">
           <Box marginRight={1} width={200}>
+            <InputLabel id="labelTeam">Team</InputLabel>
+            <Select
+              labelId="label"
+              id="selectTeam"
+              name="TeamId"
+              value={teamIdFilter}
+              onChange={handleTeamIdFilterChange}
+              variant="outlined"
+              fullWidth
+            >
+              <MenuItem value={0}>All</MenuItem>
+              {distinctTeamIds.map((teamId) => (
+                <MenuItem key={teamId} value={teamId}>
+                  <TeamDisplay id={teamId} />
+                </MenuItem>
+              ))}
+            </Select>
+          </Box>
+          {/*<Box marginRight={1} width={200}>
             <InputLabel id="labelHome">Home Team</InputLabel>
             <Select
               labelId="label"
@@ -136,7 +163,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
                 </MenuItem>
               ))}
             </Select>
-          </Box>
+          </Box>*/}
         </Box>
         <Box>
           <Box>

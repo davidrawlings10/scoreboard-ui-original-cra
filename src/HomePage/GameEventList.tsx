@@ -32,6 +32,10 @@ export default function GameEventList(props: GameEventListProps) {
 
   const classes = useStyles();
 
+  if (!game) {
+    return <div></div>;
+  }
+
   return (
     <Box display="flex" justifyContent="center">
       <Box width="50%">
@@ -55,6 +59,7 @@ export default function GameEventList(props: GameEventListProps) {
                   intermission: false,
                   final: false,
                 };
+
                 const homeTeamTextStyle =
                   gameEvent.teamId === game.homeTeamId ? classes.highlight : "";
                 const awayTeamTextStyle =
