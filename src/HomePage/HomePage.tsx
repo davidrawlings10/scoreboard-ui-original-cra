@@ -13,6 +13,7 @@ import ScoreboardControls from "./ScoreboardControls";
 export default function HomePage() {
   const [currentGames, setCurrentGames] = React.useState(Array<Game>());
   const [finishedGames, setFinishedGames] = React.useState(Array<Game>());
+  const [displayGameId, setDisplayGameId] = React.useState<number | null>(null);
   const [displayGame, setDisplayGame] = React.useState<Game | null>(null);
   const [gameEvents, setGameEvents] = React.useState(Array<GameEvent>());
 
@@ -36,6 +37,16 @@ export default function HomePage() {
   }
 
   React.useEffect(() => {
+    if (!!displayGameId) {
+      currentGames.concat(finishedGames).forEach((game: Game) => {
+        if (game.id === displayGameId) {
+          setDisplayGame(game);
+        }
+      });
+    }
+  }, [displayGameId, currentGames, finishedGames]);
+
+  React.useEffect(() => {
     setTimerId(
       setInterval(
         () => getScoreboardState(),
@@ -54,7 +65,10 @@ export default function HomePage() {
 
   // request game events for the displayed game (on every new state for now until caching can be implemented)
   React.useEffect(() => {
-    if (currentGames.length === 0 || !displayGame) {
+    if (
+      (currentGames.length === 0 && finishedGames.length === 0) ||
+      !displayGame
+    ) {
       return;
     }
 
@@ -63,7 +77,7 @@ export default function HomePage() {
       .then((json) => {
         setGameEvents(json.list);
       });
-  }, [displayGame, currentGames]);
+  }, [displayGame, currentGames, finishedGames]);
 
   const handleRunningChange = (value: boolean) => {
     if (running) {
@@ -85,6 +99,10 @@ export default function HomePage() {
     setScoreboardControlsDialogOpen(false);
   };
 
+  const handleUpdateDisplayGameId = (id: number) => {
+    setDisplayGameId(id);
+  };
+
   return (
     <>
       <Box padding={3}>
@@ -97,30 +115,27 @@ export default function HomePage() {
             handleScoreboardControlsDialogOpen
           }
         />
+        {/* show current games & finished games*/}
         <Box display="flex" flexDirection="row" marginTop={4}>
           {currentGames.concat(finishedGames).map((game) =>
-            game !== displayGame ? (
-              <Box onClick={() => setDisplayGame(game)}>
+            !displayGame || game.id !== displayGame.id ? (
+              <div onClick={() => handleUpdateDisplayGameId(game.id)}>
                 <Scoreboard key={game.id} game={game} small />
-              </Box>
+              </div>
             ) : (
               <div />
             )
           )}
         </Box>
+        {/* show display game */}
         <Box marginTop={4}>
-          {currentGames.length > 0 && (
-            <Scoreboard
-              game={
-                currentGames != null && currentGames.length > 0
-                  ? displayGame
-                  : null
-              }
-            />
+          {currentGames.concat(finishedGames).length > 0 && (
+            <Scoreboard game={displayGame} />
           )}
         </Box>
+        {/* show game events for display game  */}
         <Box marginTop={4}>
-          {currentGames.length > 0 &&
+          {currentGames.concat(finishedGames).length > 0 &&
             gameEvents.length > 0 &&
             !!displayGame && (
               <GameEventList gameEvents={gameEvents} game={displayGame} />
