@@ -93,7 +93,6 @@ export default function SeasonGameList(props: SeasonGameListProps) {
     event: React.ChangeEvent<unknown>,
     value: number
   ) => {
-    console.log("handlePageChange", value);
     setPage(value);
   };
 
@@ -190,6 +189,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
               <th></th>
               <th></th>
               <th>Played</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -251,6 +251,11 @@ export default function SeasonGameList(props: SeasonGameListProps) {
                     timeZone: "America/Chicago",
                   })*/}
                       </td>
+                      <td>
+                        {game.status === "FINAL" && (
+                          <WinLossDisplay teamId={teamIdFilter} game={game} />
+                        )}
+                      </td>
                     </tr>
                   );
                 })}
@@ -259,4 +264,19 @@ export default function SeasonGameList(props: SeasonGameListProps) {
       </Box>
     </Box>
   );
+}
+
+interface WinLossDisplayProps {
+  teamId: number | null;
+  game: Game;
+}
+
+function WinLossDisplay(props: WinLossDisplayProps) {
+  let value: string;
+  if (props.teamId === props.game.homeTeamId) {
+    value = props.game.homeScore > props.game.awayScore ? "W" : "L";
+  } else {
+    value = props.game.homeScore < props.game.awayScore ? "W" : "L";
+  }
+  return <Box>{value}</Box>;
 }
