@@ -73,6 +73,19 @@ export default function SeasonHeader(props: SeasonHeaderProps) {
                 <TeamDisplay id={season.winnerTeamId} />
               </Box>
             </Box>
+            <Box
+              marginRight={6}
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+            >
+              <Box>Finished</Box>
+              <Box>
+                {new Date(season.updated).toLocaleString("en-US", {
+                  timeZone: config.timeZone,
+                })}
+              </Box>
+            </Box>
           </Box>
         </Box>
       </Box>
