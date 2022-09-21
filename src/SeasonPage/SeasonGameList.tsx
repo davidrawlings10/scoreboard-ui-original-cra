@@ -106,7 +106,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
     >
       <Box>
         <Box display="flex" flexDirection="row">
-          <Box marginRight={1} width={200}>
+          <Box marginRight={1} width={400}>
             <InputLabel id="labelTeam">Team</InputLabel>
             <Select
               labelId="label"
@@ -188,8 +188,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
               <th>Away</th>
               <th></th>
               <th></th>
-              <th>Played</th>
-              <th></th>
+              <th>Finished</th>
             </tr>
           </thead>
           <tbody>
@@ -241,15 +240,10 @@ export default function SeasonGameList(props: SeasonGameListProps) {
                           : ""}
                       </td>
                       <td>
-                        {/* new Date(1624854854000).toLocaleString("en-US", { timeZone: "America/Los_Angeles",}) 
-                  this works but looks off 7 hours 
-
-                  */
-                        /*getDateString(
-                    new Date(game.updated))*/
-                        /*.toLocaleString("en-US", {
-                    timeZone: "America/Chicago",
-                  })*/}
+                        {game.status === "FINAL" &&
+                          new Date(game.updated).toLocaleString("en-US", {
+                            timeZone: config.timeZone,
+                          })}
                       </td>
                       <td>
                         {game.status === "FINAL" && (
