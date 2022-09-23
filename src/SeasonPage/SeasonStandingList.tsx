@@ -6,12 +6,12 @@ import "./Table.css";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import Standing from "../Entity/Standing";
 
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+// import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 
 // const divCom = <div>abc</div>;
-const teamDisplay = <TeamDisplay id={2} />;
+// const teamDisplay = <TeamDisplay id={2} />;
 
-const columns: GridColDef[] = [
+/*const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 90 },
   {
     field: "point",
@@ -47,7 +47,7 @@ const columns: GridColDef[] = [
       return JSON.stringify(teamDisplay);
     },
   },
-];
+];*/
 
 /*const rows = [
   { id: 1, point: 3, gp: 2 },
@@ -142,7 +142,7 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
         Tiebreaker decided by Points, Wins, Goal Diff, Goals For, Head to head
         outcome, Two game playoff
       </Box>
-      <Box height={400} width="100%">
+      {/*<Box height={400} width="100%">
         <DataGrid
           rows={standings}
           columns={columns}
@@ -151,7 +151,7 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
           checkboxSelection
           disableSelectionOnClick
         />
-      </Box>
+      </Box>*/}
     </Box>
   );
 }

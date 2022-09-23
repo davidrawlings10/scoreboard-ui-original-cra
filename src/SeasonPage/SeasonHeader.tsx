@@ -79,9 +79,9 @@ export default function SeasonHeader(props: SeasonHeaderProps) {
               flexDirection="column"
               justifyContent="center"
             >
-              <Box>Finished</Box>
+              <Box>Scheduled</Box>
               <Box>
-                {new Date(season.updated).toLocaleString("en-US", {
+                {new Date(season.created).toLocaleString("en-US", {
                   timeZone: config.timeZone,
                 })}
               </Box>

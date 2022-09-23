@@ -38,7 +38,7 @@ export default function GameEventList(props: GameEventListProps) {
 
   return (
     <Box display="flex" justifyContent="center">
-      <Box width="50%">
+      <Box width={600}>
         <TableContainer component={Paper}>
           <Table size="small">
             <TableHead>

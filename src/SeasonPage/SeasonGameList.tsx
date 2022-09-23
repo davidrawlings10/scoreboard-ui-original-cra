@@ -183,6 +183,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
         <table className="season-game-list">
           <thead>
             <tr>
+              <th></th>
               <th>Home</th>
               <th></th>
               <th>Away</th>
@@ -198,6 +199,11 @@ export default function SeasonGameList(props: SeasonGameListProps) {
                 .map((game) => {
                   return (
                     <tr key={game.id}>
+                      <td>
+                        {game.status === "FINAL" && !!teamIdFilter && (
+                          <WinLossDisplay teamId={teamIdFilter} game={game} />
+                        )}
+                      </td>
                       <td
                         className={
                           game.homeScore > game.awayScore
@@ -214,7 +220,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
                             : ""
                         }
                       >
-                        {game.homeScore}
+                        {game.status === "FINAL" && game.homeScore}
                       </td>
                       <td
                         className={
@@ -232,23 +238,22 @@ export default function SeasonGameList(props: SeasonGameListProps) {
                             : ""
                         }
                       >
-                        {game.awayScore}
+                        {game.status === "FINAL" && game.awayScore}
                       </td>
-                      <td>
-                        {game.status === "FINAL"
-                          ? getFinalText(game.endingPeriod)
-                          : ""}
+                      <td
+                        className={
+                          game.status === "PLAYING" ? "winning-team-color" : ""
+                        }
+                      >
+                        {game.status === "FINAL" &&
+                          getFinalText(game.endingPeriod)}
+                        {game.status === "PLAYING" && "In Progress"}
                       </td>
                       <td>
                         {game.status === "FINAL" &&
                           new Date(game.updated).toLocaleString("en-US", {
                             timeZone: config.timeZone,
                           })}
-                      </td>
-                      <td>
-                        {game.status === "FINAL" && (
-                          <WinLossDisplay teamId={teamIdFilter} game={game} />
-                        )}
                       </td>
                     </tr>
                   );

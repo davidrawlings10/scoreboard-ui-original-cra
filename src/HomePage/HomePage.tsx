@@ -43,6 +43,10 @@ export default function HomePage() {
           setDisplayGame(game);
         }
       });
+    } else {
+      if (currentGames.concat(finishedGames).length > 0) {
+        setDisplayGameId(currentGames.concat(finishedGames)[0].id);
+      }
     }
   }, [displayGameId, currentGames, finishedGames]);
 
