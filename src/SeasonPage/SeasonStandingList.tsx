@@ -93,9 +93,7 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
             <th>Team</th>
             <th title="Points">PTS</th>
             <th title="Games Played">GP</th>
-            <th title="Win">W</th>
-            <th title="Loss">L</th>
-            <th title="Overtime Loss">OTL</th>
+            <th title="W-L-OT">Record</th>
             <th title="Goals For">GF</th>
             <th title="Goals Against">GA</th>
             <th title="Goal Diff">GD</th>
@@ -117,9 +115,9 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
               </td>
               <td>{standing.point}</td>
               <td>{standing.gp}</td>
-              <td>{standing.win}</td>
-              <td>{standing.loss}</td>
-              <td>{standing.otloss}</td>
+              <td>
+                {standing.win}-{standing.loss}-{standing.otloss}
+              </td>
               <td>{standing.gf}</td>
               <td>{standing.ga}</td>
               <td>{standing.gf - standing.ga}</td>

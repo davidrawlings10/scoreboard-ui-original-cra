@@ -6,6 +6,7 @@ import config from "../config";
 import "./Table.css";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import Game from "../Entity/Game";
+import Standing from "../Entity/Standing";
 import { getFinalText } from "../Shared/GameClockDisplay";
 // import { getDateString } from "./DateUtil";
 
@@ -20,13 +21,9 @@ export default function SeasonGameList(props: SeasonGameListProps) {
   const [page, setPage] = useState<number>(1);
   const [distinctTeamIds, setDistinctTeamIds] = useState<Array<number>>([]);
   const [teamIdFilter, setTeamIdFilter] = useState<number | null>(null);
-  /*const [homeTeamIdFilter, setHomeTeamIdFilter] = useState<number | null>(null);
-  const [awayTeamIdFilter, setAwayTeamIdFilter] = useState<number | null>(null);*/
 
   useEffect(() => {
     setTeamIdFilter(null);
-    /*setHomeTeamIdFilter(null);
-    setAwayTeamIdFilter(null);*/
   }, [props.seasonId]);
 
   useEffect(() => {
@@ -44,26 +41,19 @@ export default function SeasonGameList(props: SeasonGameListProps) {
       .then((res) => res.json())
       .then((gamesResult) => {
         setGames(gamesResult.list);
-        if (teamIdFilter == null) {
-          setDistinctTeamIds(getDistinctTeamIds(gamesResult.list));
-        }
       });
     setPage(1);
   }, [props.seasonId, page, teamIdFilter]);
 
-  function getDistinctTeamIds(games: Array<Game>): Array<number> {
-    const teams: Array<number> = [];
-    if (!games) {
-      return teams;
-    }
-
-    games.forEach((game) => {
-      if (!teams.includes(game.homeTeamId)) {
-        teams.push(game.homeTeamId);
-      }
-    });
-    return teams;
-  }
+  useEffect(() => {
+    fetch(`${config.baseUrl}/standing/get?seasonId=${props.seasonId}`)
+      .then((res) => res.json())
+      .then((standingsResult) =>
+        setDistinctTeamIds(
+          standingsResult.list.map((standing: Standing) => standing.teamId)
+        )
+      );
+  }, [props.seasonId]);
 
   function handleTeamIdFilterChange(event: React.ChangeEvent<any>) {
     if (event.target.value === 0) {
@@ -72,22 +62,6 @@ export default function SeasonGameList(props: SeasonGameListProps) {
       setTeamIdFilter(event.target.value);
     }
   }
-
-  /*function handleHomeTeamIdFilterChange(event: React.ChangeEvent<any>) {
-    if (event.target.value === 0) {
-      setHomeTeamIdFilter(null);
-    } else {
-      setHomeTeamIdFilter(event.target.value);
-    }
-  }
-
-  function handleAwayTeamIdFilterChange(event: React.ChangeEvent<any>) {
-    if (event.target.value === 0) {
-      setAwayTeamIdFilter(null);
-    } else {
-      setAwayTeamIdFilter(event.target.value);
-    }
-  }*/
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
@@ -125,44 +99,6 @@ export default function SeasonGameList(props: SeasonGameListProps) {
               ))}
             </Select>
           </Box>
-          {/*<Box marginRight={1} width={200}>
-            <InputLabel id="labelHome">Home Team</InputLabel>
-            <Select
-              labelId="label"
-              id="selectHome"
-              name="homeTeamId"
-              value={homeTeamIdFilter}
-              onChange={handleHomeTeamIdFilterChange}
-              variant="outlined"
-              fullWidth
-            >
-              <MenuItem value={0}>All</MenuItem>
-              {distinctTeamIds.map((teamId) => (
-                <MenuItem key={teamId} value={teamId}>
-                  <TeamDisplay id={teamId} />
-                </MenuItem>
-              ))}
-            </Select>
-          </Box>
-          <Box width={200}>
-            <InputLabel id="labelHome">Away Team</InputLabel>
-            <Select
-              labelId="label"
-              id="selectAway"
-              name="awayTeamId"
-              value={awayTeamIdFilter}
-              onChange={handleAwayTeamIdFilterChange}
-              variant="outlined"
-              fullWidth
-            >
-              <MenuItem value={0}>All</MenuItem>
-              {distinctTeamIds.map((teamId) => (
-                <MenuItem key={teamId} value={teamId}>
-                  <TeamDisplay id={teamId} />
-                </MenuItem>
-              ))}
-            </Select>
-          </Box>*/}
         </Box>
         <Box>
           <Box>
