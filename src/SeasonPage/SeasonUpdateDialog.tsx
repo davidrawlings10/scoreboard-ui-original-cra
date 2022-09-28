@@ -9,10 +9,11 @@ import {
   DialogContent,
   DialogTitle,
   MenuItem,
-  Select,
   Box,
 } from "@material-ui/core";
 import Team from "../Entity/Team";
+import Standing from "../Entity/Standing";
+import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 
 interface SeasonControlsDialogProps {
   open: boolean;
@@ -24,7 +25,7 @@ export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
   const [summary, setSummary] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [winnerTeamId, setWinnerTeamId] = useState<number>();
-  const [teams, setTeams] = useState<Array<Team>>();
+  const [teamIds, setTeamIds] = useState<Array<number>>([]);
 
   useEffect(() => {
     fetch(config.baseUrl + "/season/findById?seasonId=" + props.seasonId)
@@ -33,10 +34,17 @@ export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
         setSummary(season.summary);
         setTitle(season.title);
         setWinnerTeamId(season.winnerTeamId);
-        fetch(config.baseUrl + "/team/getTeams?league=" + season.league)
-          .then((res) => res.json())
-          .then((json) => setTeams(json.list));
       });
+  }, [props.seasonId]);
+
+  useEffect(() => {
+    fetch(`${config.baseUrl}/standing/get?seasonId=${props.seasonId}`)
+      .then((res) => res.json())
+      .then((standingsResult) =>
+        setTeamIds(
+          standingsResult.list.map((standing: Standing) => standing.teamId)
+        )
+      );
   }, [props.seasonId]);
 
   const handleCancel = () => {
@@ -44,6 +52,7 @@ export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
   };
 
   const handleSubmit = () => {
+    console.log("summary", summary);
     fetch(
       config.baseUrl +
         "/season/update?seasonId=" +
@@ -76,7 +85,7 @@ export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
       open={props.open}
       onClose={handleCancel}
       aria-labelledby="form-dialog-title"
-      maxWidth="lg"
+      maxWidth="md"
       fullWidth
     >
       <DialogTitle id="form-dialog-title">Edit Season</DialogTitle>
@@ -92,21 +101,22 @@ export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
         />
       </DialogContent>
       <DialogContent>
-        <Select
-          labelId="label"
+        <TextField
           id="winnerTeamId"
+          label="Winner"
+          select
           name="winnerTeamId"
           value={winnerTeamId}
           onChange={winnerTeamIdOnChange}
           variant="outlined"
           fullWidth
         >
-          {teams?.map((team) => (
-            <MenuItem key={team.id} value={team.id}>
-              {team.location ? team.location + " " + team.name : team.name}
+          {teamIds?.map((teamId) => (
+            <MenuItem key={teamId} value={teamId}>
+              <TeamDisplay id={teamId} />
             </MenuItem>
           ))}
-        </Select>
+        </TextField>
       </DialogContent>
       <DialogContent>
         <TextField

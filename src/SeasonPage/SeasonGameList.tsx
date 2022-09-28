@@ -8,7 +8,6 @@ import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import Game from "../Entity/Game";
 import Standing from "../Entity/Standing";
 import { getFinalText } from "../Shared/GameClockDisplay";
-// import { getDateString } from "./DateUtil";
 
 export type SeasonGameListProps = {
   seasonId: number;
@@ -19,7 +18,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
 
   const [games, setGames] = useState<Array<Game>>([]);
   const [page, setPage] = useState<number>(1);
-  const [distinctTeamIds, setDistinctTeamIds] = useState<Array<number>>([]);
+  const [teamIds, setTeamIds] = useState<Array<number>>([]);
   const [teamIdFilter, setTeamIdFilter] = useState<number | null>(null);
 
   useEffect(() => {
@@ -49,7 +48,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
     fetch(`${config.baseUrl}/standing/get?seasonId=${props.seasonId}`)
       .then((res) => res.json())
       .then((standingsResult) =>
-        setDistinctTeamIds(
+        setTeamIds(
           standingsResult.list.map((standing: Standing) => standing.teamId)
         )
       );
@@ -92,7 +91,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
               fullWidth
             >
               <MenuItem value={0}>All</MenuItem>
-              {distinctTeamIds.map((teamId) => (
+              {teamIds.map((teamId) => (
                 <MenuItem key={teamId} value={teamId}>
                   <TeamDisplay id={teamId} />
                 </MenuItem>
