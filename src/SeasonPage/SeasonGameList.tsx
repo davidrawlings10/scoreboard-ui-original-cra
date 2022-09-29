@@ -108,8 +108,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
             />
           </Box>
           <Box>
-            {!!games &&
-              games.filter((game) => game.endingPeriod != null).length}{" "}
+            {!!games && games.filter((game) => game.status !== "FINAL").length}{" "}
             of {!!games && games.length} games played
           </Box>
         </Box>
