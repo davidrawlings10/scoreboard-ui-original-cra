@@ -6,7 +6,8 @@ import config from "../config";
 import SeasonStanding from "./SeasonStandingList";
 import SeasonGameList from "./SeasonGameList";
 import SeasonUpdateDialog from "./SeasonUpdateDialog";
-import { PlayArrow, Edit } from "@material-ui/icons";
+import NextSeasonGame from "./NextSeasonGame";
+import { PlayArrow, Edit, AddToQueue } from "@material-ui/icons";
 
 export type SeasonProps = {
   seasonId: number;
@@ -32,11 +33,6 @@ export default function SeasonDisplay(props: SeasonProps) {
     setSeasonUpdateDialogOpen(false);
   };
 
-  function playSeasonGame() {
-    setGameStartedAlertOpen(true);
-    fetch(config.baseUrl + "/game/startSeasonGame?seasonId=" + props.seasonId);
-  }
-
   function updateSeason() {
     setSeasonUpdateDialogOpen(true);
   }
@@ -60,17 +56,10 @@ export default function SeasonDisplay(props: SeasonProps) {
           Game started
         </Alert>
       </Snackbar>
+      <Box>
+        <NextSeasonGame seasonId={props.seasonId} />
+      </Box>
       <Box display="flex">
-        <Box marginRight={1}>
-          <Button
-            onClick={playSeasonGame}
-            color="primary"
-            variant="contained"
-            startIcon={<PlayArrow />}
-          >
-            Play Next Game
-          </Button>
-        </Box>
         <Box marginRight={1}>
           <Button
             onClick={updateSeason}
@@ -79,6 +68,18 @@ export default function SeasonDisplay(props: SeasonProps) {
             startIcon={<Edit />}
           >
             Edit
+          </Button>
+        </Box>
+        <Box marginRight={1}>
+          <Button
+            onClick={() => {
+              window.location.href = `http://localhost:8080/season/getSQL?seasonId=${props.seasonId}`;
+            }}
+            color="primary"
+            variant="contained"
+            startIcon={<AddToQueue />}
+          >
+            Get Insert SQL
           </Button>
         </Box>
       </Box>

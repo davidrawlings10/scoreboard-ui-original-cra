@@ -11,7 +11,6 @@ import {
   MenuItem,
   Box,
 } from "@material-ui/core";
-import Team from "../Entity/Team";
 import Standing from "../Entity/Standing";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 

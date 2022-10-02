@@ -93,7 +93,7 @@ export default class StartGameForm extends React.Component<
   handleSubmit(event: React.ChangeEvent<any>) {
     fetch(
       config.baseUrl +
-        "/game/startGame?sport=HOCKEY&homeTeamId=" +
+        "/game/startSingleGame?sport=HOCKEY&homeTeamId=" +
         this.state.homeTeamId +
         "&awayTeamId=" +
         this.state.awayTeamId

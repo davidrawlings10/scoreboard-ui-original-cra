@@ -11,6 +11,7 @@ export default interface Game {
   sport: "HOCKEY" | "SOCCER";
   status: "SCHEDULED" | "PLAYING" | "FINAL";
   clock: Clock;
+  teamAlreadyPlaying: "NONE" | "HOME" | "AWAY" | "BOTH";
 }
 
 export interface Clock {

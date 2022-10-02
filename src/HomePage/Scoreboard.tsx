@@ -47,14 +47,6 @@ export default function Scoreboard(props: ScoreboardProps) {
     }
   };
 
-  /*function adjustHandleClick() {
-    if (!!props.game) {
-      fetch(
-        config.baseUrl + "/game/adjustCurrentGame?gameId=" + props.game.id
-      );
-    }
-  }*/
-
   if (!props.game) {
     return <div></div>;
   }
