@@ -9,6 +9,7 @@ import Game from "../Entity/Game";
 import GameEvent from "../Entity/GameEvent";
 import GameEventList from "./GameEventList";
 import ScoreboardControls from "./ScoreboardControls";
+import CurrentGameList from "./CurrentGameList";
 
 export default function HomePage() {
   const [currentGames, setCurrentGames] = React.useState(Array<Game>());
@@ -36,6 +37,12 @@ export default function HomePage() {
       });
   }
 
+  const updateDisplayGameId = React.useCallback((): void => {
+    if (currentGames.concat(finishedGames).length > 0) {
+      setDisplayGameId(currentGames.concat(finishedGames)[0].id);
+    }
+  }, []);
+
   React.useEffect(() => {
     if (!!displayGameId) {
       currentGames.concat(finishedGames).forEach((game: Game) => {
@@ -44,18 +51,21 @@ export default function HomePage() {
         }
       });
     } else {
-      if (currentGames.concat(finishedGames).length > 0) {
-        setDisplayGameId(currentGames.concat(finishedGames)[0].id);
-      }
+      updateDisplayGameId();
     }
-  }, [displayGameId, currentGames, finishedGames]);
+  }, [displayGameId, currentGames, finishedGames, updateDisplayGameId]);
+
+  // if the number of current games changes we should reset the display game to the first game in the list
+  React.useEffect(() => {
+    updateDisplayGameId();
+  }, [currentGames.length]);
 
   React.useEffect(() => {
     setTimerId(
       setInterval(
         () => getScoreboardState(),
-        // every 200ms is the most frequent we should get new scoreboard state even if the game tick is running faster than this
-        Math.max(millisecondsPerTick, 200)
+        // every 1000ms is the most frequent we should get new scoreboard state even if the game tick is running faster than this
+        Math.max(millisecondsPerTick, 1000)
       )
     );
 
@@ -119,20 +129,15 @@ export default function HomePage() {
             handleScoreboardControlsDialogOpen
           }
         />
-        {/* show current games & finished games*/}
-        <Box display="flex" flexDirection="row" marginTop={4}>
-          {currentGames.concat(finishedGames).map((game) =>
-            !displayGame || game.id !== displayGame.id ? (
-              <div onClick={() => handleUpdateDisplayGameId(game.id)}>
-                <Scoreboard key={game.id} game={game} small />
-              </div>
-            ) : (
-              <div />
-            )
-          )}
+        <Box>
+          <CurrentGameList
+            games={currentGames.concat(finishedGames)}
+            displayGame={displayGame}
+            handleUpdateDisplayGameId={handleUpdateDisplayGameId}
+          />
         </Box>
         {/* show display game */}
-        <Box marginTop={4}>
+        <Box marginTop={4} display="flex" justifyContent="center">
           {currentGames.concat(finishedGames).length > 0 && (
             <Scoreboard game={displayGame} />
           )}
@@ -146,7 +151,15 @@ export default function HomePage() {
             )}
         </Box>
         <Box marginTop={4}>
-          {!!displayGame && <SeasonDisplay seasonId={displayGame?.seasonId} />}
+          {!!displayGame && (
+            <SeasonDisplay
+              seasonId={displayGame?.seasonId}
+              numGames={{
+                current: currentGames.length,
+                finished: finishedGames.length,
+              }}
+            />
+          )}
         </Box>
       </Box>
 

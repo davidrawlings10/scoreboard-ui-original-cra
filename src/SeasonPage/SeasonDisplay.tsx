@@ -1,26 +1,22 @@
-import React from "react";
-import { Box, Button, Snackbar } from "@material-ui/core";
+import React, { memo } from "react";
+import { Snackbar } from "@material-ui/core";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 
-import config from "../config";
-import SeasonStanding from "./SeasonStandingList";
+import SeasonStandingList from "./SeasonStandingList";
 import SeasonGameList from "./SeasonGameList";
-import SeasonUpdateDialog from "./SeasonUpdateDialog";
 import NextSeasonGame from "./NextSeasonGame";
-import { PlayArrow, Edit, AddToQueue } from "@material-ui/icons";
 
-export type SeasonProps = {
+export type SeasonDisplayProps = {
   seasonId: number;
+  numGames: { current: number; finished: number } | null; // this is so that when a game is finished, this component (which is wrapped in memo) will refresh
 };
 
 function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function SeasonDisplay(props: SeasonProps) {
+function SeasonDisplay(props: SeasonDisplayProps) {
   const [gameStartedAlertOpen, setGameStartedAlertOpen] = React.useState(false);
-  const [seasonUpdateDialogOpen, setSeasonUpdateDialogOpen] =
-    React.useState(false);
 
   const handleGameStartedAlertClose = (
     event?: React.SyntheticEvent,
@@ -30,15 +26,7 @@ export default function SeasonDisplay(props: SeasonProps) {
       return;
     }
 
-    setSeasonUpdateDialogOpen(false);
-  };
-
-  function updateSeason() {
-    setSeasonUpdateDialogOpen(true);
-  }
-
-  const handleSeasonUpdateDialogOpenClose = () => {
-    setSeasonUpdateDialogOpen(false);
+    setGameStartedAlertOpen(false);
   };
 
   if (!props.seasonId) {
@@ -56,40 +44,11 @@ export default function SeasonDisplay(props: SeasonProps) {
           Game started
         </Alert>
       </Snackbar>
-      <Box>
-        <NextSeasonGame seasonId={props.seasonId} />
-      </Box>
-      <Box display="flex">
-        <Box marginRight={1}>
-          <Button
-            onClick={updateSeason}
-            color="primary"
-            variant="contained"
-            startIcon={<Edit />}
-          >
-            Edit
-          </Button>
-        </Box>
-        <Box marginRight={1}>
-          <Button
-            onClick={() => {
-              window.location.href = `http://localhost:8080/season/getSQL?seasonId=${props.seasonId}`;
-            }}
-            color="primary"
-            variant="contained"
-            startIcon={<AddToQueue />}
-          >
-            Get Insert SQL
-          </Button>
-        </Box>
-      </Box>
-      <SeasonStanding seasonId={props.seasonId} />
-      <SeasonGameList seasonId={props.seasonId} />
-      <SeasonUpdateDialog
-        open={seasonUpdateDialogOpen}
-        onClose={handleSeasonUpdateDialogOpenClose}
-        seasonId={props.seasonId}
-      />
+      <NextSeasonGame seasonId={props.seasonId} numGames={props.numGames} />
+      <SeasonStandingList seasonId={props.seasonId} numGames={props.numGames} />
+      <SeasonGameList seasonId={props.seasonId} numGames={props.numGames} />
     </div>
   );
 }
+
+export default memo(SeasonDisplay);

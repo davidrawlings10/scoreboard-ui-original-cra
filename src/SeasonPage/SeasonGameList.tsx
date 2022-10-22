@@ -11,6 +11,7 @@ import { getFinalText } from "../Shared/GameClockDisplay";
 
 export type SeasonGameListProps = {
   seasonId: number;
+  numGames: { current: number; finished: number } | null;
 };
 
 export default function SeasonGameList(props: SeasonGameListProps) {
@@ -27,22 +28,32 @@ export default function SeasonGameList(props: SeasonGameListProps) {
 
   useEffect(() => {
     fetch(
-      config.baseUrl +
-        "/game/getGamesBySeasonId?seasonId=" +
-        props.seasonId +
-        "&page=" +
-        page +
-        "&pageSize=" +
-        PAGE_SIZE +
-        "&teamId=" +
-        teamIdFilter
+      `${config.baseUrl}/game/getGamesBySeasonId?seasonId=${props.seasonId}&teamId=${teamIdFilter}`
     )
       .then((res) => res.json())
       .then((gamesResult) => {
         setGames(gamesResult.list);
       });
-    setPage(1);
-  }, [props.seasonId, page, teamIdFilter]);
+  }, [
+    props.seasonId,
+    props.numGames?.current,
+    props.numGames?.finished,
+    teamIdFilter,
+  ]);
+
+  useEffect(() => {
+    setPage(
+      !!games &&
+        Math.max(
+          Math.floor(
+            (games.filter((game) => game.status === "FINAL").length - 1) /
+              PAGE_SIZE +
+              1
+          ),
+          1
+        )
+    );
+  }, [games]);
 
   useEffect(() => {
     fetch(`${config.baseUrl}/standing/get?seasonId=${props.seasonId}`)
@@ -90,7 +101,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
               variant="outlined"
               fullWidth
             >
-              <MenuItem value={0}>All</MenuItem>
+              <MenuItem value="null">All</MenuItem>
               {teamIds.map((teamId) => (
                 <MenuItem key={teamId} value={teamId}>
                   <TeamDisplay id={teamId} />
@@ -108,7 +119,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
             />
           </Box>
           <Box>
-            {!!games && games.filter((game) => game.status !== "FINAL").length}{" "}
+            {!!games && games.filter((game) => game.status === "FINAL").length}{" "}
             of {!!games && games.length} games played
           </Box>
         </Box>
@@ -129,7 +140,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
           <tbody>
             {!!games &&
               games
-                /*.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)*/
+                .slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
                 .map((game) => {
                   return (
                     <tr key={game.id}>
@@ -140,6 +151,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
                       </td>
                       <td
                         className={
+                          game.status === "FINAL" &&
                           game.homeScore > game.awayScore
                             ? "winning-team-color"
                             : ""
@@ -149,15 +161,17 @@ export default function SeasonGameList(props: SeasonGameListProps) {
                       </td>
                       <td
                         className={
+                          game.status === "FINAL" &&
                           game.homeScore > game.awayScore
                             ? "winning-team-color"
                             : ""
                         }
                       >
-                        {game.status === "FINAL" && game.homeScore}
+                        {game.homeScore}
                       </td>
                       <td
                         className={
+                          game.status === "FINAL" &&
                           game.homeScore < game.awayScore
                             ? "winning-team-color"
                             : ""
@@ -167,12 +181,13 @@ export default function SeasonGameList(props: SeasonGameListProps) {
                       </td>
                       <td
                         className={
+                          game.status === "FINAL" &&
                           game.homeScore < game.awayScore
                             ? "winning-team-color"
                             : ""
                         }
                       >
-                        {game.status === "FINAL" && game.awayScore}
+                        {game.awayScore}
                       </td>
                       <td
                         className={

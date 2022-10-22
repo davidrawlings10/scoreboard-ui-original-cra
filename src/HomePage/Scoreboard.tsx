@@ -53,7 +53,7 @@ export default function Scoreboard(props: ScoreboardProps) {
 
   return (
     <>
-      <Box display="flex" justifyContent="center">
+      <Box display="flex">
         <Box flexDirection="column">
           <Box
             bgcolor="primary.main"

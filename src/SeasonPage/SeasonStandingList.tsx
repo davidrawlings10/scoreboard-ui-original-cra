@@ -57,6 +57,7 @@ import Standing from "../Entity/Standing";
 
 export type SeasonStandingListProps = {
   seasonId: number;
+  numGames: { current: number; finished: number } | null;
 };
 
 export default function SeasonStandingList(props: SeasonStandingListProps) {
@@ -68,7 +69,7 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
       .then((standingsResult) => {
         setStandings(standingsResult.list);
       });
-  }, [props.seasonId]);
+  }, [props.seasonId, props.numGames?.current, props.numGames?.finished]);
 
   function calculatedPointPercentage(point: number, gp: number) {
     if (point === 0 || gp === 0) {

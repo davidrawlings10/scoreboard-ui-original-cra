@@ -1,0 +1,73 @@
+import React, { useState, useEffect } from "react";
+import { Box, Button } from "@material-ui/core";
+import Game from "../Entity/Game";
+import Scoreboard from "./Scoreboard";
+import { NavigateBefore, NavigateNext } from "@material-ui/icons";
+
+interface CurrentGameListProps {
+  games: Array<Game>;
+  displayGame: Game | null;
+  handleUpdateDisplayGameId: (id: number) => void;
+}
+
+export default function CurrentGameList(props: CurrentGameListProps) {
+  const PAGE_SIZE = 6;
+  const [page, setPage] = useState(1);
+  const [numberOfPages, setNumberOfPages] = useState(1);
+
+  useEffect(() => {
+    setNumberOfPages(
+      Math.ceil(
+        (props.games.length - (!!props.displayGame ? 1 : 0)) / PAGE_SIZE
+      )
+    );
+  }, [props.games, props.displayGame]);
+
+  const handlePrevClick = () => {
+    if (page === 1) {
+      return;
+    }
+
+    setPage(page - 1);
+  };
+
+  const handleNextClick = () => {
+    if (page === numberOfPages) {
+      return;
+    }
+
+    setPage(page + 1);
+  };
+
+  const handleUpdateDisplayGameId = (id: number) => {
+    props.handleUpdateDisplayGameId(id);
+  };
+
+  if (!props.games) {
+    return <div />;
+  }
+
+  return (
+    <Box display="flex" flexDirection="column" marginTop={4}>
+      <Box display="flex" flexDirection="row" mb={1}>
+        <Button variant="contained" color="primary" onClick={handlePrevClick}>
+          <NavigateBefore />
+        </Button>
+        <Box display="flex" flexDirection="row" ml={2} mr={2}>
+          {props.games
+            .filter((game) => game.id !== props.displayGame?.id)
+            .slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+            .map((game) => (
+              <div onClick={() => handleUpdateDisplayGameId(game.id)}>
+                <Scoreboard key={game.id} game={game} small />
+              </div>
+            ))}
+        </Box>
+        <Button variant="contained" color="primary" onClick={handleNextClick}>
+          <NavigateNext />
+        </Button>
+      </Box>
+      <Box>{`Page ${page}/${numberOfPages}`}</Box>
+    </Box>
+  );
+}
