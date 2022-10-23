@@ -47,27 +47,54 @@ export default function CurrentGameList(props: CurrentGameListProps) {
     return <div />;
   }
 
+  const BUTTON_STYLE = {
+    maxWidth: "50px",
+    maxHeight: "120px",
+    minWidth: "50px",
+    minHeight: "120px",
+  };
+
   return (
     <Box display="flex" flexDirection="column" marginTop={4}>
       <Box display="flex" flexDirection="row" mb={1}>
-        <Button variant="contained" color="primary" onClick={handlePrevClick}>
-          <NavigateBefore />
-        </Button>
-        <Box display="flex" flexDirection="row" ml={2} mr={2}>
-          {props.games
-            .filter((game) => game.id !== props.displayGame?.id)
-            .slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
-            .map((game) => (
-              <div onClick={() => handleUpdateDisplayGameId(game.id)}>
-                <Scoreboard key={game.id} game={game} small />
-              </div>
-            ))}
+        <Box display="flex" alignContent="center">
+          {props.games.length > PAGE_SIZE && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handlePrevClick}
+              style={BUTTON_STYLE}
+            >
+              <NavigateBefore />
+            </Button>
+          )}
         </Box>
-        <Button variant="contained" color="primary" onClick={handleNextClick}>
-          <NavigateNext />
-        </Button>
+        <Box display="flex" flexDirection="column" ml={2} mr={2}>
+          <Box display="flex" flexDirection="row" mb={1}>
+            {props.games
+              .filter((game) => game.id !== props.displayGame?.id)
+              .slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+              .map((game) => (
+                <div onClick={() => handleUpdateDisplayGameId(game.id)}>
+                  <Scoreboard key={game.id} game={game} small />
+                </div>
+              ))}
+          </Box>
+          {props.games.length > PAGE_SIZE && (
+            <Box>{`Page ${page}/${numberOfPages}`}</Box>
+          )}
+        </Box>
+        {props.games.length > PAGE_SIZE && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleNextClick}
+            style={BUTTON_STYLE}
+          >
+            <NavigateNext />
+          </Button>
+        )}
       </Box>
-      <Box>{`Page ${page}/${numberOfPages}`}</Box>
     </Box>
   );
 }
