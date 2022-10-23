@@ -11,17 +11,20 @@ interface CurrentGameListProps {
 }
 
 export default function CurrentGameList(props: CurrentGameListProps) {
-  const PAGE_SIZE = 6;
-  const [page, setPage] = useState(1);
-  const [numberOfPages, setNumberOfPages] = useState(1);
+  const PAGE_SIZE: number = 6;
+  const [page, setPage] = useState<number>(1);
+  const [numberOfPages, setNumberOfPages] = useState<number>(1);
+  const [currentGameListLength, setCurrentGameListLength] = useState<number>(0);
 
   useEffect(() => {
-    setNumberOfPages(
-      Math.ceil(
-        (props.games.length - (!!props.displayGame ? 1 : 0)) / PAGE_SIZE
-      )
+    setCurrentGameListLength(
+      props.games.length - (!!props.displayGame ? 1 : 0)
     );
   }, [props.games, props.displayGame]);
+
+  useEffect(() => {
+    setNumberOfPages(Math.ceil(currentGameListLength / PAGE_SIZE));
+  }, [props.games, props.displayGame, currentGameListLength]);
 
   const handlePrevClick = () => {
     if (page === 1) {
@@ -58,7 +61,7 @@ export default function CurrentGameList(props: CurrentGameListProps) {
     <Box display="flex" flexDirection="column" marginTop={4}>
       <Box display="flex" flexDirection="row" mb={1}>
         <Box display="flex" alignContent="center">
-          {props.games.length > PAGE_SIZE && (
+          {currentGameListLength > PAGE_SIZE && (
             <Button
               variant="contained"
               color="primary"
@@ -80,11 +83,11 @@ export default function CurrentGameList(props: CurrentGameListProps) {
                 </div>
               ))}
           </Box>
-          {props.games.length > PAGE_SIZE && (
+          {currentGameListLength > PAGE_SIZE && (
             <Box>{`Page ${page}/${numberOfPages}`}</Box>
           )}
         </Box>
-        {props.games.length > PAGE_SIZE && (
+        {currentGameListLength > PAGE_SIZE && (
           <Button
             variant="contained"
             color="primary"
