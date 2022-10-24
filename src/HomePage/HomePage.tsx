@@ -19,8 +19,10 @@ export default function HomePage() {
   const [gameEvents, setGameEvents] = React.useState(Array<GameEvent>());
 
   const [running, setRunning] = React.useState(false);
-  const [gamesToPlay, setGamesToPlay] = React.useState<number>(0);
   const [millisecondsPerTick, setMillisecondsPerTick] =
+    React.useState<number>(0);
+  const [gamesToPlay, setGamesToPlay] = React.useState<number>(0);
+  const [gamesPlayingConcurrently, setGamesPlayingConcurrently] =
     React.useState<number>(0);
 
   const [timerId, setTimerId] = React.useState<any>(null);
@@ -34,6 +36,7 @@ export default function HomePage() {
         setRunning(json.running);
         setMillisecondsPerTick(json.tickMilliseconds);
         setGamesToPlay(json.gamesToPlay);
+        setGamesPlayingConcurrently(json.gamesPlayingConcurrently);
       });
   }
 
@@ -124,6 +127,7 @@ export default function HomePage() {
           running={running}
           millisecondsPerTick={millisecondsPerTick}
           gamesToPlay={gamesToPlay}
+          gamesPlayingConcurrently={gamesPlayingConcurrently}
           handleRunningChange={handleRunningChange}
           handleScoreboardControlsDialogOpen={
             handleScoreboardControlsDialogOpen
@@ -167,6 +171,7 @@ export default function HomePage() {
         open={scoreboardControlsDialogOpen}
         onClose={handleScoreboardControlsDialogClose}
         gamesToPlay={gamesToPlay}
+        gamesPlayingConcurrently={gamesPlayingConcurrently}
         millisecondsPerTick={millisecondsPerTick}
       />
     </>

@@ -6,12 +6,13 @@ interface ScoreboardControlsProps {
   running: boolean;
   millisecondsPerTick: number;
   gamesToPlay: number;
+  gamesPlayingConcurrently: number;
   handleRunningChange: any;
   handleScoreboardControlsDialogOpen: any;
 }
 
 export default function ScoreboardControls(props: ScoreboardControlsProps) {
-  const { millisecondsPerTick, gamesToPlay } = props;
+  const { millisecondsPerTick, gamesToPlay, gamesPlayingConcurrently } = props;
 
   const handleRunningChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const running: boolean = event.target.checked;
@@ -37,6 +38,8 @@ export default function ScoreboardControls(props: ScoreboardControlsProps) {
       <Box marginRight={8}>{millisecondsPerTick}</Box>
       <Box marginRight={3}>Number of Games to Play</Box>
       <Box marginRight={8}>{gamesToPlay}</Box>
+      <Box marginRight={3}>Games Playing Concurrently</Box>
+      <Box marginRight={8}>{gamesPlayingConcurrently}</Box>
       <Button
         onClick={handleScoreboardControlsDialogOpen}
         color="primary"

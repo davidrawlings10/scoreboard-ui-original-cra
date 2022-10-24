@@ -15,27 +15,36 @@ import config from "../config";
 interface ScoreboardControlsDialogProps {
   open: boolean;
   onClose: () => void;
-  gamesToPlay: number;
   millisecondsPerTick: number;
+  gamesToPlay: number;
+  gamesPlayingConcurrently: number;
 }
 
 export default function ScoreboardControlsDialog(
   props: ScoreboardControlsDialogProps
 ) {
-  const [gamesToPlay, setGamesToPlay] = React.useState<number>(
-    props.gamesToPlay
-  );
   const [millisecondsPerTick, setMillisecondsPerTick] = React.useState<number>(
     props.millisecondsPerTick
   );
-
-  useEffect(() => {
-    setGamesToPlay(props.gamesToPlay);
-  }, [props.gamesToPlay]);
+  const [gamesToPlay, setGamesToPlay] = React.useState<number>(
+    props.gamesToPlay
+  );
+  const [gamesPlayingConcurrently, setGamesPlayingConcurrently] =
+    React.useState<number>(props.gamesPlayingConcurrently);
 
   useEffect(() => {
     setMillisecondsPerTick(props.millisecondsPerTick);
   }, [props.millisecondsPerTick]);
+
+  useEffect(() => {
+    setGamesPlayingConcurrently(props.gamesPlayingConcurrently);
+  }, [props.gamesPlayingConcurrently]);
+
+  const millisecondsPerTickOnChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setMillisecondsPerTick(parseInt(event.target.value));
+  };
 
   const gamesToPlayInputOnChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -43,10 +52,10 @@ export default function ScoreboardControlsDialog(
     setGamesToPlay(parseInt(event.target.value));
   };
 
-  const millisecondsPerTickOnChange = (
+  const gamesPlayingConcurrentlyInputOnChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setMillisecondsPerTick(parseInt(event.target.value));
+    setGamesPlayingConcurrently(parseInt(event.target.value));
   };
 
   const handleCancel = () => {
@@ -66,6 +75,15 @@ export default function ScoreboardControlsDialog(
     if (gamesToPlay !== props.gamesToPlay) {
       setGamesToPlay(gamesToPlay);
       fetch(config.baseUrl + "/game/setGamesToPlay?numGames=" + gamesToPlay);
+    }
+
+    if (gamesPlayingConcurrently !== props.gamesPlayingConcurrently) {
+      setGamesToPlay(gamesToPlay);
+      fetch(
+        config.baseUrl +
+          "/game/setGamesPlayingConcurrently?numGames=" +
+          gamesPlayingConcurrently
+      );
     }
 
     props.onClose();
@@ -106,6 +124,18 @@ export default function ScoreboardControlsDialog(
             value={gamesToPlay}
             fullWidth
             onChange={gamesToPlayInputOnChange}
+          />
+        </Box>
+        <Box marginTop={3}>
+          <TextField
+            autoFocus
+            id="gamesPlayingConcurrently"
+            label="Games Playing Concurrently"
+            type="number"
+            variant="outlined"
+            value={gamesPlayingConcurrently}
+            fullWidth
+            onChange={gamesPlayingConcurrentlyInputOnChange}
           />
         </Box>
       </DialogContent>
