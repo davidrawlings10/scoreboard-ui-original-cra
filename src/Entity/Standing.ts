@@ -22,4 +22,8 @@ export default interface Standing {
   awayOtloss: number;
   awayPoint: number;
   awayGp: number;
+
+  // non-database attributes that are calculated for display
+  goalDiff: number;
+  pointPercentage: any;
 }

@@ -60,13 +60,26 @@ export type SeasonStandingListProps = {
   numGames: { current: number; finished: number } | null;
 };
 
+type SortDirection = "ASC" | "DESC";
+
 export default function SeasonStandingList(props: SeasonStandingListProps) {
   const [standings, setStandings] = useState<Array<Standing>>([]);
+  const [sortBy, setSortBy] = useState<string>("point");
+  const [sortDirection, setSortDirection] = useState<SortDirection>("ASC");
 
   useEffect(() => {
     fetch(config.baseUrl + "/standing/get?seasonId=" + props.seasonId)
       .then((res) => res.json())
       .then((standingsResult) => {
+        let standingsList: Standing[] = standingsResult.list;
+        standingsList.forEach((standing: Standing) => {
+          standing.goalDiff = standing.gf - standing.ga;
+          standing.pointPercentage = calculatedPointPercentage(
+            standing.point,
+            standing.gp
+          );
+        });
+
         setStandings(standingsResult.list);
       });
   }, [props.seasonId, props.numGames?.current, props.numGames?.finished]);
@@ -77,6 +90,30 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
     }
 
     return ((point / (gp * 2)) * 100).toPrecision(3);
+  }
+
+  function updateSort(_sortBy: string) {
+    if (sortBy === _sortBy) {
+      setSortDirection(sortDirection === "ASC" ? "DESC" : "ASC");
+    } else {
+      setSortBy(_sortBy);
+      setSortDirection("ASC");
+    }
+  }
+
+  interface ThProps {
+    attribute: string;
+    label: string;
+    title: string;
+  }
+
+  function Th(props: ThProps) {
+    const { attribute, label, title } = props;
+    return (
+      <th onClick={() => updateSort(attribute)} title={title}>
+        {label}
+      </th>
+    );
   }
 
   return (
@@ -92,49 +129,86 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
           <tr>
             <th></th>
             <th>Team</th>
-            <th title="Points">PTS</th>
-            <th title="Games Played">GP</th>
-            <th title="W-L-OT">Record</th>
-            <th title="Goals For">GF</th>
-            <th title="Goals Against">GA</th>
-            <th title="Goal Diff">GD</th>
-            <th title="Home Points">HPTS</th>
-            <th title="Home Games Played">HGP</th>
+            <Th attribute="point" label="PTS" title="Points" />
+            <Th attribute="gp" label="GP" title="Games Played" />
+            <th title="Games Played" onClick={() => updateSort("gp")}>
+              GP
+            </th>
+            <th title="Win" onClick={() => updateSort("win")}>
+              W
+            </th>
+            <th title="Loss" onClick={() => updateSort("loss")}>
+              L
+            </th>
+            <th title="Overtime Loss" onClick={() => updateSort("otloss")}>
+              OTL
+            </th>
+            <th title="Goals For" onClick={() => updateSort("gf")}>
+              GF
+            </th>
+            <th title="Goals Against" onClick={() => updateSort("ga")}>
+              GA
+            </th>
+            <th title="Goal Diff" onClick={() => updateSort("goalDiff")}>
+              GD
+            </th>
+            <th title="Home Points" onClick={() => updateSort("homeGp")}>
+              HPTS
+            </th>
+            <th title="Home Games Played" onClick={() => updateSort("homeGp")}>
+              HGP
+            </th>
             <th title="Home Record">Home</th>
-            <th title="Away Points">APTS</th>
-            <th title="Away Games Played">AGP</th>
-            <th title="Away Poinst">Away</th>
-            <th title="Point Percentage">PP</th>
+            <th title="Away Points" onClick={() => updateSort("homeGp")}>
+              APTS
+            </th>
+            <th title="Away Games Played" onClick={() => updateSort("awayGp")}>
+              AGP
+            </th>
+            <th title="Away Points">Away</th>
+            <th
+              title="Point Percentage"
+              onClick={() => updateSort("pointPercentage")}
+            >
+              PP
+            </th>
           </tr>
         </thead>
         <tbody>
-          {standings.map((standing, index: number) => (
-            <tr key={standing.id}>
-              <td>{index + 1}</td>
-              <td>
-                <TeamDisplay id={standing.teamId} />
-              </td>
-              <td>{standing.point}</td>
-              <td>{standing.gp}</td>
-              <td>
-                {standing.win}-{standing.loss}-{standing.otloss}
-              </td>
-              <td>{standing.gf}</td>
-              <td>{standing.ga}</td>
-              <td>{standing.gf - standing.ga}</td>
-              <td>{standing.homePoint}</td>
-              <td>{standing.homeGp}</td>
-              <td>
-                {standing.homeWin}-{standing.homeLoss}-{standing.homeOtloss}
-              </td>
-              <td>{standing.awayPoint}</td>
-              <td>{standing.awayGp}</td>
-              <td>
-                {standing.awayWin}-{standing.awayLoss}-{standing.awayOtloss}
-              </td>
-              <td>{calculatedPointPercentage(standing.point, standing.gp)}%</td>
-            </tr>
-          ))}
+          {standings
+            .sort((a: any, b: any) =>
+              sortDirection === "ASC"
+                ? b[sortBy] - a[sortBy]
+                : a[sortBy] - b[sortBy]
+            )
+            .map((standing, index: number) => (
+              <tr key={standing.id}>
+                <td>{index + 1}</td>
+                <td>
+                  <TeamDisplay id={standing.teamId} />
+                </td>
+                <td>{standing.point}</td>
+                <td>{standing.point}</td>
+                <td>{standing.gp}</td>
+                <td>{standing.win}</td>
+                <td>{standing.loss}</td>
+                <td>{standing.otloss}</td>
+                <td>{standing.gf}</td>
+                <td>{standing.ga}</td>
+                <td>{standing.goalDiff}</td>
+                <td>{standing.homePoint}</td>
+                <td>{standing.homeGp}</td>
+                <td>
+                  {standing.homeWin}-{standing.homeLoss}-{standing.homeOtloss}
+                </td>
+                <td>{standing.awayPoint}</td>
+                <td>{standing.awayGp}</td>
+                <td>
+                  {standing.awayWin}-{standing.awayLoss}-{standing.awayOtloss}
+                </td>
+                <td>{standing.pointPercentage}%</td>
+              </tr>
+            ))}
         </tbody>
       </table>
       <Box>
