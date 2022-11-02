@@ -103,15 +103,15 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
 
   interface ThProps {
     attribute: string;
-    label: string;
     title: string;
+    children: string;
   }
 
   function Th(props: ThProps) {
-    const { attribute, label, title } = props;
+    const { attribute, title } = props;
     return (
       <th onClick={() => updateSort(attribute)} title={title}>
-        {label}
+        {props.children}
       </th>
     );
   }
@@ -129,49 +129,47 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
           <tr>
             <th></th>
             <th>Team</th>
-            <Th attribute="point" label="PTS" title="Points" />
-            <Th attribute="gp" label="GP" title="Games Played" />
-            <th title="Games Played" onClick={() => updateSort("gp")}>
+            <Th attribute="point" title="Points">
+              PTS
+            </Th>
+            <Th attribute="gp" title="Games Played">
               GP
-            </th>
-            <th title="Win" onClick={() => updateSort("win")}>
+            </Th>
+            <Th attribute="win" title="Win">
               W
-            </th>
-            <th title="Loss" onClick={() => updateSort("loss")}>
+            </Th>
+            <Th attribute="loss" title="Loss">
               L
-            </th>
-            <th title="Overtime Loss" onClick={() => updateSort("otloss")}>
+            </Th>
+            <Th attribute="otloss" title="Overtime Loss">
               OTL
-            </th>
-            <th title="Goals For" onClick={() => updateSort("gf")}>
+            </Th>
+            <Th attribute="gf" title="Goals For">
               GF
-            </th>
-            <th title="Goals Against" onClick={() => updateSort("ga")}>
+            </Th>
+            <Th attribute="ga" title="Goals Against">
               GA
-            </th>
-            <th title="Goal Diff" onClick={() => updateSort("goalDiff")}>
+            </Th>
+            <Th attribute="goadDiff" title="Goal Diff">
               GD
-            </th>
-            <th title="Home Points" onClick={() => updateSort("homeGp")}>
+            </Th>
+            <Th attribute="homePoint" title="Home Points">
               HPTS
-            </th>
-            <th title="Home Games Played" onClick={() => updateSort("homeGp")}>
+            </Th>
+            <Th attribute="homeGp" title="Home Games Played">
               HGP
-            </th>
+            </Th>
             <th title="Home Record">Home</th>
-            <th title="Away Points" onClick={() => updateSort("homeGp")}>
+            <Th attribute="homeGp" title="Away Points">
               APTS
-            </th>
-            <th title="Away Games Played" onClick={() => updateSort("awayGp")}>
+            </Th>
+            <Th attribute="awayGp" title="Away Games Played">
               AGP
-            </th>
+            </Th>
             <th title="Away Points">Away</th>
-            <th
-              title="Point Percentage"
-              onClick={() => updateSort("pointPercentage")}
-            >
+            <Th attribute="pointPercentage" title="Point Percentage">
               PP
-            </th>
+            </Th>
           </tr>
         </thead>
         <tbody>
@@ -187,7 +185,6 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
                 <td>
                   <TeamDisplay id={standing.teamId} />
                 </td>
-                <td>{standing.point}</td>
                 <td>{standing.point}</td>
                 <td>{standing.gp}</td>
                 <td>{standing.win}</td>
