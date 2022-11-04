@@ -66,7 +66,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
   }, [props.seasonId]);
 
   function handleTeamIdFilterChange(event: React.ChangeEvent<any>) {
-    if (event.target.value === 0) {
+    if (event.target.value === "null") {
       setTeamIdFilter(null);
     } else {
       setTeamIdFilter(event.target.value);
@@ -129,7 +129,6 @@ export default function SeasonGameList(props: SeasonGameListProps) {
           <thead>
             <tr>
               <th></th>
-              <th></th>
               <th>Home</th>
               <th></th>
               <th>Away</th>
@@ -145,7 +144,6 @@ export default function SeasonGameList(props: SeasonGameListProps) {
                 .map((game) => {
                   return (
                     <tr key={game.id}>
-                      <td>{game.id - games[0].id + 1}</td>
                       <td>
                         {game.status === "FINAL" && !!teamIdFilter && (
                           <WinLossDisplay teamId={teamIdFilter} game={game} />

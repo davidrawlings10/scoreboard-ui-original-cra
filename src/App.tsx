@@ -9,6 +9,7 @@ import HomePage from "./HomePage/HomePage";
 import SeasonPage from "./SeasonPage/SeasonPage";
 import StartGameForm from "./StartGameForm";
 import ScheduleSeasonForm from "./ScheduleSeasonForm";
+import TeamsPage from "./TeamsPage";
 
 const App = () => {
   return (
@@ -28,6 +29,9 @@ const App = () => {
             </Route>
             <Route path="/startGame">
               <StartGameForm />
+            </Route>
+            <Route path="/teams">
+              <TeamsPage />
             </Route>
           </Switch>
         </BrowserRouter>
