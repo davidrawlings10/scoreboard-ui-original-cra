@@ -67,6 +67,7 @@ export default function CurrentGameList(props: CurrentGameListProps) {
               color="primary"
               onClick={handlePrevClick}
               style={BUTTON_STYLE}
+              disabled={page <= 1}
             >
               <NavigateBefore />
             </Button>
@@ -93,6 +94,7 @@ export default function CurrentGameList(props: CurrentGameListProps) {
             color="primary"
             onClick={handleNextClick}
             style={BUTTON_STYLE}
+            disabled={page >= numberOfPages}
           >
             <NavigateNext />
           </Button>
