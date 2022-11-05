@@ -1,6 +1,8 @@
 import React from "react";
-import { Box, Button, FormControlLabel, Switch } from "@material-ui/core";
+import { Box, Button, FormControlLabel, Switch, Chip } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
+
+import config from "../config";
 
 interface ScoreboardControlsProps {
   running: boolean;
@@ -23,6 +25,12 @@ export default function ScoreboardControls(props: ScoreboardControlsProps) {
     props.handleScoreboardControlsDialogOpen();
   };
 
+  const updateMillisecondsPerTick = (millisecondsPerTick: number) => {
+    fetch(
+      `${config.baseUrl}/game/setTickMilliseconds?value=${millisecondsPerTick}`
+    );
+  };
+
   return (
     <Box display="flex" alignItems="center">
       <Box marginRight={8}>
@@ -35,7 +43,21 @@ export default function ScoreboardControls(props: ScoreboardControlsProps) {
         />
       </Box>
       <Box marginRight={3}>Milliseconds Per Tick</Box>
-      <Box marginRight={8}>{millisecondsPerTick}</Box>
+      <Box marginRight={3}>{millisecondsPerTick}</Box>
+      <Box marginRight={5}>
+        {[250, 500, 1000, 2000].map((milliseconds) => (
+          <Chip
+            label={milliseconds}
+            variant="outlined"
+            color={
+              millisecondsPerTick === milliseconds ? "secondary" : "default"
+            }
+            onClick={() => {
+              updateMillisecondsPerTick(milliseconds);
+            }}
+          />
+        ))}
+      </Box>
       <Box marginRight={3}>Number of Games to Play</Box>
       <Box marginRight={8}>{gamesToPlay}</Box>
       <Box marginRight={3}>Games Playing Concurrently</Box>

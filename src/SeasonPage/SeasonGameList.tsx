@@ -81,13 +81,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
   };
 
   return (
-    <Box
-      marginTop={5}
-      marginBottom={5}
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-    >
+    <Box display="flex" flexDirection="column">
       <Box>
         <Box display="flex" flexDirection="row">
           <Box marginRight={1} width={400}>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Box } from "@material-ui/core";
 
 import config from "../config";
@@ -107,14 +107,14 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
     children: string;
   }
 
-  function Th(props: ThProps) {
+  const Th = useCallback((props: ThProps) => {
     const { attribute, title } = props;
     return (
       <th onClick={() => updateSort(attribute)} title={title}>
         {props.children}
       </th>
     );
-  }
+  }, []);
 
   return (
     <Box
@@ -167,9 +167,12 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
               AGP
             </Th>
             <th title="Away Points">Away</th>
-            <Th attribute="pointPercentage" title="Point Percentage">
+            <th
+              onClick={() => updateSort("pointPercentage")}
+              title="Point Percentage"
+            >
               PP
-            </Th>
+            </th>
           </tr>
         </thead>
         <tbody>

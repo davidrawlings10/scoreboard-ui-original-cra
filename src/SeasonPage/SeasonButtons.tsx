@@ -1,5 +1,6 @@
 import { Box, Button } from "@material-ui/core";
 import { Edit, AddToQueue } from "@material-ui/icons";
+import config from "../config";
 
 interface SeasonButtonsProps {
   seasonId: number;
@@ -21,7 +22,7 @@ export default function SeasonButtons(props: SeasonButtonsProps) {
       </Box>
       <Box marginRight={1}>
         <Button
-          href={`http://localhost:8080/season/getSQL?seasonId=${props.seasonId}`}
+          href={`${config.baseUrl}/season/getSQL?seasonId=${props.seasonId}`}
           color="primary"
           variant="contained"
           startIcon={<AddToQueue />}
