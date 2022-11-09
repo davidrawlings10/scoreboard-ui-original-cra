@@ -1,16 +1,28 @@
 import { useState, useEffect } from "react";
 import config from "./config";
 import { getLeagueList } from "./Shared/LeagueHelper";
-import Team from "./Entity/Team";
 import League from "./Entity/League";
-import { Box } from "@material-ui/core";
+import { Box, Chip } from "@material-ui/core";
 import TeamDisplay from "./Shared/TeamDisplay/TeamDisplay";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
+
+interface TeamSeasonTotal {
+  teamId: number;
+  seasonsWon: number;
+  seasonsPlayed: number;
+  seasonsWonPercent: number;
+  winPoints: number;
+  winPointsPossible: number;
+  winPointsPercent: number;
+  trophies: Array<number>;
+}
 
 export default function TeamsPage() {
   const [leagues, setLeagues] = useState<Array<League>>();
   const [league, setLeague] = useState<string>("");
-  const [teams, setTeams] = useState<Array<Team>>([]);
+  const [teamSeasonTotals, setTeamSeasonTotals] = useState<
+    Array<TeamSeasonTotal>
+  >([]);
 
   // load list of leagues
   useEffect(() => {
@@ -20,12 +32,24 @@ export default function TeamsPage() {
     });
   }, []);
 
+  // load team season totals
   useEffect(() => {
     if (!!league) {
-      fetch(config.baseUrl + "/team/getTeams?league=" + league)
+      fetch(config.baseUrl + "/team/getTeamSeasonTotals?league=" + league)
         .then((res) => res.json())
         .then((json) => {
-          setTeams(json.list);
+          const teamSeasonTotals = json.list;
+          teamSeasonTotals.forEach((teamSeasonTotal: TeamSeasonTotal) => {
+            teamSeasonTotal.seasonsWonPercent =
+              (teamSeasonTotal.seasonsWon / teamSeasonTotal.seasonsPlayed) *
+              100;
+          });
+          teamSeasonTotals.forEach((teamSeasonTotal: TeamSeasonTotal) => {
+            teamSeasonTotal.winPointsPercent =
+              (teamSeasonTotal.winPoints / teamSeasonTotal.winPointsPossible) *
+              100;
+          });
+          setTeamSeasonTotals(json.list);
         });
     }
   }, [league]);
@@ -66,8 +90,9 @@ export default function TeamsPage() {
           <thead>
             <tr>
               <th>Team</th>
-              <th>Seasons Played</th>
               <th>Seasons Won</th>
+              <th>Trophies</th>
+              <th>Seasons Played</th>
               <th>Seasons Won %</th>
               <th>Points</th>
               <th>Possible Points</th>
@@ -75,17 +100,24 @@ export default function TeamsPage() {
             </tr>
           </thead>
           <tbody>
-            {teams.map((team) => (
-              <tr key={team.id}>
+            {teamSeasonTotals.map((teamSeasonTotal) => (
+              <tr key={teamSeasonTotal.teamId}>
                 <td>
-                  <TeamDisplay id={team.id} />
+                  <TeamDisplay id={teamSeasonTotal.teamId} />
                 </td>
-                <td>{0}</td>
-                <td>{0}</td>
-                <td>{`${0}%`}</td>
-                <td>{0}</td>
-                <td>{0}</td>
-                <td>{`${0}%`}</td>
+                <td>{teamSeasonTotal.seasonsWon}</td>
+                <td>
+                  {teamSeasonTotal.trophies.map((trophy: number) => (
+                    <Chip label={trophy} variant="outlined" />
+                  ))}
+                </td>
+                <td>{teamSeasonTotal.seasonsPlayed}</td>
+                <td>{`${teamSeasonTotal.seasonsWonPercent.toPrecision(
+                  3
+                )}%`}</td>
+                <td>{teamSeasonTotal.winPoints}</td>
+                <td>{teamSeasonTotal.winPointsPossible}</td>
+                <td>{`${teamSeasonTotal.winPointsPercent.toPrecision(3)}%`}</td>
               </tr>
             ))}
           </tbody>

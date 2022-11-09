@@ -143,18 +143,20 @@ export default function NextSeasonGame(props: NextSeasonGameProps) {
             </Box>
           )}
           <Box mt={1} display="flex" justifyContent="center">
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handlePlayNow}
-              size="large"
-              disabled={
-                nextSeasonGame &&
-                !(nextSeasonGame.teamAlreadyPlaying === "NONE")
-              }
-            >
-              Play Now
-            </Button>
+            {!!nextSeasonGame && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handlePlayNow}
+                size="large"
+                disabled={
+                  nextSeasonGame &&
+                  !(nextSeasonGame.teamAlreadyPlaying === "NONE")
+                }
+              >
+                Play Now
+              </Button>
+            )}
           </Box>
         </Box>
       </Box>
