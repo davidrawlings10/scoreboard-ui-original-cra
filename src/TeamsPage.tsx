@@ -39,6 +39,7 @@ export default function TeamsPage() {
         .then((res) => res.json())
         .then((json) => {
           const teamSeasonTotals = json.list;
+
           teamSeasonTotals.forEach((teamSeasonTotal: TeamSeasonTotal) => {
             teamSeasonTotal.seasonsWonPercent =
               (teamSeasonTotal.seasonsWon / teamSeasonTotal.seasonsPlayed) *

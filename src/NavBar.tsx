@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 import { Box, AppBar } from "@material-ui/core";
-import { Home, List, PlayArrow, PlaylistAdd } from "@material-ui/icons";
+import {
+  Home,
+  List,
+  PlayArrow,
+  PlaylistAdd,
+  SportsHockey,
+} from "@material-ui/icons";
 import theme from "./theme";
 
 /*const linkStyle = {
@@ -74,6 +80,21 @@ export default function NavBar() {
               <Box display="flex" flexDirection="row" marginRight={2}>
                 <PlayArrow />
                 <Box marginLeft={1}>Start Game</Box>
+              </Box>
+            </Link>
+          </Box>
+          <Box padding={1} marginRight={1}>
+            <Link
+              to="/teams"
+              style={{
+                color: theme.palette.text.primary,
+                textDecoration: "none",
+                fontWeight: "bold",
+              }}
+            >
+              <Box display="flex" flexDirection="row" marginRight={2}>
+                <SportsHockey />
+                <Box marginLeft={1}>Teams</Box>
               </Box>
             </Link>
           </Box>

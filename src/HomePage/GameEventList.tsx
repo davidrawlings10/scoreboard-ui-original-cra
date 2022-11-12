@@ -43,10 +43,10 @@ export default function GameEventList(props: GameEventListProps) {
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell style={{ width: "20%" }}>Home</TableCell>
-                <TableCell style={{ width: "20%" }}></TableCell>
-                <TableCell style={{ width: "20%" }}>Away</TableCell>
-                <TableCell style={{ width: "20%" }}></TableCell>
+                <TableCell style={{ width: "22%" }}>Home</TableCell>
+                <TableCell style={{ width: "18%" }}></TableCell>
+                <TableCell style={{ width: "22%" }}>Away</TableCell>
+                <TableCell style={{ width: "18%" }}></TableCell>
                 <TableCell style={{ width: "20%" }}>Time</TableCell>
               </TableRow>
             </TableHead>
