@@ -1,10 +1,12 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Box } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 import config from "../config";
 import "./Table.css";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import Standing from "../Entity/Standing";
+import sortableTable from "../Shared/SortableTable";
 
 // import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 
@@ -55,17 +57,28 @@ import Standing from "../Entity/Standing";
   { id: 3, point: 1, gp: 2 },
 ];*/
 
-export type SeasonStandingListProps = {
+interface SeasonStandingListProps {
   seasonId: number;
   numGames: { current: number; finished: number } | null;
-};
+}
 
-type SortDirection = "ASC" | "DESC";
+// type SortDirection = "ASC" | "DESC";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
+}));
 
 export default function SeasonStandingList(props: SeasonStandingListProps) {
   const [standings, setStandings] = useState<Array<Standing>>([]);
-  const [sortBy, setSortBy] = useState<string>("point");
-  const [sortDirection, setSortDirection] = useState<SortDirection>("ASC");
+  // const [sortBy, setSortBy] = useState<string>("point");
+  // const [sortDirection, setSortDirection] = useState<SortDirection>("ASC");
+  let { sortDirection, sortBy, Th } = sortableTable();
+
+  const classes = useStyles();
 
   useEffect(() => {
     fetch(config.baseUrl + "/standing/get?seasonId=" + props.seasonId)
@@ -92,7 +105,15 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
     return ((point / (gp * 2)) * 100).toPrecision(3);
   }
 
-  function updateSort(_sortBy: string) {
+  /* function updateSort(_sortBy: string) {
+    console.log(
+      "_sortBy",
+      _sortBy,
+      "sortBy",
+      sortBy,
+      "sortDirection",
+      sortDirection
+    );
     if (sortBy === _sortBy) {
       setSortDirection(sortDirection === "ASC" ? "DESC" : "ASC");
     } else {
@@ -107,14 +128,14 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
     children: string;
   }
 
-  const Th = useCallback((props: ThProps) => {
+  const Th = (props: ThProps) => {
     const { attribute, title } = props;
     return (
       <th onClick={() => updateSort(attribute)} title={title}>
         {props.children}
       </th>
     );
-  }, []);
+  };*/
 
   return (
     <Box
@@ -126,7 +147,7 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
     >
       <table className="season-standing-list">
         <thead>
-          <tr>
+          <tr className={classes.root}>
             <th></th>
             <th>Team</th>
             <Th attribute="point" title="Points">
@@ -150,7 +171,7 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
             <Th attribute="ga" title="Goals Against">
               GA
             </Th>
-            <Th attribute="goadDiff" title="Goal Diff">
+            <Th attribute="goalDiff" title="Goal Diff">
               GD
             </Th>
             <Th attribute="homePoint" title="Home Points">
@@ -160,19 +181,16 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
               HGP
             </Th>
             <th title="Home Record">Home</th>
-            <Th attribute="homeGp" title="Away Points">
+            <Th attribute="awayPoint" title="Away Points">
               APTS
             </Th>
             <Th attribute="awayGp" title="Away Games Played">
               AGP
             </Th>
             <th title="Away Points">Away</th>
-            <th
-              onClick={() => updateSort("pointPercentage")}
-              title="Point Percentage"
-            >
+            <Th attribute="pointPercentage" title="Point Percentage">
               PP
-            </th>
+            </Th>
           </tr>
         </thead>
         <tbody>
