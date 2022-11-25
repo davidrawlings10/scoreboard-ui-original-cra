@@ -1,4 +1,13 @@
 import { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
+}));
 
 const SortableTable = () => {
   const [sortBy, setSortBy] = useState<string>("point");
@@ -25,20 +34,32 @@ const SortableTable = () => {
 
   interface ThProps {
     attribute: string;
-    title: string;
+    title?: string;
     children: string;
   }
+
+  function sortTable(list: any) {
+    return list.sort((a: any, b: any) =>
+      sortDirection === "ASC" ? b[sortBy] - a[sortBy] : a[sortBy] - b[sortBy]
+    );
+  }
+
+  const classes = useStyles();
 
   const Th = (props: ThProps) => {
     const { attribute, title } = props;
     return (
-      <th onClick={() => updateSort(attribute)} title={title}>
+      <th
+        className={classes.root}
+        onClick={() => updateSort(attribute)}
+        title={title}
+      >
         {props.children}
       </th>
     );
   };
 
-  return { sortDirection, sortBy, Th };
+  return { Th, sortTable };
 };
 
 export default SortableTable;

@@ -76,7 +76,7 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
   const [standings, setStandings] = useState<Array<Standing>>([]);
   // const [sortBy, setSortBy] = useState<string>("point");
   // const [sortDirection, setSortDirection] = useState<SortDirection>("ASC");
-  let { sortDirection, sortBy, Th } = sortableTable();
+  let { Th, sortTable } = sortableTable();
 
   const classes = useStyles();
 
@@ -194,39 +194,33 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
           </tr>
         </thead>
         <tbody>
-          {standings
-            .sort((a: any, b: any) =>
-              sortDirection === "ASC"
-                ? b[sortBy] - a[sortBy]
-                : a[sortBy] - b[sortBy]
-            )
-            .map((standing, index: number) => (
-              <tr key={standing.id}>
-                <td>{index + 1}</td>
-                <td>
-                  <TeamDisplay id={standing.teamId} />
-                </td>
-                <td>{standing.point}</td>
-                <td>{standing.gp}</td>
-                <td>{standing.win}</td>
-                <td>{standing.loss}</td>
-                <td>{standing.otloss}</td>
-                <td>{standing.gf}</td>
-                <td>{standing.ga}</td>
-                <td>{standing.goalDiff}</td>
-                <td>{standing.homePoint}</td>
-                <td>{standing.homeGp}</td>
-                <td>
-                  {standing.homeWin}-{standing.homeLoss}-{standing.homeOtloss}
-                </td>
-                <td>{standing.awayPoint}</td>
-                <td>{standing.awayGp}</td>
-                <td>
-                  {standing.awayWin}-{standing.awayLoss}-{standing.awayOtloss}
-                </td>
-                <td>{standing.pointPercentage}%</td>
-              </tr>
-            ))}
+          {sortTable(standings).map((standing: Standing, index: number) => (
+            <tr key={standing.id}>
+              <td>{index + 1}</td>
+              <td>
+                <TeamDisplay id={standing.teamId} />
+              </td>
+              <td>{standing.point}</td>
+              <td>{standing.gp}</td>
+              <td>{standing.win}</td>
+              <td>{standing.loss}</td>
+              <td>{standing.otloss}</td>
+              <td>{standing.gf}</td>
+              <td>{standing.ga}</td>
+              <td>{standing.goalDiff}</td>
+              <td>{standing.homePoint}</td>
+              <td>{standing.homeGp}</td>
+              <td>
+                {standing.homeWin}-{standing.homeLoss}-{standing.homeOtloss}
+              </td>
+              <td>{standing.awayPoint}</td>
+              <td>{standing.awayGp}</td>
+              <td>
+                {standing.awayWin}-{standing.awayLoss}-{standing.awayOtloss}
+              </td>
+              <td>{standing.pointPercentage}%</td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <Box>

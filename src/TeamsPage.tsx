@@ -5,6 +5,7 @@ import League from "./Entity/League";
 import { Box, Chip } from "@material-ui/core";
 import TeamDisplay from "./Shared/TeamDisplay/TeamDisplay";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
+import sortableTable from "./Shared/SortableTable";
 
 interface TeamSeasonTotal {
   teamId: number;
@@ -23,6 +24,7 @@ export default function TeamsPage() {
   const [teamSeasonTotals, setTeamSeasonTotals] = useState<
     Array<TeamSeasonTotal>
   >([]);
+  let { Th, sortTable } = sortableTable();
 
   // load list of leagues
   useEffect(() => {
@@ -90,37 +92,43 @@ export default function TeamsPage() {
         <table className="season-standing-list">
           <thead>
             <tr>
+              <th></th>
               <th>Team</th>
-              <th>Seasons Won</th>
+              <Th attribute="seasonsWon">Seasons Won</Th>
               <th>Trophies</th>
-              <th>Seasons Played</th>
-              <th>Seasons Won %</th>
-              <th>Points</th>
-              <th>Possible Points</th>
-              <th>Points %</th>
+              <Th attribute="seasonsPlayed">Seasons Played</Th>
+              <Th attribute="seasonsWonPercent">Seasons Won %</Th>
+              <Th attribute="winPoints">Points</Th>
+              <Th attribute="winPointsPossible">Possible Points</Th>
+              <Th attribute="winPointsPercent">Points %</Th>
             </tr>
           </thead>
           <tbody>
-            {teamSeasonTotals.map((teamSeasonTotal) => (
-              <tr key={teamSeasonTotal.teamId}>
-                <td>
-                  <TeamDisplay id={teamSeasonTotal.teamId} />
-                </td>
-                <td>{teamSeasonTotal.seasonsWon}</td>
-                <td>
-                  {teamSeasonTotal.trophies.map((trophy: number) => (
-                    <Chip label={trophy} variant="outlined" />
-                  ))}
-                </td>
-                <td>{teamSeasonTotal.seasonsPlayed}</td>
-                <td>{`${teamSeasonTotal.seasonsWonPercent.toPrecision(
-                  3
-                )}%`}</td>
-                <td>{teamSeasonTotal.winPoints}</td>
-                <td>{teamSeasonTotal.winPointsPossible}</td>
-                <td>{`${teamSeasonTotal.winPointsPercent.toPrecision(3)}%`}</td>
-              </tr>
-            ))}
+            {sortTable(teamSeasonTotals).map(
+              (teamSeasonTotal: TeamSeasonTotal, index: number) => (
+                <tr key={teamSeasonTotal.teamId}>
+                  <td>{index + 1}</td>
+                  <td>
+                    <TeamDisplay id={teamSeasonTotal.teamId} />
+                  </td>
+                  <td>{teamSeasonTotal.seasonsWon}</td>
+                  <td>
+                    {teamSeasonTotal.trophies.map((trophy: number) => (
+                      <Chip label={trophy} variant="outlined" />
+                    ))}
+                  </td>
+                  <td>{teamSeasonTotal.seasonsPlayed}</td>
+                  <td>{`${teamSeasonTotal.seasonsWonPercent.toPrecision(
+                    3
+                  )}%`}</td>
+                  <td>{teamSeasonTotal.winPoints}</td>
+                  <td>{teamSeasonTotal.winPointsPossible}</td>
+                  <td>{`${teamSeasonTotal.winPointsPercent.toPrecision(
+                    3
+                  )}%`}</td>
+                </tr>
+              )
+            )}
           </tbody>
         </table>
       </Box>
