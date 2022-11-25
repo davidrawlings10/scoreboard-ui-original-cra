@@ -8,77 +8,14 @@ import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import Standing from "../Entity/Standing";
 import sortableTable from "../Shared/SortableTable";
 
-// import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
-
-// const divCom = <div>abc</div>;
-// const teamDisplay = <TeamDisplay id={2} />;
-
-/*const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 90 },
-  {
-    field: "point",
-    headerName: "PTS",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "gp",
-    headerName: "GP",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "ptsgp",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 160,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.getValue(params.id, "point") || ""} ${
-        params.getValue(params.id, "gp") || ""
-      }`,
-  },
-  {
-    field: "team",
-    headerName: "Team",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 160,
-    valueGetter: (params: GridValueGetterParams) => {
-      // const teamDisplay = <TeamDisplay id={2} />;
-      return JSON.stringify(teamDisplay);
-    },
-  },
-];*/
-
-/*const rows = [
-  { id: 1, point: 3, gp: 2 },
-  { id: 2, point: 2, gp: 2 },
-  { id: 3, point: 1, gp: 2 },
-];*/
-
 interface SeasonStandingListProps {
   seasonId: number;
   numGames: { current: number; finished: number } | null;
 }
 
-// type SortDirection = "ASC" | "DESC";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "&:hover": {
-      cursor: "pointer",
-    },
-  },
-}));
-
 export default function SeasonStandingList(props: SeasonStandingListProps) {
   const [standings, setStandings] = useState<Array<Standing>>([]);
-  // const [sortBy, setSortBy] = useState<string>("point");
-  // const [sortDirection, setSortDirection] = useState<SortDirection>("ASC");
   let { Th, sortTable } = sortableTable();
-
-  const classes = useStyles();
 
   useEffect(() => {
     fetch(config.baseUrl + "/standing/get?seasonId=" + props.seasonId)
@@ -105,38 +42,6 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
     return ((point / (gp * 2)) * 100).toPrecision(3);
   }
 
-  /* function updateSort(_sortBy: string) {
-    console.log(
-      "_sortBy",
-      _sortBy,
-      "sortBy",
-      sortBy,
-      "sortDirection",
-      sortDirection
-    );
-    if (sortBy === _sortBy) {
-      setSortDirection(sortDirection === "ASC" ? "DESC" : "ASC");
-    } else {
-      setSortBy(_sortBy);
-      setSortDirection("ASC");
-    }
-  }
-
-  interface ThProps {
-    attribute: string;
-    title: string;
-    children: string;
-  }
-
-  const Th = (props: ThProps) => {
-    const { attribute, title } = props;
-    return (
-      <th onClick={() => updateSort(attribute)} title={title}>
-        {props.children}
-      </th>
-    );
-  };*/
-
   return (
     <Box
       marginTop={5}
@@ -147,7 +52,7 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
     >
       <table className="season-standing-list">
         <thead>
-          <tr className={classes.root}>
+          <tr>
             <th></th>
             <th>Team</th>
             <Th attribute="point" title="Points">
@@ -227,16 +132,6 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
         Tiebreaker decided by Points, Wins, Goal Diff, Goals For, Head to head
         outcome, Two game playoff
       </Box>
-      {/*<Box height={400} width="100%">
-        <DataGrid
-          rows={standings}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
-          checkboxSelection
-          disableSelectionOnClick
-        />
-      </Box>*/}
     </Box>
   );
 }

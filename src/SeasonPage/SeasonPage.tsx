@@ -7,12 +7,6 @@ import SeasonHeader from "./SeasonHeader";
 import SeasonUpdateDialog from "./SeasonUpdateDialog";
 import SeasonButtons from "./SeasonButtons";
 
-/*const useStyles = makeStyles({
-  root: {
-    color: "white",
-  },
-});*/
-
 export default function SeasonPage() {
   const [seasonId, setSeasonId] = useState(1);
   const [seasonUpdateDialogOpen, setSeasonUpdateDialogOpen] = useState(false);
@@ -28,8 +22,6 @@ export default function SeasonPage() {
   function viewSeason(seasonId: number) {
     setSeasonId(seasonId);
   }
-
-  // const classes = useStyles();
 
   return (
     <>
