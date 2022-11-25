@@ -1,8 +1,0 @@
-.current-game-list {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  /*color: white;*/
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
