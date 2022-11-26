@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import theme from "../theme";
 
 import { Box, Button } from "@material-ui/core";
+import { Cached } from "@material-ui/icons";
 import Game from "../Entity/Game";
 import config from "../config";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
@@ -21,14 +22,17 @@ export type NextSeasonGameProps = {
 
 export default function NextSeasonGame(props: NextSeasonGameProps) {
   const [nextSeasonGame, setNextSeasonGame] = useState<Game>();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const classes = useStyles();
 
   useEffect(() => {
     fetch(`${config.baseUrl}/game/getNextSeasonGame?seasonId=${props.seasonId}`)
       .then((res) => res.json())
-      .then((game: Game) => setNextSeasonGame(game));
+      .then((game: Game) => {
+        setNextSeasonGame(game);
+        setLoading(false);
+      });
   }, [
     props.seasonId,
     loading,
@@ -36,9 +40,9 @@ export default function NextSeasonGame(props: NextSeasonGameProps) {
     props.numGames?.finished,
   ]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     setLoading(false);
-  }, [nextSeasonGame]);
+  }, [nextSeasonGame]);*/
 
   function handlePlayNow(): void {
     fetch(`${config.baseUrl}/game/playSeasonGame?gameId=${nextSeasonGame?.id}`);
@@ -49,13 +53,13 @@ export default function NextSeasonGame(props: NextSeasonGameProps) {
     setLoading(true);
   }
 
-  if (loading) {
+  /*if (loading) {
     return (
       <Box display="flex" justifyContent="center">
         Loading...
       </Box>
     );
-  }
+  }*/
 
   return (
     <Box display="flex" justifyContent="center">
@@ -92,53 +96,64 @@ export default function NextSeasonGame(props: NextSeasonGameProps) {
                 width="100%"
                 justifyContent="center"
               >
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="flex-start"
-                  mr={4}
-                  ml={4}
-                  mt={1}
-                  mb={1}
-                  width="45%"
-                >
-                  <Box display="flex" justifyContent="flex-end">
-                    <TeamDisplay id={nextSeasonGame.homeTeamId} />
-                  </Box>
-                  <Box display="flex" justifyContent="flex-end">
-                    Home
-                  </Box>
-                  <Box
-                    className={classes.highlight}
-                    display="flex"
-                    justifyContent="flex-end"
-                  >
-                    {(nextSeasonGame.teamAlreadyPlaying === "BOTH" ||
-                      nextSeasonGame.teamAlreadyPlaying === "HOME") &&
-                      "Currently Playing"}
-                  </Box>
-                </Box>
-                <Box display="flex" justifyContent="center" p={2} width="10%">
-                  Vs
-                </Box>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="flex-start"
-                  mr={4}
-                  ml={4}
-                  mt={1}
-                  mb={1}
-                  width="45%"
-                >
-                  <TeamDisplay id={nextSeasonGame.awayTeamId} />
-                  <Box>Away</Box>
-                  <Box className={classes.highlight}>
-                    {(nextSeasonGame.teamAlreadyPlaying === "BOTH" ||
-                      nextSeasonGame.teamAlreadyPlaying === "AWAY") &&
-                      "Currently Playing"}
-                  </Box>
-                </Box>
+                {loading ? (
+                  <Cached />
+                ) : (
+                  <>
+                    <Box
+                      display="flex"
+                      flexDirection="column"
+                      justifyContent="flex-start"
+                      mr={4}
+                      ml={4}
+                      mt={1}
+                      mb={1}
+                      width="45%"
+                    >
+                      <Box display="flex" justifyContent="flex-end">
+                        <TeamDisplay id={nextSeasonGame.homeTeamId} />
+                      </Box>
+                      <Box display="flex" justifyContent="flex-end">
+                        Home
+                      </Box>
+                      <Box
+                        className={classes.highlight}
+                        display="flex"
+                        justifyContent="flex-end"
+                      >
+                        {(nextSeasonGame.teamAlreadyPlaying === "BOTH" ||
+                          nextSeasonGame.teamAlreadyPlaying === "HOME") &&
+                          "Currently Playing"}
+                      </Box>
+                    </Box>
+                    <Box
+                      display="flex"
+                      justifyContent="center"
+                      p={2}
+                      width="10%"
+                    >
+                      Vs
+                    </Box>
+                    <Box
+                      display="flex"
+                      flexDirection="column"
+                      justifyContent="flex-start"
+                      mr={4}
+                      ml={4}
+                      mt={1}
+                      mb={1}
+                      width="45%"
+                    >
+                      <TeamDisplay id={nextSeasonGame.awayTeamId} />
+                      <Box>Away</Box>
+                      <Box className={classes.highlight}>
+                        {(nextSeasonGame.teamAlreadyPlaying === "BOTH" ||
+                          nextSeasonGame.teamAlreadyPlaying === "AWAY") &&
+                          "Currently Playing"}
+                      </Box>
+                    </Box>
+                  </>
+                )}
               </Box>
             </Box>
           )}
