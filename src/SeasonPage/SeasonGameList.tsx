@@ -84,7 +84,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
     <Box display="flex" flexDirection="column">
       <Box>
         <Box display="flex" flexDirection="row">
-          <Box marginRight={1} width={400}>
+          <Box marginRight={1} marginBottom={1} width={400}>
             <InputLabel id="labelTeam">Team</InputLabel>
             <Select
               labelId="label"
@@ -104,7 +104,13 @@ export default function SeasonGameList(props: SeasonGameListProps) {
             </Select>
           </Box>
         </Box>
-        <Box>
+        <Box
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          width={800}
+          marginBottom={1}
+        >
           <Box>
             <Pagination
               onChange={handlePageChange}

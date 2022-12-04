@@ -10,6 +10,7 @@ import SeasonPage from "./SeasonPage/SeasonPage";
 import StartGameForm from "./StartGameForm";
 import ScheduleSeasonForm from "./ScheduleSeasonForm";
 import TeamsPage from "./TeamsPage";
+import TeamDetail from "./TeamDetail";
 
 const App = () => {
   return (
@@ -30,8 +31,11 @@ const App = () => {
             <Route path="/startGame">
               <StartGameForm />
             </Route>
-            <Route path="/teams">
+            <Route path="/teams" exact>
               <TeamsPage />
+            </Route>
+            <Route path="/teams/:id">
+              <TeamDetail />
             </Route>
           </Switch>
         </BrowserRouter>
