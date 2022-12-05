@@ -13,8 +13,10 @@ interface TeamSeasonTotal {
   seasonsPlayed: number;
   seasonsWonPercent: number;
   winPoints: number;
-  winPointsPossible: number;
   winPointsPercent: number;
+  performancePoints: number;
+  performancePointsPercent: number;
+  pointsPossible: number;
   trophies: Array<number>;
 }
 
@@ -49,7 +51,13 @@ export default function TeamsPage() {
           });
           teamSeasonTotals.forEach((teamSeasonTotal: TeamSeasonTotal) => {
             teamSeasonTotal.winPointsPercent =
-              (teamSeasonTotal.winPoints / teamSeasonTotal.winPointsPossible) *
+              (teamSeasonTotal.winPoints / teamSeasonTotal.pointsPossible) *
+              100;
+          });
+          teamSeasonTotals.forEach((teamSeasonTotal: TeamSeasonTotal) => {
+            teamSeasonTotal.performancePointsPercent =
+              (teamSeasonTotal.performancePoints /
+                teamSeasonTotal.pointsPossible) *
               100;
           });
           setTeamSeasonTotals(json.list);
@@ -98,9 +106,11 @@ export default function TeamsPage() {
               <th>Trophies</th>
               <Th attribute="seasonsPlayed">Seasons Played</Th>
               <Th attribute="seasonsWonPercent">Seasons Won %</Th>
-              <Th attribute="winPoints">Points</Th>
-              <Th attribute="winPointsPossible">Possible Points</Th>
-              <Th attribute="winPointsPercent">Points %</Th>
+              <Th attribute="winPoints">Win Points</Th>
+              <Th attribute="winPointsPercent">Win Points %</Th>
+              <Th attribute="performancePoints">Perf Points</Th>
+              <Th attribute="performancePointsPercent">Perf Points %</Th>
+              <Th attribute="pointsPossible">Possible Points</Th>
             </tr>
           </thead>
           <tbody>
@@ -122,10 +132,14 @@ export default function TeamsPage() {
                     3
                   )}%`}</td>
                   <td>{teamSeasonTotal.winPoints}</td>
-                  <td>{teamSeasonTotal.winPointsPossible}</td>
                   <td>{`${teamSeasonTotal.winPointsPercent.toPrecision(
                     3
                   )}%`}</td>
+                  <td>{teamSeasonTotal.performancePoints}</td>
+                  <td>{`${teamSeasonTotal.performancePointsPercent.toPrecision(
+                    3
+                  )}%`}</td>
+                  <td>{teamSeasonTotal.pointsPossible}</td>
                 </tr>
               )
             )}

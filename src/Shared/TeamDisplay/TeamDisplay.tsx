@@ -1,8 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 
 import config from "../../config";
 import { searchCacheForTeam, cacheTeam } from "./TeamDisplayCache";
 import Team from "../../Entity/Team";
+import theme from "../../theme";
+
+const useStyles = makeStyles({
+  linkText: {
+    color: theme.palette.text.primary,
+    textDecoration: "none",
+  },
+});
 
 export interface TeamDisplayFuncProps {
   id: number;
@@ -15,6 +25,8 @@ export default function TeamDisplayFunc(props: TeamDisplayFuncProps) {
     location: "",
     name: "",
   });
+
+  const classes = useStyles();
 
   async function getTeamDisplay(id: number) {
     var res = await fetch(config.baseUrl + "/team/getTeamById?teamId=" + id);
@@ -40,8 +52,10 @@ export default function TeamDisplayFunc(props: TeamDisplayFuncProps) {
   }, [props.id]);
 
   return (
-    <span>
-      {props.hideLocation ? "" : team.location} {team.name}
-    </span>
+    <Link to={`/teams/${props.id}`} className={classes.linkText}>
+      <span>
+        {props.hideLocation ? "" : team.location} {team.name}
+      </span>
+    </Link>
   );
 }

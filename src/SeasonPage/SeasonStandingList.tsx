@@ -96,6 +96,7 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
             <Th attribute="pointPercentage" title="Point Percentage">
               PP
             </Th>
+            <th>r</th>
           </tr>
         </thead>
         <tbody>
@@ -124,6 +125,7 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
                 {standing.awayWin}-{standing.awayLoss}-{standing.awayOtloss}
               </td>
               <td>{standing.pointPercentage}%</td>
+              <td>{standing.ranking}</td>
             </tr>
           ))}
         </tbody>
