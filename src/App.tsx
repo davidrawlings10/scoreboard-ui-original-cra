@@ -9,8 +9,8 @@ import HomePage from "./HomePage/HomePage";
 import SeasonPage from "./SeasonPage/SeasonPage";
 import StartGameForm from "./StartGameForm";
 import ScheduleSeasonForm from "./ScheduleSeasonForm";
-import TeamsPage from "./TeamsPage";
-import TeamDetail from "./TeamDetail";
+import TeamsPage from "./TeamsPage/TeamsPage";
+import TeamDetail from "./TeamsPage/TeamDetail";
 
 const App = () => {
   return (

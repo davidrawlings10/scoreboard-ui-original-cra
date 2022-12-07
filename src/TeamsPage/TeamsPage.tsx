@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import config from "./config";
-import { getLeagueList } from "./Shared/LeagueHelper";
-import League from "./Entity/League";
+import config from "../config";
+import { getLeagueList } from "../Shared/LeagueHelper";
+import League from "../Entity/League";
 import { Box, Chip } from "@material-ui/core";
-import TeamDisplay from "./Shared/TeamDisplay/TeamDisplay";
+import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
-import sortableTable from "./Shared/SortableTable";
+import sortableTable from "../Shared/SortableTable";
 
 interface TeamSeasonTotal {
   teamId: number;
