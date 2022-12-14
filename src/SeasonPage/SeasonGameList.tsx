@@ -3,7 +3,7 @@ import { Box, Select, InputLabel, MenuItem } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 
 import config from "../config";
-import "./Table.css";
+import "../Shared/Table.css";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import Game from "../Entity/Game";
 import Standing from "../Entity/Standing";

@@ -3,10 +3,11 @@ import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import config from "../config";
-import "./Table.css";
+import "../Shared/Table.css";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import Standing from "../Entity/Standing";
 import sortableTable from "../Shared/SortableTable";
+import { calculatedPointPercentage } from "../Shared/StandingsHelper";
 
 interface SeasonStandingListProps {
   seasonId: number;
@@ -34,13 +35,13 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
       });
   }, [props.seasonId, props.numGames?.current, props.numGames?.finished]);
 
-  function calculatedPointPercentage(point: number, gp: number) {
+  /*function calculatedPointPercentage(point: number, gp: number) { `1
     if (point === 0 || gp === 0) {
       return 0;
     }
 
     return ((point / (gp * 2)) * 100).toPrecision(3);
-  }
+  }*/
 
   return (
     <Box

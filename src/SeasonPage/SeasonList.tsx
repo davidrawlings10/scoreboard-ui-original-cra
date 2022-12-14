@@ -3,7 +3,7 @@ import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import config from "../config";
-import "./Table.css";
+import "../Shared/Table.css";
 import Season from "../Entity/Season";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 
