@@ -17,6 +17,7 @@ const useStyles = makeStyles({
 export interface TeamDisplayFuncProps {
   id: number;
   hideLocation?: boolean;
+  link?: boolean;
 }
 
 export default function TeamDisplayFunc(props: TeamDisplayFuncProps) {
@@ -25,6 +26,7 @@ export default function TeamDisplayFunc(props: TeamDisplayFuncProps) {
     location: "",
     name: "",
   });
+  const [displayText, setDisplayText] = React.useState<string>("");
 
   const classes = useStyles();
 
@@ -51,11 +53,21 @@ export default function TeamDisplayFunc(props: TeamDisplayFuncProps) {
     }
   }, [props.id]);
 
-  return (
-    <Link to={`/teams/${props.id}`} className={classes.linkText}>
-      <span>
-        {props.hideLocation ? "" : team.location} {team.name}
-      </span>
-    </Link>
-  );
+  React.useEffect(() => {
+    setDisplayText(
+      `${props.hideLocation || team.location === null ? "" : team.location} ${
+        team.name
+      }`
+    );
+  }, [team, props.hideLocation]);
+
+  if (props.link) {
+    return (
+      <Link to={`/teams/${props.id}`} className={classes.linkText}>
+        {displayText}
+      </Link>
+    );
+  } else {
+    return <span>{displayText}</span>;
+  }
 }

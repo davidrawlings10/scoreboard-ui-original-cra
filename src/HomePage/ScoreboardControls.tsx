@@ -45,7 +45,7 @@ export default function ScoreboardControls(props: ScoreboardControlsProps) {
       <Box marginRight={3}>Milliseconds Per Tick</Box>
       <Box marginRight={3}>{millisecondsPerTick}</Box>
       <Box marginRight={5}>
-        {[250, 500, 1000, 2000].map((milliseconds) => (
+        {[100, 250, 500, 1000].map((milliseconds) => (
           <Chip
             label={milliseconds}
             variant="outlined"

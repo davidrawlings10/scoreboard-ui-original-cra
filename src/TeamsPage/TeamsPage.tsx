@@ -119,7 +119,7 @@ export default function TeamsPage() {
                 <tr key={teamSeasonTotal.teamId}>
                   <td>{index + 1}</td>
                   <td>
-                    <TeamDisplay id={teamSeasonTotal.teamId} />
+                    <TeamDisplay id={teamSeasonTotal.teamId} link={true} />
                   </td>
                   <td>{teamSeasonTotal.seasonsWon}</td>
                   <td>
