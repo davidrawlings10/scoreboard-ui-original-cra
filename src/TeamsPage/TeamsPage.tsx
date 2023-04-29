@@ -6,6 +6,7 @@ import { Box, Chip } from "@material-ui/core";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
 import sortableTable from "../Shared/SortableTable";
+import NHLLogo from "../images/NHLLogo";
 
 interface TeamSeasonTotal {
   teamId: number;
@@ -76,25 +77,30 @@ export default function TeamsPage() {
       flexDirection="column"
       margin={2}
     >
-      <Box width={400} marginBottom={2}>
-        <InputLabel>League</InputLabel>
-        <Select
-          value={league}
-          onChange={leagueChange}
-          variant="outlined"
-          fullWidth
-        >
-          {leagues &&
-            leagues.map((league: any) => (
-              <MenuItem
-                key={league.value}
-                id={league.value}
-                value={league.value}
-              >
-                {league.title}
-              </MenuItem>
-            ))}
-        </Select>
+      <Box display="flex" flexDirection="row">
+        <Box width={40} margin={3} marginRight={4}>
+          <NHLLogo />
+        </Box>
+        <Box width={400} marginBottom={2}>
+          <InputLabel>League</InputLabel>
+          <Select
+            value={league}
+            onChange={leagueChange}
+            variant="outlined"
+            fullWidth
+          >
+            {leagues &&
+              leagues.map((league: any) => (
+                <MenuItem
+                  key={league.value}
+                  id={league.value}
+                  value={league.value}
+                >
+                  {league.title}
+                </MenuItem>
+              ))}
+          </Select>
+        </Box>
       </Box>
       <Box display="flex" justifyContent="center" flexDirection="column">
         <table className="season-standing-list">

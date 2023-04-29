@@ -177,7 +177,9 @@ export default class StartGameForm extends React.Component<
               >
                 {this.state.awayLeagueTeamsList.map((team) => (
                   <MenuItem key={team.id} value={team.id}>
-                    {team.location + " " + team.name}
+                    {team.location
+                      ? team.location + " " + team.name
+                      : team.name}
                   </MenuItem>
                 ))}
               </Select>

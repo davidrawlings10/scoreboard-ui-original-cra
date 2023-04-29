@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { Box } from "@material-ui/core";
 
 import config from "../../config";
 import { searchCacheForTeam, cacheTeam } from "./TeamDisplayCache";
 import Team from "../../Entity/Team";
 import theme from "../../theme";
+import TeamLogo from "../../images/TeamLogo";
 
 const useStyles = makeStyles({
   linkText: {
@@ -18,6 +20,7 @@ export interface TeamDisplayFuncProps {
   id: number;
   hideLocation?: boolean;
   link?: boolean;
+  hideLogo?: boolean;
 }
 
 export default function TeamDisplayFunc(props: TeamDisplayFuncProps) {
@@ -61,13 +64,30 @@ export default function TeamDisplayFunc(props: TeamDisplayFuncProps) {
     );
   }, [team, props.hideLocation]);
 
+  const contents = (
+    <Box display="flex" flexDirection="row">
+      {!props.hideLogo && (
+        <Box
+          width={/*25*/ 20}
+          marginRight={2}
+          display="flex"
+          alignContent="center"
+          justifyContent="center"
+        >
+          <TeamLogo id={team.id} />
+        </Box>
+      )}
+      {displayText}
+    </Box>
+  );
+
   if (props.link) {
     return (
       <Link to={`/teams/${props.id}`} className={classes.linkText}>
-        {displayText}
+        {contents}
       </Link>
     );
   } else {
-    return <span>{displayText}</span>;
+    return <span>{contents}</span>;
   }
 }

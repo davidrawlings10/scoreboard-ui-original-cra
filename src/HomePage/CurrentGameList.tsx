@@ -11,7 +11,7 @@ interface CurrentGameListProps {
 }
 
 export default function CurrentGameList(props: CurrentGameListProps) {
-  const PAGE_SIZE: number = 6;
+  const [pageSize, setPageSize] = useState<number>(5);
   const [page, setPage] = useState<number>(1);
   const [numberOfPages, setNumberOfPages] = useState<number>(1);
   const [currentGameListLength, setCurrentGameListLength] = useState<number>(0);
@@ -23,8 +23,12 @@ export default function CurrentGameList(props: CurrentGameListProps) {
   }, [props.games, props.displayGame]);
 
   useEffect(() => {
-    setNumberOfPages(Math.ceil(currentGameListLength / PAGE_SIZE));
-  }, [props.games, props.displayGame, currentGameListLength]);
+    setNumberOfPages(Math.ceil(currentGameListLength / pageSize));
+  }, [props.games, props.displayGame, currentGameListLength, pageSize]);
+
+  useEffect(() => {
+    setPageSize((window.innerWidth - 260) / 260 + 1);
+  }, [window.innerWidth]);
 
   const handlePrevClick = () => {
     if (page === 1) {
@@ -61,7 +65,7 @@ export default function CurrentGameList(props: CurrentGameListProps) {
     <Box display="flex" flexDirection="column" marginTop={4}>
       <Box display="flex" flexDirection="row" mb={1}>
         <Box display="flex" alignContent="center">
-          {currentGameListLength > PAGE_SIZE && (
+          {currentGameListLength > pageSize && (
             <Button
               variant="contained"
               color="primary"
@@ -77,18 +81,18 @@ export default function CurrentGameList(props: CurrentGameListProps) {
           <Box display="flex" flexDirection="row" mb={1}>
             {props.games
               .filter((game) => game.id !== props.displayGame?.id)
-              .slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+              .slice((page - 1) * pageSize, page * pageSize)
               .map((game) => (
                 <div onClick={() => handleUpdateDisplayGameId(game.id)}>
                   <Scoreboard key={game.id} game={game} small />
                 </div>
               ))}
           </Box>
-          {currentGameListLength > PAGE_SIZE && (
+          {currentGameListLength > pageSize && (
             <Box>{`Page ${page}/${numberOfPages}`}</Box>
           )}
         </Box>
-        {currentGameListLength > PAGE_SIZE && (
+        {currentGameListLength > pageSize && (
           <Button
             variant="contained"
             color="primary"

@@ -59,7 +59,7 @@ export default function Scoreboard(props: ScoreboardProps) {
             bgcolor="primary.main"
             border="1px solid black"
             className={props.small ? classes.root : ""}
-            width={props.small ? 200 : 360}
+            width={props.small ? /*200*/ 260 : 360}
           >
             <Grid container>
               <Grid item xs={props.small ? 9 : 10}>

@@ -133,7 +133,7 @@ export default function HomePage() {
             handleScoreboardControlsDialogOpen
           }
         />
-        <Box>
+        <Box display="flex" justifyContent="center">
           <CurrentGameList
             games={currentGames.concat(finishedGames)}
             displayGame={displayGame}
