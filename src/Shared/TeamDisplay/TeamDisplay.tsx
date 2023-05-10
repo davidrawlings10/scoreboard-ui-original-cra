@@ -1,25 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 
 import config from "../../config";
 import { searchCacheForTeam, cacheTeam } from "./TeamDisplayCache";
 import Team from "../../Entity/Team";
-import theme from "../../theme";
-import TeamLogo from "../../images/TeamLogo";
-
-const useStyles = makeStyles({
-  linkText: {
-    color: theme.palette.text.primary,
-    textDecoration: "none",
-  },
-});
+import TeamLogo from "../../images/TeamLogos";
 
 export interface TeamDisplayFuncProps {
   id: number;
   hideLocation?: boolean;
-  link?: boolean;
   hideLogo?: boolean;
 }
 
@@ -30,8 +19,6 @@ export default function TeamDisplayFunc(props: TeamDisplayFuncProps) {
     name: "",
   });
   const [displayText, setDisplayText] = React.useState<string>("");
-
-  const classes = useStyles();
 
   async function getTeamDisplay(id: number) {
     var res = await fetch(config.baseUrl + "/team/getTeamById?teamId=" + id);
@@ -64,7 +51,7 @@ export default function TeamDisplayFunc(props: TeamDisplayFuncProps) {
     );
   }, [team, props.hideLocation]);
 
-  const contents = (
+  return (
     <Box display="flex" flexDirection="row">
       {!props.hideLogo && (
         <Box
@@ -74,20 +61,10 @@ export default function TeamDisplayFunc(props: TeamDisplayFuncProps) {
           alignContent="center"
           justifyContent="center"
         >
-          <TeamLogo id={team.id} />
+          <TeamLogo id={props.id} />
         </Box>
       )}
       {displayText}
     </Box>
   );
-
-  if (props.link) {
-    return (
-      <Link to={`/teams/${props.id}`} className={classes.linkText}>
-        {contents}
-      </Link>
-    );
-  } else {
-    return <span>{contents}</span>;
-  }
 }

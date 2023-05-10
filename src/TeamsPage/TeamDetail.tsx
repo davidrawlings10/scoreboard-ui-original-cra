@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import { Box } from "@material-ui/core";
 import TeamSeasonList from "./TeamSeasonList";
-import TeamLogo from "../images/TeamLogo";
+import TeamLogo from "../images/TeamLogos";
 
 export default function TeamDetail() {
   const { id }: { id: string } = useParams();

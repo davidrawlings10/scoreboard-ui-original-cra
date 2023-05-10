@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@material-ui/core";
+import { Box, Drawer } from "@material-ui/core";
 
 import config from "../config";
 import Scoreboard from "./Scoreboard";
@@ -17,6 +17,7 @@ export default function HomePage() {
   const [displayGameId, setDisplayGameId] = React.useState<number | null>(null);
   const [displayGame, setDisplayGame] = React.useState<Game | null>(null);
   const [gameEvents, setGameEvents] = React.useState(Array<GameEvent>());
+  const [drawerMenuOpen, setDrawerMenuOpen] = React.useState<boolean>(false);
 
   const [running, setRunning] = React.useState(false);
   const [millisecondsPerTick, setMillisecondsPerTick] =
@@ -174,6 +175,8 @@ export default function HomePage() {
         gamesPlayingConcurrently={gamesPlayingConcurrently}
         millisecondsPerTick={millisecondsPerTick}
       />
+
+      <Drawer open={drawerMenuOpen}>yoyo</Drawer>
     </>
   );
 }

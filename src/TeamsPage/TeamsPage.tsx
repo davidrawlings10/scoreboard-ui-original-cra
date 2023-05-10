@@ -1,4 +1,8 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+
+import theme from "../theme";
 import config from "../config";
 import { getLeagueList } from "../Shared/LeagueHelper";
 import League from "../Entity/League";
@@ -7,6 +11,13 @@ import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
 import sortableTable from "../Shared/SortableTable";
 import NHLLogo from "../images/NHLLogo";
+
+const useStyles = makeStyles({
+  linkText: {
+    color: theme.palette.text.primary,
+    textDecoration: "none",
+  },
+});
 
 interface TeamSeasonTotal {
   teamId: number;
@@ -28,6 +39,8 @@ export default function TeamsPage() {
     Array<TeamSeasonTotal>
   >([]);
   let { Th, sortTable } = sortableTable();
+
+  const classes = useStyles();
 
   // load list of leagues
   useEffect(() => {
@@ -125,7 +138,12 @@ export default function TeamsPage() {
                 <tr key={teamSeasonTotal.teamId}>
                   <td>{index + 1}</td>
                   <td>
-                    <TeamDisplay id={teamSeasonTotal.teamId} link={true} />
+                    <Link
+                      to={`/teams/${teamSeasonTotal.teamId}`}
+                      className={classes.linkText}
+                    >
+                      <TeamDisplay id={teamSeasonTotal.teamId} />
+                    </Link>
                   </td>
                   <td>{teamSeasonTotal.seasonsWon}</td>
                   <td>
