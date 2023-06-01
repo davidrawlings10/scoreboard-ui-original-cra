@@ -11,7 +11,7 @@ interface CurrentGameListProps {
 }
 
 export default function CurrentGameList(props: CurrentGameListProps) {
-  const [pageSize, setPageSize] = useState<number>(5);
+  const [pageSize, setPageSize] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
   const [numberOfPages, setNumberOfPages] = useState<number>(1);
   const [currentGameListLength, setCurrentGameListLength] = useState<number>(0);
@@ -27,7 +27,7 @@ export default function CurrentGameList(props: CurrentGameListProps) {
   }, [props.games, props.displayGame, currentGameListLength, pageSize]);
 
   useEffect(() => {
-    setPageSize((window.innerWidth - 260) / 260 + 1);
+    setPageSize(Math.ceil((window.innerWidth - 260) / 260));
   }, [window.innerWidth]);
 
   const handlePrevClick = () => {
@@ -60,6 +60,10 @@ export default function CurrentGameList(props: CurrentGameListProps) {
     minWidth: "50px",
     minHeight: "120px",
   };
+
+  console.log("pageSize", pageSize);
+  console.log("(page - 1) * pageSize", (page - 1) * pageSize);
+  console.log("page * pageSize", page * pageSize);
 
   return (
     <Box display="flex" flexDirection="column" marginTop={4}>

@@ -74,8 +74,6 @@ function getTeamLogo(id: number) {
       return HurricanesLogo;
     case 34:
       return BlueJacketsLogo;
-    case 35:
-      return AngelsLogo;
     case 36:
       return IslandersLogo;
     case 37:
