@@ -27,7 +27,7 @@ export default function CurrentGameList(props: CurrentGameListProps) {
   }, [props.games, props.displayGame, currentGameListLength, pageSize]);
 
   useEffect(() => {
-    setPageSize(Math.ceil((window.innerWidth - 260) / 260));
+    setPageSize(Math.ceil((window.innerWidth - 300) / 300));
   }, [window.innerWidth]);
 
   const handlePrevClick = () => {
