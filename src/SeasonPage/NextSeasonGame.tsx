@@ -111,7 +111,7 @@ export default function NextSeasonGame(props: NextSeasonGameProps) {
                       width="45%"
                     >
                       <Box display="flex" justifyContent="flex-end">
-                        <TeamDisplay id={nextSeasonGame.homeTeamId} />
+                        <TeamDisplay id={nextSeasonGame.homeTeamId} hideName={window.innerWidth < 1200} />
                       </Box>
                       <Box display="flex" justifyContent="flex-end">
                         Home
@@ -144,7 +144,7 @@ export default function NextSeasonGame(props: NextSeasonGameProps) {
                       mb={1}
                       width="45%"
                     >
-                      <TeamDisplay id={nextSeasonGame.awayTeamId} />
+                      <TeamDisplay id={nextSeasonGame.awayTeamId} hideName={window.innerWidth < 1200} />
                       <Box>Away</Box>
                       <Box className={classes.highlight}>
                         {(nextSeasonGame.teamAlreadyPlaying === "BOTH" ||

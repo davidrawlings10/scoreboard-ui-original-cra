@@ -68,7 +68,10 @@ export default function GameEventList(props: GameEventListProps) {
                   <TableRow key={gameEvent.id}>
                     <TableCell>
                       <Box className={homeTeamTextStyle}>
-                        <TeamDisplay id={game.homeTeamId} hideLocation />
+                        <TeamDisplay
+                          id={game.homeTeamId}
+                          hideName={window.innerWidth < 1200}
+                        />
                       </Box>
                     </TableCell>
                     <TableCell>
@@ -78,7 +81,10 @@ export default function GameEventList(props: GameEventListProps) {
                     </TableCell>
                     <TableCell>
                       <Box className={awayTeamTextStyle}>
-                        <TeamDisplay id={game.awayTeamId} hideLocation />
+                        <TeamDisplay
+                          id={game.awayTeamId}
+                          hideName={window.innerWidth < 1200}
+                        />
                       </Box>
                     </TableCell>
                     <TableCell>

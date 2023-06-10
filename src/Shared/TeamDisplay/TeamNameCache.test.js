@@ -1,4 +1,4 @@
-import { searchCacheForTeam, cacheTeam } from "./TeamDisplayCache";
+import { searchCacheForTeam, cacheTeam } from "./TeamNameCache";
 
 test("cache and then search for team", () => {
   const teamLions = { id: 1, name: "Lions" };
