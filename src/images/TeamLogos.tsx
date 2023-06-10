@@ -1,6 +1,20 @@
+import HummingbirdLogo from "./teamLogos/aves/HummingbirdLogo.svg";
+import SparrowLogo from "./teamLogos/aves/SparrowLogo.svg";
+import GoldfinchLogo from "./teamLogos/aves/GoldfinchLogo.svg";
+import ChickadeeLogo from "./teamLogos/aves/ChickadeeLogo.svg";
+import CardinalLogo from "./teamLogos/aves/CardinalLogo.svg";
+import OrioleLogo from "./teamLogos/aves/OrioleLogo.svg";
+import RobinLogo from "./teamLogos/aves/RobinLogo.svg";
+import WoodpeckerLogo from "./teamLogos/aves/WoodpeckerLogo.svg";
+import WarblerLogo from "./teamLogos/aves/WarblerLogo.svg";
+import BlueJayLogo from "./teamLogos/aves/BlueJayLogo.svg";
+import MockingbirdLogo from "./teamLogos/aves/MockingbirdLogo.svg";
+import PenguinLogo from "./teamLogos/aves/PenguinLogo.svg";
+import OwlLogo from "./teamLogos/aves/OwlLogo.svg";
+
 import HurricanesLogo from "./teamLogos/nhl/HurricanesLogo.svg";
 import BlueJacketsLogo from "./teamLogos/nhl/BlueJacketsLogo.svg";
-import AngelsLogo from "./teamLogos/nhl/AngelsLogo.svg";
+import ScoutsLogo from "./teamLogos/nhl/ScoutsLogo.svg";
 import IslandersLogo from "./teamLogos/nhl/IslandersLogo.svg";
 import RangersLogo from "./teamLogos/nhl/RangersLogo.svg";
 import FlyersLogo from "./teamLogos/nhl/FlyersLogo.svg";
@@ -31,15 +45,19 @@ import KrakenLogo from "./teamLogos/nhl/KrakenLogo.svg";
 import CanucksLogo from "./teamLogos/nhl/CanucksLogo.svg";
 import GoldenKnightsLogo from "./teamLogos/nhl/GoldenKnightsLogo.svg";
 
-import CardinalLogo from "./teamLogos/aves/CardinalLogo.svg";
-import OrioleLogo from "./teamLogos/aves/OrioleLogo.svg";
-import RobinLogo from "./teamLogos/aves/RobinLogo.svg";
-import WoodpeckerLogo from "./teamLogos/aves/WoodpeckerLogo.svg";
-import WarblerLogo from "./teamLogos/aves/WarblerLogo.svg";
-import BlueJayLogo from "./teamLogos/aves/BlueJayLogo.svg";
-import MockingbirdLogo from "./teamLogos/aves/MockingbirdLogo.svg";
-import PenguinLogo from "./teamLogos/aves/PenguinLogo.svg";
-import OwlLogo from "./teamLogos/aves/OwlLogo.svg";
+import KansasCityChiefsLogo from "./teamLogos/nfl/KansasCityChiefsLogo.svg";
+import LosAngelesChargersLogo from "./teamLogos/nfl/LosAngelesChargersLogo.svg";
+
+import BaylorBearsLogo from "./teamLogos/ncaa/BaylorBearsLogo.svg";
+import IowaStateCyclonesLogo from "./teamLogos/ncaa/IowaStateCyclonesLogo.svg";
+import KansasJayhawksLogo from "./teamLogos/ncaa/KansasJayhawksLogo.svg";
+import KansasStateWildcatsLogo from "./teamLogos/ncaa/KansasStateWildcatsLogo.svg";
+import OklahomaSoonersLogo from "./teamLogos/ncaa/OklahomaSoonersLogo.svg";
+import OklahomaStateCowboysLogo from "./teamLogos/ncaa/OklahomaStateCowboysLogo.svg";
+import TCUHornedFrogsLogo from "./teamLogos/ncaa/TCUHornedFrogsLogo.svg";
+import TexasLonghornsLogo from "./teamLogos/ncaa/TexasLonghornsLogo.svg";
+import TexasTechRedRaidersLogo from "./teamLogos/ncaa/TexasTechRedRaidersLogo.svg";
+import WestVirginiaMountaineersLogo from "./teamLogos/ncaa/WestVirginiaMountaineersLogo.svg";
 
 interface TeamLogoProps {
   id: number;
@@ -52,6 +70,14 @@ export default function TeamLogo({ id }: TeamLogoProps) {
 
 function getTeamLogo(id: number) {
   switch (id) {
+    case 1:
+      return HummingbirdLogo;
+    case 2:
+      return SparrowLogo;
+    case 3:
+      return GoldfinchLogo;
+    case 4:
+      return ChickadeeLogo;
     case 5:
       return CardinalLogo;
     case 6:
@@ -74,6 +100,8 @@ function getTeamLogo(id: number) {
       return HurricanesLogo;
     case 34:
       return BlueJacketsLogo;
+    case 35:
+      return ScoutsLogo;
     case 36:
       return IslandersLogo;
     case 37:
@@ -132,6 +160,30 @@ function getTeamLogo(id: number) {
       return CanucksLogo;
     case 64:
       return GoldenKnightsLogo;
+    case 110:
+      return KansasCityChiefsLogo;
+    case 111:
+      return LosAngelesChargersLogo;
+    case 129:
+      return BaylorBearsLogo;
+    case 130:
+      return IowaStateCyclonesLogo;
+    case 131:
+      return KansasJayhawksLogo;
+    case 132:
+      return KansasStateWildcatsLogo;
+    case 133:
+      return OklahomaSoonersLogo;
+    case 134:
+      return OklahomaStateCowboysLogo;
+    case 135:
+      return TCUHornedFrogsLogo;
+    case 136:
+      return TexasLonghornsLogo;
+    case 137:
+      return TexasTechRedRaidersLogo;
+    case 138:
+      return WestVirginiaMountaineersLogo;
     default:
       return undefined;
   }

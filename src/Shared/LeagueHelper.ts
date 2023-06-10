@@ -18,5 +18,11 @@ export function getLeagueDisplayName(leagueValue: string) {
       return "NHL";
     case "TEST":
       return "Test";
+    case "NFL":
+      return "NFL";
+    case "NBA":
+      return "NBA";
+    case "NCAA":
+      return "NCAA";
   }
 }

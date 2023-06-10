@@ -14,7 +14,7 @@ export default function TeamDetail() {
     <Box margin={2}>
       <Box marginTop={1} border="1px solid #474f97" bgcolor="primary.main">
         <Box marginLeft={3} display="flex" flexDirection="row" margin={3}>
-          <Box width={100} marginRight={5}>
+          <Box width={200} marginRight={5}>
             <TeamLogo id={teamId} />
           </Box>
           <Box display="flex" flexDirection="row">
