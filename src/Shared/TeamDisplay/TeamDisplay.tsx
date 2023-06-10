@@ -3,19 +3,19 @@ import { Box } from "@material-ui/core";
 import TeamLogo from "../../images/TeamLogos";
 import TeamName from "./TeamName";
 
-export interface TeamDisplayFuncProps {
+export interface TeamDisplayProps {
   id: number;
   hideName?: boolean;
   hideLogo?: boolean;
   hideLocation?: boolean;
 }
 
-export default function TeamDisplayFunc(props: TeamDisplayFuncProps) {
+export default function TeamDisplay(props: TeamDisplayProps) {
   return (
     <Box display="flex" flexDirection="row">
       {!props.hideLogo && (
         <Box
-          width={/*25*/ 20}
+          width={25}
           marginRight={2}
           display="flex"
           alignContent="center"

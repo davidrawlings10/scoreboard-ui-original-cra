@@ -5,12 +5,12 @@ import config from "../../config";
 import { searchCacheForTeam, cacheTeam } from "./TeamNameCache";
 import Team from "../../Entity/Team";
 
-export interface TeamDisplayFuncProps {
+export interface TeamNameProps {
   id: number;
   hideLocation?: boolean;
 }
 
-export default function TeamDisplayFunc(props: TeamDisplayFuncProps) {
+export default function TeamName(props: TeamNameProps) {
   const [team, setTeam] = React.useState<Team>({
     id: -1,
     location: "",
