@@ -81,7 +81,12 @@ export default function SeasonGameList(props: SeasonGameListProps) {
   };
 
   return (
-    <Box display="flex" flexDirection="column" alignContent="center">
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignContent="center"
+      flexWrap="wrap"
+    >
       <Box>
         <Box display="flex" flexDirection="row">
           <Box marginRight={1} marginBottom={1} width={400}>
@@ -130,8 +135,8 @@ export default function SeasonGameList(props: SeasonGameListProps) {
         </Box>
       </Box>
       <Box display="flex" justifyContent="center" overflow="auto">
-        <Box width={1500}>
-          <table className="season-game-list">
+        <Box>
+          <table>
             <thead>
               <tr>
                 <th></th>

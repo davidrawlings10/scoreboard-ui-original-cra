@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid, IconButton } from "@material-ui/core";
+import { Box, IconButton } from "@material-ui/core";
 import {
   Delete as DeleteIcon /*, Edit as EditIcon*/,
 } from "@material-ui/icons";
@@ -19,6 +19,32 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
+interface ScoreboardRowProps {
+  teamId: number;
+  score: number;
+  small?: boolean;
+}
+
+function ScoreboardRow({ teamId, score, small }: ScoreboardRowProps) {
+  return (
+    <Box display="flex" flexDirection="row">
+      <Box border="1px solid black" p={1} width="85%">
+        <TeamDisplay id={teamId} hideLocation={small} />
+      </Box>
+      <Box
+        border="1px solid black"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        p={1}
+        width="15%"
+      >
+        {score}
+      </Box>
+    </Box>
+  );
+}
 
 export type ScoreboardProps = {
   game: Game | null;
@@ -59,47 +85,23 @@ export default function Scoreboard(props: ScoreboardProps) {
             bgcolor="primary.main"
             border="1px solid black"
             className={props.small ? classes.root : ""}
-            width={props.small ? /*200*/ 260 : 360}
+            width={props.small ? 260 : 380}
           >
-            <Grid container>
-              <Grid item xs={props.small ? 9 : 10}>
-                <Box border="1px solid black" p={1}>
-                  <TeamDisplay
-                    id={props.game.homeTeamId}
-                    hideLocation={props.small}
-                  />
-                </Box>
-              </Grid>
-              <Grid item xs={props.small ? 3 : 2}>
-                <Box border="1px solid black" p={1} textAlign="center">
-                  {props.game.homeScore}
-                </Box>
-              </Grid>
-              <Grid item xs={props.small ? 9 : 10}>
-                <Box border="1px solid black" p={1}>
-                  <TeamDisplay
-                    id={props.game.awayTeamId}
-                    hideLocation={props.small}
-                  />
-                </Box>
-              </Grid>
-              <Grid item xs={props.small ? 3 : 2}>
-                <Box border="1px solid black" p={1} textAlign="center">
-                  {props.game.awayScore}
-                </Box>
-              </Grid>
-              <Grid item xs={12}>
-                <Box border="1px solid black" p={1}>
-                  <Box
-                    display="flex"
-                    flexDirection="row"
-                    justifyContent="space-between"
-                  >
-                    <GameClockDisplay game={props.game} />
-                  </Box>
-                </Box>
-              </Grid>
-            </Grid>
+            <ScoreboardRow
+              teamId={props.game.homeTeamId}
+              score={props.game.homeScore}
+              small={props.small}
+            />
+            <ScoreboardRow
+              teamId={props.game.awayTeamId}
+              score={props.game.awayScore}
+              small={props.small}
+            />
+            <Box border="1px solid black" p={1}>
+              <Box display="flex" flexDirection="row">
+                <GameClockDisplay game={props.game} />
+              </Box>
+            </Box>
           </Box>
           <Box display={props.small ? "none" : "flex"}>
             <Box margin={0.5}>

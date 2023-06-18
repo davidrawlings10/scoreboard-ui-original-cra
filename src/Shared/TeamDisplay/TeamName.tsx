@@ -50,7 +50,7 @@ export default function TeamName(props: TeamNameProps) {
   }, [team, props.hideLocation]);
 
   return (
-    <Box display="flex" flexDirection="row">
+    <Box display="flex" justifyContent="center" alignItems="center">
       {displayText}
     </Box>
   );

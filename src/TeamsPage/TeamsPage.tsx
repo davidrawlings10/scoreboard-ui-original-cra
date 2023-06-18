@@ -10,7 +10,7 @@ import { Box, Chip } from "@material-ui/core";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
 import sortableTable from "../Shared/SortableTable";
-import NHLLogo from "../images/NHLLogo";
+import NHLLogo from "../images/logos/leagues/NHLLogo";
 
 const useStyles = makeStyles({
   linkText: {
@@ -116,7 +116,7 @@ export default function TeamsPage() {
         </Box>
       </Box>
       <Box display="flex" justifyContent="center" flexDirection="column">
-        <table className="season-standing-list">
+        <table>
           <thead>
             <tr>
               <th></th>

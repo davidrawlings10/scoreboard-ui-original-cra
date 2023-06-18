@@ -48,7 +48,7 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
       justifyContent="center"
       flexDirection="column"
     >
-      <table className="season-standing-list">
+      <table>
         <thead>
           <tr>
             <th>id</th>

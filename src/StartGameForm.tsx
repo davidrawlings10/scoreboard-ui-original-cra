@@ -8,6 +8,7 @@ import config from "./config";
 import { getLeagueList } from "./Shared/LeagueHelper";
 import Team from "./Entity/Team";
 import styled from "styled-components";
+import TeamDisplay from "./Shared/TeamDisplay/TeamDisplay";
 
 export interface StartGameFormProps {}
 
@@ -35,11 +36,11 @@ export default class StartGameForm extends React.Component<
 
     const state: StartGameFormState = {
       leagues: [],
-      homeLeague: "TEST",
+      homeLeague: "NHL",
       homeTeamId: 1,
       homeLeagueTeamsList: [],
-      awayLeague: "TEST",
-      awayTeamId: 1,
+      awayLeague: "NHL",
+      awayTeamId: 2,
       awayLeagueTeamsList: [],
     };
 
@@ -140,9 +141,7 @@ export default class StartGameForm extends React.Component<
               >
                 {this.state.homeLeagueTeamsList.map((team) => (
                   <MenuItem key={team.id} value={team.id}>
-                    {team.location
-                      ? team.location + " " + team.name
-                      : team.name}
+                    <TeamDisplay id={team.id} />
                   </MenuItem>
                 ))}
               </Select>
@@ -177,9 +176,7 @@ export default class StartGameForm extends React.Component<
               >
                 {this.state.awayLeagueTeamsList.map((team) => (
                   <MenuItem key={team.id} value={team.id}>
-                    {team.location
-                      ? team.location + " " + team.name
-                      : team.name}
+                    <TeamDisplay id={team.id} />
                   </MenuItem>
                 ))}
               </Select>

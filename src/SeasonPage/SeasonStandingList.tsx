@@ -49,11 +49,12 @@ export default function SeasonStandingList(props: SeasonStandingListProps) {
       marginBottom={5}
       display="flex"
       alignContent="center"
+      flexWrap="wrap"
       flexDirection="column"
       overflow="auto"
     >
-      <Box width={1200}>
-        <table className="season-standing-list">
+      <Box>
+        <table>
           <thead>
             <tr>
               <th></th>

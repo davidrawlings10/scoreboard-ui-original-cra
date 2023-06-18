@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Box } from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
+import { AddToQueue } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
 import config from "../config";
@@ -35,33 +36,50 @@ export default function SeasonList(props: SeasonListProps) {
   }
 
   return (
-    <Box marginTop={5} marginBottom={5} display="flex" justifyContent="center">
-      <table className="season-list">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Winner</th>
-            <th>Teams</th>
-            <th>Schedule</th>
-          </tr>
-        </thead>
-        <tbody>
-          {seasons.map((season) => (
-            <tr
-              key={season.id}
-              onClick={() => viewSeason(season.id)}
-              className={classes.root}
-            >
-              <td>{season.title}</td>
-              <td>
-                <TeamDisplay id={season.winnerTeamId} />
-              </td>
-              <td>{season.numTeams}</td>
-              <td>{season.scheduleType}</td>
+    <Box
+      display="flex"
+      justifyContent="center"
+      flexDirection="column"
+      alignItems="center"
+    >
+      <Box>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Winner</th>
+              <th>Teams</th>
+              <th>Schedule</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {seasons.map((season) => (
+              <tr
+                key={season.id}
+                onClick={() => viewSeason(season.id)}
+                className={classes.root}
+              >
+                <td>{season.title}</td>
+                <td>
+                  <TeamDisplay id={season.winnerTeamId} />
+                </td>
+                <td>{season.numTeams}</td>
+                <td>{season.scheduleType}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </Box>
+      <Box>
+        <Button
+          href={`${config.baseUrl}/season/getFullSQL`}
+          color="primary"
+          variant="contained"
+          startIcon={<AddToQueue />}
+        >
+          Get Full Insert SQL
+        </Button>
+      </Box>
     </Box>
   );
 }

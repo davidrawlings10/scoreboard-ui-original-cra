@@ -1,6 +1,6 @@
 import { Box } from "@material-ui/core";
 
-import TeamLogo from "../../images/TeamLogos";
+import TeamLogo from "./TeamLogo";
 import TeamName from "./TeamName";
 
 export interface TeamDisplayProps {
@@ -8,15 +8,22 @@ export interface TeamDisplayProps {
   hideName?: boolean;
   hideLogo?: boolean;
   hideLocation?: boolean;
+  flipDisplay?: boolean;
 }
 
 export default function TeamDisplay(props: TeamDisplayProps) {
   return (
     <Box display="flex" flexDirection="row">
+      {!props.hideName && props.flipDisplay && (
+        <Box marginRight={1}>
+          <TeamName id={props.id} hideLocation={props.hideLocation} />
+        </Box>
+      )}
       {!props.hideLogo && (
         <Box
-          width={25}
-          marginRight={2}
+          width={28}
+          marginRight={1}
+          marginLeft={1}
           display="flex"
           alignContent="center"
           justifyContent="center"
@@ -24,8 +31,10 @@ export default function TeamDisplay(props: TeamDisplayProps) {
           <TeamLogo id={props.id} />
         </Box>
       )}
-      {!props.hideName && (
-        <TeamName id={props.id} hideLocation={props.hideLocation} />
+      {!props.hideName && !props.flipDisplay && (
+        <Box marginLeft={1}>
+          <TeamName id={props.id} hideLocation={props.hideLocation} />
+        </Box>
       )}
     </Box>
   );

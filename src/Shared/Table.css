@@ -23,18 +23,6 @@ td {
   padding: 0px 10px 0px 10px;
 }
 
-.season-list {
-  width: 60%;
-}
-
-.season-standing-list {
-  width: 100%;
-}
-
-.season-game-list {
-  width: 70%;
-}
-
 .winning-team-color {
   color: #f44336; /* TODO: need to read this value from theme */
 }

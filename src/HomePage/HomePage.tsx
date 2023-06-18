@@ -7,7 +7,7 @@ import ScoreboardControlsDialog from "./ScoreboardControlsDialog";
 import SeasonDisplay from "../SeasonPage/SeasonDisplay";
 import Game from "../Entity/Game";
 import GameEvent from "../Entity/GameEvent";
-import GameEventList from "./GameEventList";
+import GameEventList from "./GameEventListV2";
 import ScoreboardControls from "./ScoreboardControls";
 import CurrentGameList from "./CurrentGameList";
 

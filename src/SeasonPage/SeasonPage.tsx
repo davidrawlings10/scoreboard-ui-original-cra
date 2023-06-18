@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Box } from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
+import { AddToQueue } from "@material-ui/icons";
 
 import SeasonList from "./SeasonList";
 import SeasonDisplay from "./SeasonDisplay";
@@ -27,6 +28,7 @@ export default function SeasonPage() {
     <>
       <Box padding={3} height="100%">
         <SeasonList viewSeason={viewSeason} />
+        <Box marginBottom={5}></Box>
         <Box marginBottom={4}>
           <SeasonHeader seasonId={seasonId} />
           <SeasonButtons
