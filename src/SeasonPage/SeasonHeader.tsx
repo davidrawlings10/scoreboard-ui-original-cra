@@ -1,7 +1,6 @@
 import { Box } from "@material-ui/core";
 
 import config from "../config";
-import { getLeagueDisplayName } from "../Shared/LeagueHelper";
 import Season from "../Entity/Season";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import { useState, useEffect } from "react";
@@ -60,7 +59,7 @@ export default function SeasonHeader(props: SeasonHeaderProps) {
               justifyContent="center"
             >
               <Box>League</Box>
-              <Box>{getLeagueDisplayName(season.league)}</Box>
+              <Box>{season.league}</Box>
             </Box>
             <Box
               marginRight={6}

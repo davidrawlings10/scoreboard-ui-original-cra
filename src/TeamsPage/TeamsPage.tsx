@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { Box, Chip, Select, InputLabel, MenuItem } from "@material-ui/core";
 
 import theme from "../theme";
-import config from "../config";
-import { getLeagueList } from "../Shared/LeagueHelper";
-import League from "../Entity/League";
-import { Box, Chip } from "@material-ui/core";
+import { sfetchList } from "../sfetch";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
-import { Select, InputLabel, MenuItem } from "@material-ui/core";
+import LeagueDisplay from "../Shared/LeagueDisplay/LeagueDisplay";
 import sortableTable from "../Shared/SortableTable";
-import NHLLogo from "../images/logos/leagues/NHLLogo";
 
 const useStyles = makeStyles({
   linkText: {
@@ -33,7 +30,7 @@ interface TeamSeasonTotal {
 }
 
 export default function TeamsPage() {
-  const [leagues, setLeagues] = useState<Array<League>>();
+  const [leagues, setLeagues] = useState<Array<string>>();
   const [league, setLeague] = useState<string>("");
   const [teamSeasonTotals, setTeamSeasonTotals] = useState<
     Array<TeamSeasonTotal>
@@ -44,44 +41,42 @@ export default function TeamsPage() {
 
   // load list of leagues
   useEffect(() => {
-    getLeagueList().then((list) => {
+    sfetchList("/season/getLeagues").then((list) => {
       setLeagues(list);
-      setLeague(list.find((league: League) => league.value === "AVES").value);
+      setLeague(list[0]);
     });
   }, []);
 
   // load team season totals
   useEffect(() => {
     if (!!league) {
-      fetch(config.baseUrl + "/team/getTeamSeasonTotals?league=" + league)
-        .then((res) => res.json())
-        .then((json) => {
-          const teamSeasonTotals = json.list;
+      sfetchList("/team/getTeamSeasonTotals?league=" + league).then((list) => {
+        const teamSeasonTotals = list;
 
-          teamSeasonTotals.forEach((teamSeasonTotal: TeamSeasonTotal) => {
-            teamSeasonTotal.seasonsWonPercent =
-              (teamSeasonTotal.seasonsWon / teamSeasonTotal.seasonsPlayed) *
-              100;
-          });
-          teamSeasonTotals.forEach((teamSeasonTotal: TeamSeasonTotal) => {
-            teamSeasonTotal.winPointsPercent =
-              (teamSeasonTotal.winPoints / teamSeasonTotal.pointsPossible) *
-              100;
-          });
-          teamSeasonTotals.forEach((teamSeasonTotal: TeamSeasonTotal) => {
-            teamSeasonTotal.performancePointsPercent =
-              (teamSeasonTotal.performancePoints /
-                teamSeasonTotal.pointsPossible) *
-              100;
-          });
-          setTeamSeasonTotals(json.list);
+        teamSeasonTotals.forEach((teamSeasonTotal: TeamSeasonTotal) => {
+          teamSeasonTotal.seasonsWonPercent =
+            (teamSeasonTotal.seasonsWon / teamSeasonTotal.seasonsPlayed) * 100;
         });
+        teamSeasonTotals.forEach((teamSeasonTotal: TeamSeasonTotal) => {
+          teamSeasonTotal.winPointsPercent =
+            (teamSeasonTotal.winPoints / teamSeasonTotal.pointsPossible) * 100;
+        });
+        teamSeasonTotals.forEach((teamSeasonTotal: TeamSeasonTotal) => {
+          teamSeasonTotal.performancePointsPercent =
+            (teamSeasonTotal.performancePoints /
+              teamSeasonTotal.pointsPossible) *
+            100;
+        });
+        setTeamSeasonTotals(list);
+      });
     }
   }, [league]);
 
   function leagueChange(event: React.ChangeEvent<any>) {
     setLeague(event.target.value);
   }
+
+  console.log("leagues", leagues);
 
   return (
     <Box
@@ -91,9 +86,6 @@ export default function TeamsPage() {
       margin={2}
     >
       <Box display="flex" flexDirection="row">
-        <Box width={40} margin={3} marginRight={4}>
-          <NHLLogo />
-        </Box>
         <Box width={400} marginBottom={2}>
           <InputLabel>League</InputLabel>
           <Select
@@ -104,12 +96,8 @@ export default function TeamsPage() {
           >
             {leagues &&
               leagues.map((league: any) => (
-                <MenuItem
-                  key={league.value}
-                  id={league.value}
-                  value={league.value}
-                >
-                  {league.title}
+                <MenuItem key={league} id={league} value={league}>
+                  <LeagueDisplay value={league} />
                 </MenuItem>
               ))}
           </Select>

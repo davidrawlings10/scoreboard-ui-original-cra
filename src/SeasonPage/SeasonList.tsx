@@ -42,7 +42,7 @@ export default function SeasonList(props: SeasonListProps) {
       flexDirection="column"
       alignItems="center"
     >
-      <Box>
+      <Box marginBottom={2}>
         <table>
           <thead>
             <tr>

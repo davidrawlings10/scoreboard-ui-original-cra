@@ -11,9 +11,9 @@ import {
 import React, { useState, useEffect } from "react";
 
 import config from "./config";
-import { getLeagueList } from "./Shared/LeagueHelper";
 import Team from "./Entity/Team";
 import League from "./Entity/League";
+import { sfetchList } from "./sfetch";
 
 export type ScheduleSeasonFormProps = {};
 
@@ -31,9 +31,9 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
 
   // load list of leagues
   useEffect(() => {
-    getLeagueList().then((list) => {
+    sfetchList("/season/getLeagues").then((list) => {
       setLeagues(list);
-      setLeague(list.find((league: League) => league.value === "NHL").value);
+      setLeague("NHL");
     });
   }, []);
 
@@ -129,12 +129,8 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
               >
                 {leagues &&
                   leagues.map((league: any) => (
-                    <MenuItem
-                      key={league.value}
-                      id={league.value}
-                      value={league.value}
-                    >
-                      {league.title}
+                    <MenuItem key={league} id={league} value={league}>
+                      {league}
                     </MenuItem>
                   ))}
               </Select>

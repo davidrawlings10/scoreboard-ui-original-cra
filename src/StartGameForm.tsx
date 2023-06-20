@@ -5,7 +5,7 @@ import { Select, InputLabel, MenuItem, Button, Box } from "@material-ui/core";
 // import { styled } from "@material-ui/core/styles";
 
 import config from "./config";
-import { getLeagueList } from "./Shared/LeagueHelper";
+import { sfetchList } from "./sfetch";
 import Team from "./Entity/Team";
 import styled from "styled-components";
 import TeamDisplay from "./Shared/TeamDisplay/TeamDisplay";
@@ -48,13 +48,9 @@ export default class StartGameForm extends React.Component<
   }
 
   componentDidMount() {
-    getLeagueList().then((list) => this.setState({ leagues: list }));
-    /* fetch(config.baseUrl + "/team/getTeams?league=" + this.state.homeLeague)
-      .then((res) => res.json())
-      .then((json) => this.setState({ homeLeagueTeamsList: json.list }));
-    fetch(config.baseUrl + "/team/getTeams?league=" + this.state.awayLeague)
-      .then((res) => res.json())
-      .then((json) => this.setState({ awayLeagueTeamsList: json.list })); */
+    sfetchList("/season/getLeagues").then((list) =>
+      this.setState({ leagues: list })
+    );
 
     this.loadTeams(this.state.homeLeague).then((teams) =>
       this.setState({ homeLeagueTeamsList: teams, homeTeamId: teams[0].id })
@@ -109,7 +105,7 @@ export default class StartGameForm extends React.Component<
 
     return (
       <Box display="flex" justifyContent="center" width="100%" margin={2}>
-        <Box width="40%">
+        <Box width={500}>
           <Form onSubmit={this.handleSubmit}>
             <Box margin={2}>
               <InputLabel>Home League</InputLabel>

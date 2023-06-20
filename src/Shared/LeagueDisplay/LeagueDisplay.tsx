@@ -1,12 +1,12 @@
 import { Box } from "@material-ui/core";
 
-// import LeagueLogo from "./LeagueLogo";
+import LeagueLogo from "./LeagueLogo";
 
 export interface LeagueDisplayProps {
-  id: number;
+  value: string;
 }
 
-export default function LeagueDisplay(props: LeagueDisplayProps) {
+export default function LeagueDisplay({ value }: LeagueDisplayProps) {
   return (
     <Box display="flex" flexDirection="row">
       <Box
@@ -17,9 +17,9 @@ export default function LeagueDisplay(props: LeagueDisplayProps) {
         alignContent="center"
         justifyContent="center"
       >
-        {/* <LeagueLogo id={props.id} /> */}
+        <LeagueLogo value={value} />
       </Box>
-      <Box marginLeft={1}>{"League Name"}</Box>
+      <Box marginLeft={1}>{value}</Box>
     </Box>
   );
 }

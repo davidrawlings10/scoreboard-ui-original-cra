@@ -10,6 +10,9 @@ import CanaryLogo from "../../images/logos/teams/aves/CanaryLogo.svg";
 import BluebirdLogo from "../../images/logos/teams/aves/BluebirdLogo.svg";
 import WarblerLogo from "../../images/logos/teams/aves/WarblerLogo.svg";
 import BlueJayLogo from "../../images/logos/teams/aves/BlueJayLogo.svg";
+import PurpleMartinLogo from "../../images/logos/teams/aves/PurpleMartinLogo.svg";
+import MourningDoveLogo from "../../images/logos/teams/aves/MourningDoveLogo.svg";
+import KilldeerLogo from "../../images/logos/teams/aves/KilldeerLogo.svg";
 import MockingbirdLogo from "../../images/logos/teams/aves/MockingbirdLogo.svg";
 import PenguinLogo from "../../images/logos/teams/aves/PenguinLogo.svg";
 import OwlLogo from "../../images/logos/teams/aves/OwlLogo.svg";
@@ -96,6 +99,12 @@ function getTeamLogo(id: number) {
       return WarblerLogo;
     case 12:
       return BlueJayLogo;
+    case 13:
+      return PurpleMartinLogo;
+    case 14:
+      return MourningDoveLogo;
+    case 15:
+      return KilldeerLogo;
     case 16:
       return MockingbirdLogo;
     case 19:
