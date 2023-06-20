@@ -8,6 +8,7 @@ import { sfetchList } from "../sfetch";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import LeagueDisplay from "../Shared/LeagueDisplay/LeagueDisplay";
 import sortableTable from "../Shared/SortableTable";
+import LeagueSelect from "../Shared/LeagueSelect";
 
 const useStyles = makeStyles({
   linkText: {
@@ -30,8 +31,8 @@ interface TeamSeasonTotal {
 }
 
 export default function TeamsPage() {
-  const [leagues, setLeagues] = useState<Array<string>>();
-  const [league, setLeague] = useState<string>("");
+  // const [leagues, setLeagues] = useState<Array<string>>();
+  const [league, setLeague] = useState<string>("AVES");
   const [teamSeasonTotals, setTeamSeasonTotals] = useState<
     Array<TeamSeasonTotal>
   >([]);
@@ -40,12 +41,12 @@ export default function TeamsPage() {
   const classes = useStyles();
 
   // load list of leagues
-  useEffect(() => {
+  /* useEffect(() => {
     sfetchList("/season/getLeagues").then((list) => {
       setLeagues(list);
       setLeague(list[0]);
     });
-  }, []);
+  }, []); */
 
   // load team season totals
   useEffect(() => {
@@ -72,11 +73,9 @@ export default function TeamsPage() {
     }
   }, [league]);
 
-  function leagueChange(event: React.ChangeEvent<any>) {
-    setLeague(event.target.value);
+  function leagueChange(league: string) {
+    setLeague(league);
   }
-
-  console.log("leagues", leagues);
 
   return (
     <Box
@@ -85,23 +84,8 @@ export default function TeamsPage() {
       flexDirection="column"
       margin={2}
     >
-      <Box display="flex" flexDirection="row">
-        <Box width={400} marginBottom={2}>
-          <InputLabel>League</InputLabel>
-          <Select
-            value={league}
-            onChange={leagueChange}
-            variant="outlined"
-            fullWidth
-          >
-            {leagues &&
-              leagues.map((league: any) => (
-                <MenuItem key={league} id={league} value={league}>
-                  <LeagueDisplay value={league} />
-                </MenuItem>
-              ))}
-          </Select>
-        </Box>
+      <Box display="flex" flexDirection="row" marginBottom={2}>
+        <LeagueSelect league={league} onChange={leagueChange} />
       </Box>
       <Box display="flex" justifyContent="center" flexDirection="column">
         <table>

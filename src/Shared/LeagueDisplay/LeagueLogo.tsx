@@ -2,7 +2,7 @@ import NHLLogo from "../../images/logos/leagues/NHLLogo.svg";
 import NBALogo from "../../images/logos/leagues/NBALogo.svg";
 
 interface LeagueLogoProps {
-  value: String;
+  value: string;
 }
 
 export default function LeagueLogo({ value }: LeagueLogoProps) {
@@ -10,7 +10,7 @@ export default function LeagueLogo({ value }: LeagueLogoProps) {
   return !!leagueLogo ? <img src={leagueLogo} alt="Team Logo" /> : <span />;
 }
 
-function getLeagueLogo(value: String) {
+function getLeagueLogo(value: string) {
   switch (value) {
     case "NHL":
       return NHLLogo;
