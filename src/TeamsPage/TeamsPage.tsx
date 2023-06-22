@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Chip, Select, InputLabel, MenuItem } from "@material-ui/core";
+import { Box, Chip } from "@material-ui/core";
 
 import theme from "../theme";
 import { sfetchList } from "../sfetch";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
-import LeagueDisplay from "../Shared/LeagueDisplay/LeagueDisplay";
 import sortableTable from "../Shared/SortableTable";
 import LeagueSelect from "../Shared/LeagueSelect";
 
@@ -31,22 +30,13 @@ interface TeamSeasonTotal {
 }
 
 export default function TeamsPage() {
-  // const [leagues, setLeagues] = useState<Array<string>>();
-  const [league, setLeague] = useState<string>("AVES");
+  const [league, setLeague] = useState<string>();
   const [teamSeasonTotals, setTeamSeasonTotals] = useState<
     Array<TeamSeasonTotal>
   >([]);
   let { Th, sortTable } = sortableTable();
 
   const classes = useStyles();
-
-  // load list of leagues
-  /* useEffect(() => {
-    sfetchList("/season/getLeagues").then((list) => {
-      setLeagues(list);
-      setLeague(list[0]);
-    });
-  }, []); */
 
   // load team season totals
   useEffect(() => {

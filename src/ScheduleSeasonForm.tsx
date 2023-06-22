@@ -12,13 +12,12 @@ import React, { useState, useEffect } from "react";
 
 import config from "./config";
 import Team from "./Entity/Team";
-import League from "./Entity/League";
-import { sfetchList } from "./sfetch";
+import LeagueSelect from "./Shared/LeagueSelect";
+import TeamDisplay from "./Shared/TeamDisplay/TeamDisplay";
 
 export type ScheduleSeasonFormProps = {};
 
 export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
-  const [leagues, setLeagues] = useState<Array<League>>();
   const [title, setTitle] = useState<string>("<Unnamed Season>");
   const [scheduleType, setScheduleType] = useState<string>(
     "HOME_ROTATION_RANDOM"
@@ -28,14 +27,6 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
   const [showNumGamesInput, setShowNumGamesInput] = useState<boolean>(true);
   const [possibleTeams, setPossibleTeams] = useState<Array<Team>>([]);
   const [selectedTeamIds, setSelectedTeamIds] = useState<Array<number>>([]);
-
-  // load list of leagues
-  useEffect(() => {
-    sfetchList("/season/getLeagues").then((list) => {
-      setLeagues(list);
-      setLeague("NHL");
-    });
-  }, []);
 
   useEffect(() => {
     if (!!league) {
@@ -64,8 +55,8 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
     setScheduleType(event.target.value);
   }
 
-  function leagueChange(event: React.ChangeEvent<any>) {
-    setLeague(event.target.value);
+  function leagueChange(league: string) {
+    setLeague(league);
   }
 
   function numGamesChange(event: React.ChangeEvent<any>) {
@@ -120,20 +111,7 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
               />
             </Box>
             <Box margin={2}>
-              <InputLabel>League</InputLabel>
-              <Select
-                value={league}
-                onChange={leagueChange}
-                variant="outlined"
-                fullWidth
-              >
-                {leagues &&
-                  leagues.map((league: any) => (
-                    <MenuItem key={league} id={league} value={league}>
-                      {league}
-                    </MenuItem>
-                  ))}
-              </Select>
+              <LeagueSelect league={league} onChange={leagueChange} />
             </Box>
             <Box margin={2}>
               <InputLabel>Schedule Type</InputLabel>
@@ -188,11 +166,7 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
                           value={team.id}
                         />
                       }
-                      label={
-                        team.location
-                          ? team.location + " " + team.name
-                          : team.name
-                      }
+                      label={<TeamDisplay id={team.id} />}
                     />
                   </Box>
                 ))}

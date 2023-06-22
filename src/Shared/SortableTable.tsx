@@ -16,14 +16,6 @@ const SortableTable = () => {
   type SortDirection = "ASC" | "DESC";
 
   function updateSort(_sortBy: string) {
-    console.log(
-      "_sortBy",
-      _sortBy,
-      "sortBy",
-      sortBy,
-      "sortDirection",
-      sortDirection
-    );
     if (sortBy === _sortBy) {
       setSortDirection(sortDirection === "ASC" ? "DESC" : "ASC");
     } else {

@@ -1,5 +1,7 @@
 import NHLLogo from "../../images/logos/leagues/NHLLogo.svg";
 import NBALogo from "../../images/logos/leagues/NBALogo.svg";
+import NCAALogo from "../../images/logos/leagues/NCAALogo.svg";
+import NFLLogo from "../../images/logos/leagues/NFLLogo.svg";
 
 interface LeagueLogoProps {
   value: string;
@@ -16,6 +18,10 @@ function getLeagueLogo(value: string) {
       return NHLLogo;
     case "NBA":
       return NBALogo;
+    case "NCAA":
+      return NCAALogo;
+    case "NFL":
+      return NFLLogo;
     default:
       return undefined;
   }

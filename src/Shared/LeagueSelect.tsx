@@ -5,18 +5,20 @@ import { sfetchList } from "../sfetch";
 import LeagueDisplay from "./LeagueDisplay/LeagueDisplay";
 
 interface LeagueSelectProps {
-  league: string;
+  league: string | undefined;
   onChange: (league: string) => void;
 }
 
 export default function LeagueSelect(props: LeagueSelectProps) {
   const [leagues, setLeagues] = useState<Array<string>>();
-  const [league, setLeague] = useState<string>(props.league);
+  const [league, setLeague] = useState<string>("");
 
   // load list of leagues
   useEffect(() => {
     sfetchList("/season/getLeagues").then((list) => {
       setLeagues(list);
+      setLeague(list[0]);
+      props.onChange(list[0]);
     });
   }, []);
 

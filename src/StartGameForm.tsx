@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Select, InputLabel, MenuItem, Button, Box } from "@material-ui/core";
-// import { styled } from "@material-ui/core/styles";
 
 import config from "./config";
 import { sfetchList } from "./sfetch";
@@ -118,7 +117,7 @@ export default class StartGameForm extends React.Component<
               >
                 {this.state.leagues &&
                   this.state.leagues.map((league: any) => (
-                    <MenuItem id={league.value} value={league.value}>
+                    <MenuItem id={league} value={league}>
                       {league.title}
                     </MenuItem>
                   ))}
@@ -153,7 +152,7 @@ export default class StartGameForm extends React.Component<
               >
                 {this.state.leagues &&
                   this.state.leagues.map((league: any) => (
-                    <MenuItem id={league.value} value={league.value}>
+                    <MenuItem id={league} value={league}>
                       {league.title}
                     </MenuItem>
                   ))}
