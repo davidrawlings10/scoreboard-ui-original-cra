@@ -7,7 +7,7 @@ import theme from "../theme";
 import { sfetchList } from "../sfetch";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import sortableTable from "../Shared/SortableTable";
-import LeagueSelect from "../Shared/LeagueSelect";
+import SimpleSelect from "../Shared/SimpleSelect";
 
 const useStyles = makeStyles({
   linkText: {
@@ -75,7 +75,7 @@ export default function TeamsPage() {
       margin={2}
     >
       <Box display="flex" flexDirection="row" marginBottom={2}>
-        <LeagueSelect league={league} onChange={leagueChange} />
+        <SimpleSelect value={league} entity="league" onChange={leagueChange} />
       </Box>
       <Box display="flex" justifyContent="center" flexDirection="column">
         <table>

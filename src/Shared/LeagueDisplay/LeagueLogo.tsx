@@ -2,6 +2,7 @@ import NHLLogo from "../../images/logos/leagues/NHLLogo.svg";
 import NBALogo from "../../images/logos/leagues/NBALogo.svg";
 import NCAALogo from "../../images/logos/leagues/NCAALogo.svg";
 import NFLLogo from "../../images/logos/leagues/NFLLogo.svg";
+import EcoTwoToneIcon from "@material-ui/icons/EcoTwoTone";
 
 interface LeagueLogoProps {
   value: string;

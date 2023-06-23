@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Select,
@@ -7,12 +8,14 @@ import {
   TextField,
   Checkbox,
   FormControlLabel,
+  Snackbar,
 } from "@material-ui/core";
-import React, { useState, useEffect } from "react";
+import { Alert } from "@material-ui/lab";
 
 import config from "./config";
 import Team from "./Entity/Team";
 import LeagueSelect from "./Shared/LeagueSelect";
+import SimpleSelect from "./Shared/SimpleSelect";
 import TeamDisplay from "./Shared/TeamDisplay/TeamDisplay";
 
 export type ScheduleSeasonFormProps = {};
@@ -23,10 +26,12 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
     "HOME_ROTATION_RANDOM"
   );
   const [league, setLeague] = useState<string>("");
+  const [sport, setSport] = useState<string>("");
   const [numGames, setNumGames] = useState<number>(4);
   const [showNumGamesInput, setShowNumGamesInput] = useState<boolean>(true);
   const [possibleTeams, setPossibleTeams] = useState<Array<Team>>([]);
   const [selectedTeamIds, setSelectedTeamIds] = useState<Array<number>>([]);
+  const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (!!league) {
@@ -59,6 +64,10 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
     setLeague(league);
   }
 
+  function sportChange(sport: string) {
+    setSport(sport);
+  }
+
   function numGamesChange(event: React.ChangeEvent<any>) {
     setNumGames(event.target.value);
   }
@@ -83,7 +92,8 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
       config.baseUrl +
         "/season/schedule?scheduleType=" +
         scheduleType +
-        "&sport=HOCKEY" +
+        "&sport=" +
+        sport +
         "&league=" +
         league +
         "&teamIds=" +
@@ -93,8 +103,20 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
         "&title=" +
         title
     );
+    setSnackbarOpen(true);
     event.preventDefault();
   }
+
+  const handleCloseSnackbar = (
+    event?: React.SyntheticEvent,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setSnackbarOpen(false);
+  };
 
   return (
     <Box display="flex" justifyContent="center" width="100%" margin={2}>
@@ -111,7 +133,18 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
               />
             </Box>
             <Box margin={2}>
-              <LeagueSelect league={league} onChange={leagueChange} />
+              <SimpleSelect
+                value={league}
+                entity="league"
+                onChange={leagueChange}
+              />
+            </Box>
+            <Box margin={2}>
+              <SimpleSelect
+                value={sport}
+                entity="sport"
+                onChange={sportChange}
+              />
             </Box>
             <Box margin={2}>
               <InputLabel>Schedule Type</InputLabel>
@@ -184,6 +217,15 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
           </Box>
         </form>
       </Box>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert onClose={handleCloseSnackbar} severity="success">
+          Season Created
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

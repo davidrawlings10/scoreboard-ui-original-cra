@@ -14,7 +14,13 @@ import PurpleMartinLogo from "../../images/logos/teams/aves/PurpleMartinLogo.svg
 import MourningDoveLogo from "../../images/logos/teams/aves/MourningDoveLogo.svg";
 import KilldeerLogo from "../../images/logos/teams/aves/KilldeerLogo.svg";
 import MockingbirdLogo from "../../images/logos/teams/aves/MockingbirdLogo.svg";
+import MallardLogo from "../../images/logos/teams/aves/MallardLogo.svg";
+import SeaGullLogo from "../../images/logos/teams/aves/SeaGullLogo.svg";
 import PenguinLogo from "../../images/logos/teams/aves/PenguinLogo.svg";
+import SwanLogo from "../../images/logos/teams/aves/SwanLogo.svg";
+import FlamingoLogo from "../../images/logos/teams/aves/FlamingoLogo.svg";
+import OstrichLogo from "../../images/logos/teams/aves/OstrichLogo.svg";
+import ParrotLogo from "../../images/logos/teams/aves/ParrotLogo.svg";
 import OwlLogo from "../../images/logos/teams/aves/OwlLogo.svg";
 
 import HurricanesLogo from "../../images/logos/teams/nhl/HurricanesLogo.svg";
@@ -107,8 +113,20 @@ function getTeamLogo(id: number) {
       return KilldeerLogo;
     case 16:
       return MockingbirdLogo;
+    case 17:
+      return MallardLogo;
+    case 18:
+      return SeaGullLogo;
     case 19:
       return PenguinLogo;
+    case 20:
+      return SwanLogo;
+    case 21:
+      return FlamingoLogo;
+    case 22:
+      return OstrichLogo;
+    case 23:
+      return ParrotLogo;
     case 27:
       return OwlLogo;
     case 33:

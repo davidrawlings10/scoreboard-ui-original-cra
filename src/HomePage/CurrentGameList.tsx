@@ -61,10 +61,6 @@ export default function CurrentGameList(props: CurrentGameListProps) {
     minHeight: "120px",
   };
 
-  console.log("pageSize", pageSize);
-  console.log("(page - 1) * pageSize", (page - 1) * pageSize);
-  console.log("page * pageSize", page * pageSize);
-
   return (
     <Box display="flex" flexDirection="column" marginTop={4}>
       <Box display="flex" flexDirection="row" mb={1}>
