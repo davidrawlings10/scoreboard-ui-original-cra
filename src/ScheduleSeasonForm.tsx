@@ -14,7 +14,6 @@ import { Alert } from "@material-ui/lab";
 
 import config from "./config";
 import Team from "./Entity/Team";
-import LeagueSelect from "./Shared/LeagueSelect";
 import SimpleSelect from "./Shared/SimpleSelect";
 import TeamDisplay from "./Shared/TeamDisplay/TeamDisplay";
 

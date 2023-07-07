@@ -22,7 +22,6 @@ interface EntityDisplayProps {
 }
 
 function EntityDisplay({ entity, value }: EntityDisplayProps) {
-  console.log("entity", entity, "value", value);
   switch (entity) {
     case "league":
       return <LeagueDisplay value={value} />;
@@ -45,7 +44,6 @@ export default function SimpleSelect(props: SimpleSelectProps) {
 
   useEffect(() => {
     sfetchList(getPath(props.entity)).then((list) => {
-      console.log("list", list);
       setValues(list);
       setValue(list[0]);
       props.onChange(list[0]);
@@ -57,10 +55,8 @@ export default function SimpleSelect(props: SimpleSelectProps) {
     props.onChange(event.target.value);
   }
 
-  console.log("values", values);
-
   return (
-    <Box width={400}>
+    <Box>
       <InputLabel>{props.entity}</InputLabel>
       <Select value={value} onChange={valueChange} variant="outlined" fullWidth>
         {values &&

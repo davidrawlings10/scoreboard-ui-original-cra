@@ -8,12 +8,14 @@ import { sfetchList } from "./sfetch";
 import Team from "./Entity/Team";
 import styled from "styled-components";
 import TeamDisplay from "./Shared/TeamDisplay/TeamDisplay";
+import SimpleSelect from "./Shared/SimpleSelect";
 
 export interface StartGameFormProps {}
 
 export interface StartGameFormState {
   leagues: Array<object>;
   homeLeague: string;
+  homeLeagueSimple: string;
   homeTeamId: number;
   homeLeagueTeamsList: Array<Team>;
   awayLeague: string;
@@ -32,13 +34,15 @@ export default class StartGameForm extends React.Component<
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.homeLeagueChange = this.homeLeagueChange.bind(this);
 
     const state: StartGameFormState = {
       leagues: [],
-      homeLeague: "NHL",
+      homeLeague: "AVES",
+      homeLeagueSimple: "",
       homeTeamId: 1,
       homeLeagueTeamsList: [],
-      awayLeague: "NHL",
+      awayLeague: "AVES",
       awayTeamId: 2,
       awayLeagueTeamsList: [],
     };
@@ -57,6 +61,10 @@ export default class StartGameForm extends React.Component<
     this.loadTeams(this.state.awayLeague).then((teams) =>
       this.setState({ awayLeagueTeamsList: teams, awayTeamId: teams[1].id })
     );
+  }
+
+  homeLeagueChange(league: string) {
+    this.setState({ homeLeagueSimple: league });
   }
 
   handleSelectChange(event: React.ChangeEvent<any>) {
@@ -117,11 +125,18 @@ export default class StartGameForm extends React.Component<
               >
                 {this.state.leagues &&
                   this.state.leagues.map((league: any) => (
-                    <MenuItem id={league} value={league}>
-                      {league.title}
+                    <MenuItem id={league} value={league} key={league}>
+                      {league}
                     </MenuItem>
                   ))}
               </Select>
+            </Box>
+            <Box margin={2}>
+              <SimpleSelect
+                entity="league"
+                value={this.state.homeLeagueSimple}
+                onChange={this.homeLeagueChange}
+              />
             </Box>
             <Box margin={2}>
               <InputLabel id="labelHome">Home Team</InputLabel>
@@ -152,8 +167,8 @@ export default class StartGameForm extends React.Component<
               >
                 {this.state.leagues &&
                   this.state.leagues.map((league: any) => (
-                    <MenuItem id={league} value={league}>
-                      {league.title}
+                    <MenuItem id={league} value={league} key={league}>
+                      {league}
                     </MenuItem>
                   ))}
               </Select>

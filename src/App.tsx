@@ -9,6 +9,7 @@ import HomePage from "./HomePage/HomePage";
 import SeasonPage from "./SeasonPage/SeasonPage";
 import StartGameForm from "./StartGameForm";
 import ScheduleSeasonForm from "./ScheduleSeasonForm";
+import StartGameFormClass from "./StartGameFormClass";
 import TeamsPage from "./TeamsPage/TeamsPage";
 import TeamDetail from "./TeamsPage/TeamDetail";
 
@@ -30,6 +31,9 @@ const App = () => {
             </Route>
             <Route path="/startGame">
               <StartGameForm />
+            </Route>
+            <Route path="/startGameClass">
+              <StartGameFormClass />
             </Route>
             <Route path="/teams" exact>
               <TeamsPage />

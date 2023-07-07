@@ -51,7 +51,6 @@ export default function SeasonUpdateDialog(props: SeasonControlsDialogProps) {
   };
 
   const handleSubmit = () => {
-    console.log("summary", summary);
     fetch(
       config.baseUrl +
         "/season/update?seasonId=" +
