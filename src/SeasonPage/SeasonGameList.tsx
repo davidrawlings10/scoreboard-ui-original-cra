@@ -99,6 +99,7 @@ export default function SeasonGameList(props: SeasonGameListProps) {
               onChange={handleTeamIdFilterChange}
               variant="outlined"
               fullWidth
+              displayEmpty
             >
               <MenuItem value="null">All</MenuItem>
               {teamIds.map((teamId) => (

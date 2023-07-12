@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { Box, InputLabel, Select, MenuItem } from "@material-ui/core";
+import {
+  Box,
+  InputLabel,
+  Select,
+  MenuItem,
+  capitalize,
+  FormControl,
+} from "@material-ui/core";
 
 import { sfetchList } from "../sfetch";
 import LeagueDisplay from "./LeagueDisplay/LeagueDisplay";
@@ -40,12 +47,12 @@ interface SimpleSelectProps {
 
 export default function SimpleSelect(props: SimpleSelectProps) {
   const [values, setValues] = useState<Array<any>>();
-  const [value, setValue] = useState<any>("");
+  const [value, setValue] = useState<any>(props.value);
 
   useEffect(() => {
     sfetchList(getPath(props.entity)).then((list) => {
       setValues(list);
-      setValue(list[0]);
+      // setValue(list[0]);
       props.onChange(list[0]);
     });
   }, []);
@@ -57,15 +64,26 @@ export default function SimpleSelect(props: SimpleSelectProps) {
 
   return (
     <Box>
-      <InputLabel>{props.entity}</InputLabel>
-      <Select value={value} onChange={valueChange} variant="outlined" fullWidth>
-        {values &&
-          values.map((value: any) => (
-            <MenuItem key={value} id={value} value={value}>
-              <EntityDisplay value={value} entity={props.entity} />
-            </MenuItem>
-          ))}
-      </Select>
+      <FormControl>
+        <InputLabel>{capitalize(props.entity)}</InputLabel>
+        <Select
+          value={value}
+          onChange={valueChange}
+          variant="outlined"
+          fullWidth
+          displayEmpty
+        >
+          <MenuItem value="">
+            <em>All</em>
+          </MenuItem>
+          {values &&
+            values.map((value: any) => (
+              <MenuItem key={value} id={value} value={value}>
+                <EntityDisplay value={value} entity={props.entity} />
+              </MenuItem>
+            ))}
+        </Select>
+      </FormControl>
     </Box>
   );
 }

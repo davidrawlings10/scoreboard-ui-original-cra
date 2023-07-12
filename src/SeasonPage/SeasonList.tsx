@@ -7,6 +7,7 @@ import config from "../config";
 import "../Shared/Table.css";
 import Season from "../Entity/Season";
 import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
+import SimpleSelect from "../Shared/SimpleSelect";
 
 export type SeasonListProps = { viewSeason: (seasonId: number) => void };
 
@@ -23,6 +24,8 @@ export default function SeasonList(props: SeasonListProps) {
 
   const [seasons, setSeasons] = useState<Array<Season>>([]);
 
+  const [sport, setSport] = useState<string | undefined>("HOCKEY");
+
   useEffect(() => {
     fetch(config.baseUrl + "/season/getSeasons")
       .then((res) => res.json())
@@ -35,6 +38,10 @@ export default function SeasonList(props: SeasonListProps) {
     props.viewSeason(seasonId);
   }
 
+  function sportChange(sport: string) {
+    setSport(sport);
+  }
+
   return (
     <Box
       display="flex"
@@ -42,6 +49,9 @@ export default function SeasonList(props: SeasonListProps) {
       flexDirection="column"
       alignItems="center"
     >
+      <Box margin={2}>
+        <SimpleSelect entity="sport" value={sport} onChange={sportChange} />
+      </Box>
       <Box marginBottom={2}>
         <table>
           <thead>

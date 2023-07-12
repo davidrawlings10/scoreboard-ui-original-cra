@@ -1,7 +1,8 @@
 // keeping this as an example of a class component in tsx
 
 import React from "react";
-import { Button, Box } from "@material-ui/core";
+import { Button, Box, Snackbar } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 
 import SimpleSelect from "./Shared/SimpleSelect";
 import TeamSelect from "./Shared/TeamSelect";
@@ -19,6 +20,7 @@ interface StartGameFormClassState {
   awayTeamId: number;
   homeLeagueTeamsList: Array<Team>;
   awayLeagueTeamsList: Array<Team>;
+  snackbarOpen: boolean;
 }
 
 export default class StartGameFormClass extends React.Component<
@@ -33,6 +35,7 @@ export default class StartGameFormClass extends React.Component<
     this.awayLeagueChange = this.awayLeagueChange.bind(this);
     this.homeTeamIdChange = this.homeTeamIdChange.bind(this);
     this.awayTeamIdChange = this.awayTeamIdChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
     const state: StartGameFormClassState = {
       sport: "HOCKEY",
@@ -42,6 +45,7 @@ export default class StartGameFormClass extends React.Component<
       awayTeamId: 2,
       homeLeagueTeamsList: [],
       awayLeagueTeamsList: [],
+      snackbarOpen: false,
     };
 
     this.state = state;
@@ -84,10 +88,19 @@ export default class StartGameFormClass extends React.Component<
     });
   }
 
+  handleCloseSnackbar(event?: React.SyntheticEvent, reason?: string) {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    this.setState({ snackbarOpen: false });
+  }
+
   handleSubmit(event: React.ChangeEvent<any>) {
     fetch(
       `${config.baseUrl}/game/startSingleGame?sport=${this.state.sport}&homeTeamId=${this.state.homeTeamId}&awayTeamId=${this.state.awayTeamId}`
     );
+    this.setState({ snackbarOpen: true });
     event.preventDefault();
   }
 
@@ -112,7 +125,8 @@ export default class StartGameFormClass extends React.Component<
             </Box>
             <Box margin={2}>
               <TeamSelect
-                teamList={this.state.homeLeagueTeamsList}
+                value={this.state.homeTeamId.toString()}
+                list={this.state.homeLeagueTeamsList}
                 onChange={this.homeTeamIdChange}
               />
             </Box>
@@ -125,7 +139,8 @@ export default class StartGameFormClass extends React.Component<
             </Box>
             <Box margin={2}>
               <TeamSelect
-                teamList={this.state.awayLeagueTeamsList}
+                value={this.state.awayTeamId.toString()}
+                list={this.state.awayLeagueTeamsList}
                 onChange={this.awayTeamIdChange}
               />
             </Box>
@@ -141,6 +156,15 @@ export default class StartGameFormClass extends React.Component<
             </Box>
           </form>
         </Box>
+        <Snackbar
+          open={this.state.snackbarOpen}
+          autoHideDuration={6000}
+          onClose={this.handleCloseSnackbar}
+        >
+          <Alert onClose={this.handleCloseSnackbar} severity="success">
+            Game Started
+          </Alert>
+        </Snackbar>
       </Box>
     );
   }

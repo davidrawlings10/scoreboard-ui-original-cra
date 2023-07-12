@@ -119,7 +119,7 @@ export default function GameEventList(props: GameEventListProps) {
                 justifyContent="center"
                 width="20%"
               >
-                Goal
+                {gameEvent.eventType}
               </Box>
             </Box>
           );
