@@ -8,6 +8,7 @@ import TeamDisplay from "../Shared/TeamDisplay/TeamDisplay";
 import Game from "../Entity/Game";
 import Standing from "../Entity/Standing";
 import { getFinalText } from "../Shared/GameClockDisplay";
+import TeamSelect from "../Shared/TeamSelect";
 
 export type SeasonGameListProps = {
   seasonId: number;
@@ -108,6 +109,12 @@ export default function SeasonGameList(props: SeasonGameListProps) {
                 </MenuItem>
               ))}
             </Select>
+            {/*<TeamSelect
+              list={teamIds}
+              value={teamIdFilter}
+              displayEmpty
+              onChange={teamIdChange}
+              />*/}
           </Box>
         </Box>
         <Box display="flex">

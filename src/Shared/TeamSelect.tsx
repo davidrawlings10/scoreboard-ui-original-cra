@@ -1,12 +1,6 @@
 import { useState } from "react";
 
-import {
-  Box,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormControl,
-} from "@material-ui/core";
+import { Box, InputLabel, Select, MenuItem } from "@material-ui/core";
 
 import TeamDisplay from "./TeamDisplay/TeamDisplay";
 import Team from "../Entity/Team";
@@ -15,6 +9,7 @@ interface TeamSelectProps {
   value: string;
   list: Array<Team>;
   onChange: (value: any) => void;
+  displayEmpty?: boolean;
 }
 
 export default function TeamSelect(props: TeamSelectProps) {
@@ -27,24 +22,24 @@ export default function TeamSelect(props: TeamSelectProps) {
 
   return (
     <Box>
-      <FormControl>
-        <InputLabel id="labelHome">Team</InputLabel>
-        <Select
-          value={teamId}
-          onChange={teamIdChange}
-          variant="outlined"
-          fullWidth
-        >
+      <InputLabel id="labelHome">Team</InputLabel>
+      <Select
+        value={teamId}
+        onChange={teamIdChange}
+        variant="outlined"
+        fullWidth
+      >
+        {props.displayEmpty && (
           <MenuItem value="">
             <em>All</em>
           </MenuItem>
-          {props.list.map((team) => (
-            <MenuItem key={team.id} value={team.id}>
-              <TeamDisplay id={team.id} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+        )}
+        {props.list.map((team) => (
+          <MenuItem key={team.id} value={team.id}>
+            <TeamDisplay id={team.id} />
+          </MenuItem>
+        ))}
+      </Select>
     </Box>
   );
 }

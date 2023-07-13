@@ -5,7 +5,6 @@ import {
   Select,
   MenuItem,
   capitalize,
-  FormControl,
 } from "@material-ui/core";
 
 import { sfetchList } from "../sfetch";
@@ -24,7 +23,7 @@ function getPath(entity: string) {
 }
 
 interface EntityDisplayProps {
-  entity: string;
+  entity: "league" | "sport";
   value: string;
 }
 
@@ -42,7 +41,8 @@ function EntityDisplay({ entity, value }: EntityDisplayProps) {
 interface SimpleSelectProps {
   value: any | undefined;
   onChange: (value: any) => void;
-  entity: string;
+  entity: "league" | "sport";
+  displayEmpty?: boolean;
 }
 
 export default function SimpleSelect(props: SimpleSelectProps) {
@@ -64,26 +64,26 @@ export default function SimpleSelect(props: SimpleSelectProps) {
 
   return (
     <Box>
-      <FormControl>
-        <InputLabel>{capitalize(props.entity)}</InputLabel>
-        <Select
-          value={value}
-          onChange={valueChange}
-          variant="outlined"
-          fullWidth
-          displayEmpty
-        >
+      <InputLabel>{capitalize(props.entity)}</InputLabel>
+      <Select
+        value={value}
+        onChange={valueChange}
+        variant="outlined"
+        fullWidth
+        displayEmpty={props.displayEmpty}
+      >
+        {props.displayEmpty && (
           <MenuItem value="">
             <em>All</em>
           </MenuItem>
-          {values &&
-            values.map((value: any) => (
-              <MenuItem key={value} id={value} value={value}>
-                <EntityDisplay value={value} entity={props.entity} />
-              </MenuItem>
-            ))}
-        </Select>
-      </FormControl>
+        )}
+        {values &&
+          values.map((value: any) => (
+            <MenuItem key={value} id={value} value={value}>
+              <EntityDisplay value={value} entity={props.entity} />
+            </MenuItem>
+          ))}
+      </Select>
     </Box>
   );
 }

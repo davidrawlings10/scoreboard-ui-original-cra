@@ -30,7 +30,7 @@ interface TeamSeasonTotal {
 }
 
 export default function TeamsPage() {
-  const [league, setLeague] = useState<string>();
+  const [league, setLeague] = useState<string>("AVES");
   const [teamSeasonTotals, setTeamSeasonTotals] = useState<
     Array<TeamSeasonTotal>
   >([]);
@@ -74,8 +74,14 @@ export default function TeamsPage() {
       flexDirection="column"
       margin={2}
     >
-      <Box display="flex" flexDirection="row" marginBottom={2}>
-        <SimpleSelect value={league} entity="league" onChange={leagueChange} />
+      <Box width={300}>
+        <Box display="flex" flexDirection="row" marginBottom={2}>
+          <SimpleSelect
+            value={league}
+            entity="league"
+            onChange={leagueChange}
+          />
+        </Box>
       </Box>
       <Box display="flex" justifyContent="center" flexDirection="column">
         <table>

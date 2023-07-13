@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { Box } from "@material-ui/core";
+import { Box, capitalize } from "@material-ui/core";
 
 import theme from "../theme";
 import GameEvent from "../Entity/GameEvent";
@@ -36,94 +36,106 @@ export default function GameEventList(props: GameEventListProps) {
         display="flex"
         alignItems="center"
         flexDirection="column"
+        height={400}
+        overflow="scroll"
       >
-        {gameEvents.map((gameEvent) => {
-          const clock: Clock = {
-            period: gameEvent.period,
-            minutes: gameEvent.minutes,
-            seconds: gameEvent.seconds,
-            intermission: false,
-            final: false,
-          };
+        {gameEvents
+          .sort(function (a, b) {
+            return b.id - a.id;
+          })
+          .map((gameEvent) => {
+            const clock: Clock = {
+              period: gameEvent.period,
+              minutes: gameEvent.minutes,
+              seconds: gameEvent.seconds,
+              intermission: false,
+              final: false,
+            };
 
-          const homeTeamTextStyle =
-            gameEvent.teamId === game.homeTeamId ? classes.highlight : "";
-          const awayTeamTextStyle =
-            gameEvent.teamId === game.awayTeamId ? classes.highlight : "";
-          return (
-            <Box
-              key={gameEvent.id}
-              display="flex"
-              flexDirection="row"
-              width="100%"
-            >
+            const homeTeamTextStyle =
+              gameEvent.teamId === game.homeTeamId ? classes.highlight : "";
+            const awayTeamTextStyle =
+              gameEvent.teamId === game.awayTeamId ? classes.highlight : "";
+            return (
               <Box
-                border="1px solid black"
-                p={1}
-                width={window.innerWidth < 600 ? "10%" : "30%"}
+                key={gameEvent.id}
+                display="flex"
+                flexDirection="row"
+                width="100%"
               >
-                <Box className={homeTeamTextStyle}>
-                  <TeamDisplay
-                    id={game.homeTeamId}
-                    hideName={window.innerWidth < 600}
-                    hideLocation
-                  />
+                <Box
+                  border="1px solid black"
+                  p={1}
+                  width={window.innerWidth < 600 ? "10%" : "30%"}
+                >
+                  <Box className={homeTeamTextStyle}>
+                    <TeamDisplay
+                      id={game.homeTeamId}
+                      hideName={window.innerWidth < 600}
+                      hideLocation
+                    />
+                  </Box>
+                </Box>
+                <Box
+                  border="1px solid black"
+                  p={1}
+                  width="5%"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Box className={homeTeamTextStyle}>{gameEvent.homeScore}</Box>
+                </Box>
+                <Box
+                  border="1px solid black"
+                  p={1}
+                  width={window.innerWidth < 600 ? "10%" : "30%"}
+                >
+                  <Box className={awayTeamTextStyle}>
+                    <TeamDisplay
+                      id={game.awayTeamId}
+                      hideName={window.innerWidth < 600}
+                      hideLocation
+                    />
+                  </Box>
+                </Box>
+                <Box
+                  border="1px solid black"
+                  p={1}
+                  width="5%"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Box className={awayTeamTextStyle}>{gameEvent.awayScore}</Box>
+                </Box>
+                <Box
+                  border="1px solid black"
+                  p={1}
+                  display="flex"
+                  justifyContent="center"
+                  width="20%"
+                >
+                  <ClockDisplay clock={clock} />
+                </Box>
+                <Box
+                  border="1px solid black"
+                  p={1}
+                  display="flex"
+                  justifyContent="center"
+                  width="20%"
+                >
+                  {capitalize(
+                    gameEvent.eventType
+                      .replace("BASKETBALL", "")
+                      .replaceAll("_", " ")
+                      .trim()
+                      .toLowerCase()
+                  )}
                 </Box>
               </Box>
-              <Box
-                border="1px solid black"
-                p={1}
-                width="5%"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-              >
-                <Box className={homeTeamTextStyle}>{gameEvent.homeScore}</Box>
-              </Box>
-              <Box
-                border="1px solid black"
-                p={1}
-                width={window.innerWidth < 600 ? "10%" : "30%"}
-              >
-                <Box className={awayTeamTextStyle}>
-                  <TeamDisplay
-                    id={game.awayTeamId}
-                    hideName={window.innerWidth < 600}
-                    hideLocation
-                  />
-                </Box>
-              </Box>
-              <Box
-                border="1px solid black"
-                p={1}
-                width="5%"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-              >
-                <Box className={awayTeamTextStyle}>{gameEvent.awayScore}</Box>
-              </Box>
-              <Box
-                border="1px solid black"
-                p={1}
-                display="flex"
-                justifyContent="center"
-                width="20%"
-              >
-                <ClockDisplay clock={clock} />
-              </Box>
-              <Box
-                border="1px solid black"
-                p={1}
-                display="flex"
-                justifyContent="center"
-                width="20%"
-              >
-                {gameEvent.eventType}
-              </Box>
-            </Box>
-          );
-        })}
+            );
+          })}
       </Box>
     </Box>
   );

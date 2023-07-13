@@ -24,7 +24,8 @@ export default function SeasonList(props: SeasonListProps) {
 
   const [seasons, setSeasons] = useState<Array<Season>>([]);
 
-  const [sport, setSport] = useState<string | undefined>("HOCKEY");
+  const [sport, setSport] = useState<string | undefined>("");
+  const [league, setLeague] = useState<string | undefined>("");
 
   useEffect(() => {
     fetch(config.baseUrl + "/season/getSeasons")
@@ -42,6 +43,10 @@ export default function SeasonList(props: SeasonListProps) {
     setSport(sport);
   }
 
+  function leagueChange(league: string) {
+    setLeague(league);
+  }
+
   return (
     <Box
       display="flex"
@@ -49,8 +54,23 @@ export default function SeasonList(props: SeasonListProps) {
       flexDirection="column"
       alignItems="center"
     >
-      <Box margin={2}>
-        <SimpleSelect entity="sport" value={sport} onChange={sportChange} />
+      <Box margin={2} width={300}>
+        <Box marginBottom={2}>
+          <SimpleSelect
+            entity="sport"
+            value={sport}
+            onChange={sportChange}
+            displayEmpty
+          />
+        </Box>
+        <Box marginBottom={2}>
+          <SimpleSelect
+            entity="league"
+            value={league}
+            onChange={leagueChange}
+            displayEmpty
+          />
+        </Box>
       </Box>
       <Box marginBottom={2}>
         <table>

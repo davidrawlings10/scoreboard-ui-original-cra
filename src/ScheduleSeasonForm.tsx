@@ -24,8 +24,8 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
   const [scheduleType, setScheduleType] = useState<string>(
     "HOME_ROTATION_RANDOM"
   );
-  const [league, setLeague] = useState<string>("");
-  const [sport, setSport] = useState<string>("");
+  const [league, setLeague] = useState<string>("AVES");
+  const [sport, setSport] = useState<string>("HOCKEY");
   const [numGames, setNumGames] = useState<number>(4);
   const [showNumGamesInput, setShowNumGamesInput] = useState<boolean>(true);
   const [possibleTeams, setPossibleTeams] = useState<Array<Team>>([]);
@@ -121,63 +121,65 @@ export default function ScheduleSeasonForm(props: ScheduleSeasonFormProps) {
     <Box display="flex" justifyContent="center" width="100%" margin={2}>
       <Box width="85%">
         <form onSubmit={handleSubmit}>
-          <Box>
-            <Box margin={2}>
-              <InputLabel>Season Title</InputLabel>
-              <TextField
-                value={title}
-                onChange={titleChange}
-                variant="outlined"
-                fullWidth
-              />
-            </Box>
-            <Box margin={2}>
-              <SimpleSelect
-                value={league}
-                entity="league"
-                onChange={leagueChange}
-              />
-            </Box>
-            <Box margin={2}>
-              <SimpleSelect
-                value={sport}
-                entity="sport"
-                onChange={sportChange}
-              />
-            </Box>
-            <Box margin={2}>
-              <InputLabel>Schedule Type</InputLabel>
-              <Select
-                value={scheduleType}
-                onChange={scheduleTypeChange}
-                variant="outlined"
-                fullWidth
-              >
-                <MenuItem id="HOME_ROTATION" value="HOME_ROTATION">
-                  Home Rotation
-                </MenuItem>
-                <MenuItem
-                  id="HOME_ROTATION_RANDOM"
-                  value="HOME_ROTATION_RANDOM"
-                >
-                  Home Rotation Random
-                </MenuItem>
-                <MenuItem id="ROUNDS" value="ROUNDS">
-                  Rounds
-                </MenuItem>
-              </Select>
-            </Box>
-            {showNumGamesInput && (
+          <Box display="flex" justifyContent="center">
+            <Box width={500}>
               <Box margin={2}>
-                <InputLabel>Number of Games per Team</InputLabel>
+                <InputLabel>Season Title</InputLabel>
                 <TextField
-                  value={numGames}
-                  onChange={numGamesChange}
+                  value={title}
+                  onChange={titleChange}
                   variant="outlined"
                   fullWidth
                 />
               </Box>
-            )}
+              <Box margin={2}>
+                <SimpleSelect
+                  value={league}
+                  entity="league"
+                  onChange={leagueChange}
+                />
+              </Box>
+              <Box margin={2}>
+                <SimpleSelect
+                  value={sport}
+                  entity="sport"
+                  onChange={sportChange}
+                />
+              </Box>
+              <Box margin={2}>
+                <InputLabel>Schedule Type</InputLabel>
+                <Select
+                  value={scheduleType}
+                  onChange={scheduleTypeChange}
+                  variant="outlined"
+                  fullWidth
+                >
+                  <MenuItem id="HOME_ROTATION" value="HOME_ROTATION">
+                    Home Rotation
+                  </MenuItem>
+                  <MenuItem
+                    id="HOME_ROTATION_RANDOM"
+                    value="HOME_ROTATION_RANDOM"
+                  >
+                    Home Rotation Random
+                  </MenuItem>
+                  <MenuItem id="ROUNDS" value="ROUNDS">
+                    Rounds
+                  </MenuItem>
+                </Select>
+              </Box>
+              {showNumGamesInput && (
+                <Box margin={2}>
+                  <InputLabel>Number of Games per Team</InputLabel>
+                  <TextField
+                    value={numGames}
+                    onChange={numGamesChange}
+                    variant="outlined"
+                    fullWidth
+                  />
+                </Box>
+              )}
+            </Box>
           </Box>
           <Box paddingLeft={12} paddingRight={6}>
             <Box
