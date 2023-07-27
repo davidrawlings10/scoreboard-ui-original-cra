@@ -4,6 +4,15 @@ import { Settings } from "@material-ui/icons";
 
 import config from "../config";
 
+function getList(millisecondsPerTick: number) {
+  let list = [100, 250, 500, 1000];
+  if (!list.includes(millisecondsPerTick)) {
+    list.push(millisecondsPerTick);
+  }
+  list.sort((a, b) => a - b);
+  return list;
+}
+
 interface ScoreboardControlsProps {
   running: boolean;
   millisecondsPerTick: number;
@@ -38,72 +47,67 @@ export default function ScoreboardControls(props: ScoreboardControlsProps) {
   }, [window.innerWidth]);
 
   return (
-    <Box display="flex" alignItems="center">
-      <Box marginRight={5}>
-        <FormControlLabel
-          control={
-            <Switch checked={props.running} onChange={handleRunningChange} />
-          }
-          label="Playing"
-          labelPlacement="start"
-        />
-      </Box>
-      {fullDisplay && (
-        <Box width={1200} display="flex">
-          <Box
-            width="25%"
-            display="flex"
-            justifyContent="right"
-            alignContent="center"
-            marginRight={2}
-          >
-            Milliseconds Per Tick
-          </Box>
-          <Box width="5%">{millisecondsPerTick}</Box>
-          <Box width="15%" display="flex" alignContent="center">
-            {[100, 250, 500, 1000].map((milliseconds) => (
-              <Chip
-                label={milliseconds}
-                variant="outlined"
-                color={
-                  millisecondsPerTick === milliseconds ? "secondary" : "default"
-                }
-                onClick={() => {
-                  updateMillisecondsPerTick(milliseconds);
-                }}
-              />
-            ))}
-          </Box>
-          <Box
-            width="25%"
-            display="flex"
-            justifyContent="right"
-            alignContent="center"
-            marginRight={2}
-          >
-            Number of Games to Play
-          </Box>
-          <Box width="5%">{gamesToPlay}</Box>
-          <Box
-            width="20%"
-            display="flex"
-            justifyContent="right"
-            alignContent="center"
-            marginRight={2}
-          >
-            Games Playing Concurrently
-          </Box>
-          <Box width="5%">{gamesPlayingConcurrently}</Box>
+    <Box flexDirection="row">
+      <Box display="flex" flexDirection="row" justifyContent="space-between">
+        <Box>
+          <FormControlLabel
+            control={
+              <Switch checked={props.running} onChange={handleRunningChange} />
+            }
+            label="Playing"
+            labelPlacement="start"
+          />
         </Box>
-      )}
-      <Button
-        onClick={handleScoreboardControlsDialogOpen}
-        color="primary"
-        variant="contained"
-        startIcon={<Settings />}
-      >
-        Config
-      </Button>
+        {fullDisplay && (
+          <>
+            <Box display="flex" flexDirection="row" alignItems="center">
+              <Box marginRight={1}>Milliseconds Per Tick</Box>
+              <Box>
+                {getList(millisecondsPerTick).map((milliseconds: number) => (
+                  <Chip
+                    label={milliseconds}
+                    variant={
+                      millisecondsPerTick === milliseconds
+                        ? "default"
+                        : "outlined"
+                    }
+                    color={
+                      millisecondsPerTick === milliseconds
+                        ? "primary"
+                        : "default"
+                    }
+                    onClick={() => {
+                      updateMillisecondsPerTick(milliseconds);
+                    }}
+                  />
+                ))}
+              </Box>
+            </Box>
+            <Box display="flex" flexDirection="row" alignItems="center">
+              <Box marginRight={1}>Number of Games to Play</Box>
+              <Box>
+                <Chip label={gamesToPlay} color="primary" />
+              </Box>
+            </Box>
+            <Box display="flex" flexDirection="row" alignItems="center">
+              <Box marginRight={1}>Games Playing Concurrently</Box>
+              <Box>
+                <Chip label={gamesPlayingConcurrently} color="primary" />
+              </Box>
+            </Box>
+          </>
+        )}
+        <Box>
+          <Button
+            onClick={handleScoreboardControlsDialogOpen}
+            color="primary"
+            variant="contained"
+            startIcon={<Settings />}
+          >
+            Config
+          </Button>
+        </Box>
+      </Box>
     </Box>
   );
 }

@@ -97,11 +97,8 @@ export default function ScoreboardControlsDialog(
       maxWidth="sm"
       fullWidth
     >
-      <DialogTitle id="form-dialog-title">Edit Scoreboard Controls</DialogTitle>
+      <DialogTitle id="form-dialog-title">Configure Scoreboard</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          Set milliseconds per tick and number of games to play
-        </DialogContentText>
         <Box marginTop={3}>
           <TextField
             autoFocus

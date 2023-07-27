@@ -28,7 +28,7 @@ export default function SeasonList(props: SeasonListProps) {
   const [league, setLeague] = useState<string | undefined>("");
 
   useEffect(() => {
-    fetch(config.baseUrl + "/season/getSeasons")
+    fetch(config.baseUrl + "/season/getSeasons?league=AVES&sport=HOCKEY")
       .then((res) => res.json())
       .then((seasonsResult) => {
         setSeasons(seasonsResult.list);
