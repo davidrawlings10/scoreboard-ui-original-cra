@@ -71,17 +71,12 @@ export default function TeamsPage() {
     <Box
       display="flex"
       justifyContent="center"
+      alignItems="center"
       flexDirection="column"
       margin={2}
     >
-      <Box width={300}>
-        <Box display="flex" flexDirection="row" marginBottom={2}>
-          <SimpleSelect
-            value={league}
-            entity="league"
-            onChange={leagueChange}
-          />
-        </Box>
+      <Box display="flex" flexDirection="row" marginBottom={2}>
+        <SimpleSelect value={league} entity="league" onChange={leagueChange} />
       </Box>
       <Box display="flex" justifyContent="center" flexDirection="column">
         <table>

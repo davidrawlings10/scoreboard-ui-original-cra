@@ -1,8 +1,8 @@
+import AVESLogo from "../../images/logos/leagues/AVESLogo.svg";
 import NHLLogo from "../../images/logos/leagues/NHLLogo.svg";
 import NBALogo from "../../images/logos/leagues/NBALogo.svg";
 import NCAALogo from "../../images/logos/leagues/NCAALogo.svg";
 import NFLLogo from "../../images/logos/leagues/NFLLogo.svg";
-import EcoTwoToneIcon from "@material-ui/icons/EcoTwoTone";
 
 interface LeagueLogoProps {
   value: string;
@@ -15,6 +15,8 @@ export default function LeagueLogo({ value }: LeagueLogoProps) {
 
 function getLeagueLogo(value: string) {
   switch (value) {
+    case "AVES":
+      return AVESLogo;
     case "NHL":
       return NHLLogo;
     case "NBA":
