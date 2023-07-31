@@ -29,6 +29,7 @@ import HawkLogo from "../../images/logos/teams/aves/HawkLogo.svg";
 import TurkeyLogo from "../../images/logos/teams/aves/TurkeyLogo.svg";
 import PeacockLogo from "../../images/logos/teams/aves/PeacockLogo.svg";
 import PelicanLogo from "../../images/logos/teams/aves/PelicanLogo.svg";
+import RoadrunnerLogo from "../../images/logos/teams/aves/RoadrunnerLogo.svg";
 
 import HurricanesLogo from "../../images/logos/teams/nhl/HurricanesLogo.svg";
 import BlueJacketsLogo from "../../images/logos/teams/nhl/BlueJacketsLogo.svg";
@@ -150,6 +151,8 @@ function getTeamLogo(id: number) {
       return PeacockLogo;
     case 31:
       return PelicanLogo;
+    case 32:
+      return RoadrunnerLogo;
     case 33:
       return HurricanesLogo;
     case 34:
