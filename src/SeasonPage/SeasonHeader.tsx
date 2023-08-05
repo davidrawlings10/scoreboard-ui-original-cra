@@ -67,22 +67,23 @@ export default function SeasonHeader(props: SeasonHeaderProps) {
               flexDirection="column"
               justifyContent="center"
             >
-              <Box>Winner</Box>
-              <Box>
-                <TeamDisplay id={season.winnerTeamId} />
-              </Box>
-            </Box>
-            <Box
-              marginRight={6}
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-            >
               <Box>Scheduled</Box>
               <Box>
                 {new Date(season.created).toLocaleString("en-US", {
                   timeZone: config.timeZone,
                 })}
+              </Box>
+            </Box>
+            <Box
+              marginRight={6}
+              display="flex"
+              flexDirection="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Box>Winner</Box>
+              <Box>
+                <TeamDisplay id={season.winnerTeamId} hideName />
               </Box>
             </Box>
           </Box>
